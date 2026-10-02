@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#191b20">
+    <title>IFSOFT Sistemas | Central Técnica</title>
+    <meta name="description" content="Notas técnicas dos documentos fiscais eletrônicos e acompanhamento de problemas, pareceres técnicos e soluções do sistema.">
+    <link rel="stylesheet" href="styles.css">
+    <script src="vendor/lucide.min.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="problemas-data.js" defer></script>
+    <script src="navigation.js" defer></script>
+    <script src="problemas.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand-row">
+          <div class="brand">
+            <span class="brand-symbol" aria-hidden="true"><i data-lucide="blocks"></i></span>
+            <h1>IFSOFT <span>Sistemas</span></h1>
+          </div>
+          <span class="header-label"><i data-lucide="file-code-2" aria-hidden="true"></i> Documentos fiscais eletrônicos</span>
+        </div>
+        <div class="header-description">
+          <h2 id="portal-heading">Notas e informes técnicos dos documentos fiscais eletrônicos</h2>
+          <p id="portal-subheading">Prazos para implementação nos ambientes de homologação e produção</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <nav class="portal-tabs" id="portal-tabs" role="tablist" aria-label="Central técnica">
+        <button type="button" role="tab" id="tab-notes" class="portal-tab is-active" aria-selected="true" aria-controls="panel-notes" tabindex="0"><i data-lucide="file-text" aria-hidden="true"></i><span>Notas técnicas</span><span class="tab-count" id="tab-notes-count">0</span></button>
+        <button type="button" role="tab" id="tab-problems" class="portal-tab" aria-selected="false" aria-controls="panel-problems" tabindex="-1"><i data-lucide="bug" aria-hidden="true"></i><span>Problemas no sistema</span><span class="tab-count" id="tab-problems-count">0</span></button>
+      </nav>
+
+      <div id="panel-notes" role="tabpanel" aria-labelledby="tab-notes" tabindex="0">
+      <section class="overview" aria-labelledby="overview-title">
+        <div class="section-heading">
+          <h2 id="overview-title">Visão geral</h2>
+          <span class="section-label"><i data-lucide="calendar-days" aria-hidden="true"></i> <span id="today-label"></span></span>
+        </div>
+        <div class="summary-grid">
+          <button class="summary-card summary-button is-active" id="total-filter" type="button" aria-pressed="true">
+            <span class="summary-top"><span>Total</span><i data-lucide="files" aria-hidden="true"></i></span>
+            <strong id="total-count">0</strong>
+            <span class="summary-bottom">Notas e informes <i data-lucide="arrow-up-right" aria-hidden="true"></i></span>
+          </button>
+          <button class="summary-card summary-button" id="vigentes-filter" type="button" aria-pressed="false">
+            <span class="summary-top"><span>Vigentes</span><i data-lucide="circle-check" aria-hidden="true"></i></span>
+            <strong id="vigente-count">0</strong>
+            <span class="summary-bottom">Normas vigentes <i data-lucide="arrow-up-right" aria-hidden="true"></i></span>
+          </button>
+          <button class="summary-card summary-button urgent-summary" id="urgentes-filter" type="button" aria-pressed="false">
+            <span class="summary-top"><span>Urgentes</span><i data-lucide="alarm-clock" aria-hidden="true"></i></span>
+            <strong id="urgente-count">0</strong>
+            <span class="summary-bottom">Prioridade de implementação <i data-lucide="arrow-up-right" aria-hidden="true"></i></span>
+          </button>
+          <article class="summary-card deadline-summary">
+            <span class="summary-top"><span>Próximos prazos</span><i data-lucide="calendar-clock" aria-hidden="true"></i></span>
+            <div class="summary-deadlines">
+              <div><span>Homologação</span><strong id="next-homologacao">--</strong></div>
+              <div><span>Produção</span><strong id="next-producao">--</strong></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="notes-section" aria-labelledby="table-title">
+        <div class="section-heading notes-heading">
+          <div class="heading-with-count"><h2 id="table-title">Notas e informes</h2><span id="visible-count" class="count-badge">0</span></div>
+          <span id="active-view" class="view-label">Todos os registros</span>
+        </div>
+
+        <div class="filters-grid" role="search" aria-label="Filtros de notas técnicas">
+          <label class="field search-field">
+            <span>Buscar notas</span>
+            <div class="search-control"><i data-lucide="search" aria-hidden="true"></i><input id="search-input" type="search" placeholder="Descrição, documento, UF..." autocomplete="off"></div>
+          </label>
+          <label class="field"><span>Documento fiscal</span><select id="document-filter"><option value="todos">Todos os documentos</option></select></label>
+          <label class="field"><span>Vigência</span><select id="vigente-filter"><option value="todos">Todas</option><option value="sim">Vigentes</option><option value="nao">Não vigentes</option></select></label>
+          <label class="field"><span>Prioridade</span><select id="urgencia-filter"><option value="todos">Todas</option><option value="urgentes">Urgentes</option><option value="rotina">Rotina</option></select></label>
+          <label class="field sort-field"><span>Ordenar por</span><select id="sort-select"><option value="analise-desc">Análise mais recente</option><option value="producao-asc">Produção: mais próxima</option><option value="homologacao-asc">Homologação: mais próxima</option><option value="descricao-asc">Descrição A-Z</option></select></label>
+          <button class="icon-button clear-button" type="button" id="clear-filters" aria-label="Limpar filtros" title="Limpar filtros"><i data-lucide="filter-x" aria-hidden="true"></i></button>
+        </div>
+
+        <div class="results-line">
+          <p id="result-summary" role="status">Carregando registros...</p>
+        </div>
+
+        <div class="table-wrap" role="region" aria-label="Tabela de notas técnicas" tabindex="0">
+          <table>
+            <thead><tr>
+              <th scope="col">Descrição da NT</th>
+              <th scope="col">Documento / UF</th>
+              <th scope="col">Urgente?</th>
+              <th scope="col">NT vigente?</th>
+              <th scope="col">Prazo homologação</th>
+              <th scope="col">Prazo produção</th>
+              <th scope="col">Data analisada</th>
+              <th scope="col">Observações</th>
+              <th scope="col">Documento</th>
+            </tr></thead>
+            <tbody id="notes-table-body"></tbody>
+          </table>
+        </div>
+        <div class="cards-list" id="notes-cards"></div>
+        <div class="empty-state" id="empty-state" hidden><i data-lucide="search-x" aria-hidden="true"></i><h3>Nenhuma nota encontrada</h3><p>Nenhum registro corresponde aos filtros selecionados.</p><button class="text-button" id="empty-clear" type="button">Limpar filtros</button></div>
+      </section>
+      </div>
+
+      <section id="panel-problems" class="problems-panel" role="tabpanel" aria-labelledby="tab-problems" tabindex="0" hidden>
+        <div class="problem-page-heading">
+          <div><span class="section-kicker">ACOMPANHAMENTO TÉCNICO</span><h2>Problemas no sistema</h2></div>
+        </div>
+
+        <div class="problem-metrics" aria-label="Indicadores de problemas">
+          <button type="button" class="problem-metric" data-problem-view="abertos" aria-pressed="false"><span><i data-lucide="circle-alert" aria-hidden="true"></i>Em aberto</span><strong id="problems-open-count">0</strong></button>
+          <button type="button" class="problem-metric" data-problem-view="analise" aria-pressed="false"><span><i data-lucide="clipboard-check" aria-hidden="true"></i>Em análise</span><strong id="problems-analysis-count">0</strong></button>
+          <button type="button" class="problem-metric metric-urgent" data-problem-view="urgentes" aria-pressed="false"><span><i data-lucide="alarm-clock" aria-hidden="true"></i>Urgentes em aberto</span><strong id="problems-urgent-count">0</strong></button>
+          <button type="button" class="problem-metric metric-resolved" data-problem-view="resolvidos" aria-pressed="false"><span><i data-lucide="circle-check" aria-hidden="true"></i>Resolvidos</span><strong id="problems-resolved-count">0</strong></button>
+        </div>
+
+        <div class="problems-filters" role="search" aria-label="Filtros de problemas">
+          <label class="field"><span>Buscar problemas</span><div class="search-control"><i data-lucide="search" aria-hidden="true"></i><input type="search" id="problem-search" placeholder="Título, relato, parecer..." autocomplete="off"></div></label>
+          <label class="field"><span>Status</span><select id="problem-status-filter"><option value="todos">Todos</option><option value="abertos">Em aberto</option><option value="relatado">Relatado</option><option value="analise">Em análise</option><option value="correcao">Em correção</option><option value="resolvido">Resolvido</option></select></label>
+          <label class="field"><span>Prioridade</span><select id="problem-priority-filter"><option value="todos">Todas</option><option value="normal">Normal</option><option value="alta">Alta</option><option value="urgente">Urgente</option></select></label>
+          <label class="field"><span>Módulo</span><select id="problem-module-filter"><option value="todos">Todos os módulos</option></select></label>
+          <button type="button" class="icon-button" id="problem-clear-filters" title="Limpar filtros" aria-label="Limpar filtros"><i data-lucide="filter-x" aria-hidden="true"></i></button>
+        </div>
+
+        <div class="problem-data-toolbar">
+          <p id="problem-result-summary" role="status">0 ocorrências</p>
+        </div>
+
+        <div class="problem-feedback" id="problem-feedback" role="status" hidden></div>
+
+        <div class="problem-workspace" id="problem-workspace" hidden>
+          <aside class="problem-sidebar" aria-label="Lista de ocorrências">
+            <div class="problem-list-heading"><h3>Ocorrências</h3><label><span class="visually-hidden">Ordenar problemas</span><select id="problem-sort"><option value="prioridade">Prioridade</option><option value="atualizacao">Atualização recente</option><option value="relato">Relato mais recente</option><option value="titulo">Título A-Z</option></select></label></div>
+            <div class="problem-list" id="problem-list"></div>
+          </aside>
+          <article class="problem-detail" id="problem-detail" aria-label="Detalhes da ocorrência"></article>
+        </div>
+
+        <div class="problems-empty" id="problems-empty">
+          <span class="empty-problem-symbol"><i data-lucide="inbox" aria-hidden="true"></i></span>
+          <h3 id="problems-empty-title">Nenhum problema registrado</h3>
+          <button class="action-button secondary-action" id="problem-empty-action" type="button" hidden><i data-lucide="filter-x" aria-hidden="true"></i>Limpar filtros</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><span>IFSOFT <strong>Sistemas</strong></span><span id="portal-footer-context">Notas e informes técnicos</span></footer>
+  </body>
+</html>
