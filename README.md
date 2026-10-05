@@ -19,7 +19,7 @@ Na NT 2026.008, **NB01-30** tem prazo específico: homologação em **01/02/2027
 
 O cadastro do CNPJ alfanumérico preserva as datas do cronograma do PDF enviado. O complemento específico de schemas da NF-e/NFC-e, **NT 2026.004 v1.01**, informa homologação em **15/06/2026**; conferir os pacotes e comunicados aplicáveis antes de testar. A implantação dos sistemas da Receita Federal em **27/07/2026** e o primeiro CNPJ alfanumérico em **31/07/2026** são marcos distintos. A NFS-e não está no escopo da NT conjunta e exige conferência do padrão/provedor utilizado.
 
-Os PDFs enviados estão em `documentos/`. As notas do DANFE, Valor Líquido do Produto e NFS-e oferecem também o tópico do ACBr; nenhum link do ACBr foi informado para a nota de CNPJ. Os pontos de implementação, mapeamentos e dependências estão em [ANALISE-NT-2026-010.md](ANALISE-NT-2026-010.md), [ANALISE-NT-2026-008.md](ANALISE-NT-2026-008.md), [ANALISE-NT-2025-001.md](ANALISE-NT-2025-001.md) e [ANALISE-NT-009-NFSE.md](ANALISE-NT-009-NFSE.md).
+Os PDFs enviados estão em `documentos/`. Todas as quatro notas oferecem também o tópico do ACBr, incluindo a nota de CNPJ alfanumérico; os links aparecem na listagem e na página de detalhes. Os pontos de implementação, mapeamentos e dependências estão em [ANALISE-NT-2026-010.md](ANALISE-NT-2026-010.md), [ANALISE-NT-2026-008.md](ANALISE-NT-2026-008.md), [ANALISE-NT-2025-001.md](ANALISE-NT-2025-001.md) e [ANALISE-NT-009-NFSE.md](ANALISE-NT-009-NFSE.md).
 
 ## Como editar os registros
 

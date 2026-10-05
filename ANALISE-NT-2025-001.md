@@ -60,4 +60,4 @@ São testes de compatibilidade a executar no ERP e nos componentes da IFSOFT; o 
 - [Receita Federal - Antecipação de atividades para implantação do CNPJ alfanumérico](https://www.gov.br/receitafederal/pt-br/assuntos/noticias/2026/julho/antecipacao-de-atividades-para-implantacao-do-cnpj-alfanumerico), comunicado de 10/07/2026.
 - [Receita Federal - Primeiro CNPJ em formato alfanumérico](https://www.gov.br/receitafederal/pt-br/assuntos/noticias/2026/julho/receita-federal-gera-o-primeiro-cnpj-em-formato-alfanumerico), comunicado de 31/07/2026.
 
-Não foi enviado tópico do ACBr para esta NT. Não se presume que uma versão específica do componente já implemente todos os pontos acima.
+Tópico relacionado do ACBr: [Publicada Nota Técnica Conjunta sobre o CNPJ Alfanumérico](https://www.projetoacbr.com.br/forum/topic/83162-publicada-nota-t%C3%A9cnica-conjunta-sobre-o-cnpj-alfanum%C3%A9rico/). Não se presume que uma versão específica do componente já implemente todos os pontos acima.

@@ -78,7 +78,7 @@ const notasTecnicas = [
       "Testes recomendados: CNPJ numérico antigo e alfanumérico válido, zeros à esquerda, DVs incorretos, máscara e normalização de letras, emitente/destinatário distintos, chaves referenciadas, emissão e recepção de XML, eventos e leitura do código de barras. O exemplo didático do PDF é 12.ABC.345/01DE-35."
     ],
     link: "documentos/nt-2025-001-v1.00-cnpj-alfanumerico.pdf",
-    linkAcbr: "",
+    linkAcbr: "https://www.projetoacbr.com.br/forum/topic/83162-publicada-nota-t%C3%A9cnica-conjunta-sobre-o-cnpj-alfanum%C3%A9rico/",
     vigente: true,
     urgente: true,
     dataAnalise: "2026-10-02",
