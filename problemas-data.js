@@ -6,7 +6,7 @@ window.IFSOFT_PROBLEMAS = [
     modulo: "NF-e",
     versao: "",
     status: "analise",
-    prioridade: "normal",
+    prioridade: "urgente",
     ambiente: "nao-aplica",
     responsavel: "",
     dataRelato: "2026-10-05",
