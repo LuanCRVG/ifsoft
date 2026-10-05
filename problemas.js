@@ -1,5 +1,6 @@
 (() => {
   const MAX_RECORDS = 500;
+  const MAX_IMAGES_PER_SECTION = 10;
   const STATUSES = { relatado: "Relatado", analise: "Em análise", correcao: "Em correção", resolvido: "Resolvido" };
   const PRIORITIES = { normal: "Normal", alta: "Alta", urgente: "Urgente" };
   const ENVIRONMENTS = { producao: "Produção", homologacao: "Homologação", ambos: "Ambos", "nao-aplica": "Não se aplica" };
@@ -9,11 +10,17 @@
     list: query("problem-list"), detail: query("problem-detail"), workspace: query("problem-workspace"),
     empty: query("problems-empty"), emptyTitle: query("problems-empty-title"), emptyAction: query("problem-empty-action"),
     search: query("problem-search"), status: query("problem-status-filter"), priority: query("problem-priority-filter"),
-    module: query("problem-module-filter"), sort: query("problem-sort"), feedback: query("problem-feedback")
+    module: query("problem-module-filter"), sort: query("problem-sort"), feedback: query("problem-feedback"),
+    viewer: query("problem-image-viewer"), viewerTitle: query("problem-image-title"),
+    viewerStage: query("problem-image-stage"), viewerMedia: query("problem-image-media"),
+    viewerCaption: query("problem-image-caption"), viewerCounter: query("problem-image-counter"),
+    viewerPrevious: query("problem-image-previous"), viewerNext: query("problem-image-next"),
+    viewerOriginal: query("problem-image-original"), viewerClose: query("problem-image-close")
   };
   let published = [];
   let publishedReadFailed = false;
   let selectedId = "";
+  const viewer = { images: [], index: 0, label: "", trigger: null, request: 0 };
 
   function today() {
     const date = new Date();
@@ -33,6 +40,23 @@
     const text = value.trim();
     if (required && !text) throw new Error(`${label} é obrigatório.`);
     return text;
+  }
+
+  function normalizeImages(record, key) {
+    const images = record[key] ?? [];
+    if (!Array.isArray(images) || images.length > MAX_IMAGES_PER_SECTION) throw new Error(`${key}: use até ${MAX_IMAGES_PER_SECTION} imagens.`);
+    return images.map((image) => {
+      if (!image || typeof image !== "object" || Array.isArray(image)) throw new Error(`${key}: imagem inválida.`);
+      const arquivo = textField(image, "arquivo", 1024, "Arquivo da imagem", true);
+      const legenda = textField(image, "legenda", 240, "Legenda da imagem");
+      if (/[\\\u0000-\u001f\u007f]/.test(arquivo) || arquivo.startsWith("/")) throw new Error(`${key}: use um caminho relativo ou um endereço HTTPS.`);
+      const url = new URL(arquivo, "https://ifsoft.invalid/portal/");
+      const absolute = /^[a-z][a-z\d+.-]*:/i.test(arquivo);
+      if (url.protocol !== "https:" || url.username || url.password || (!absolute && (
+        url.origin !== "https://ifsoft.invalid" || !url.pathname.startsWith("/portal/")
+        || !/\.(png|jpe?g|webp|gif|avif)$/i.test(url.pathname)))) throw new Error(`${key}: endereço de imagem inválido.`);
+      return { arquivo, legenda };
+    });
   }
 
   function normalizeRecord(record) {
@@ -64,6 +88,9 @@
       parecerTecnico: textField(record, "parecerTecnico", 6000, "Parecer técnico"),
       solucao: textField(record, "solucao", 6000, "Possível solução"),
       passosReproducao: textField(record, "passosReproducao", 4000, "Passos para reproduzir"),
+      imagensProblema: normalizeImages(record, "imagensProblema"),
+      imagensParecer: normalizeImages(record, "imagensParecer"),
+      imagensSolucao: normalizeImages(record, "imagensSolucao"),
       criadoEm, atualizadoEm: timestamp("atualizadoEm", criadoEm)
     };
   }
@@ -90,7 +117,8 @@
       const matchesPriority = ui.priority.value === "todos" || record.prioridade === ui.priority.value;
       const matchesModule = ui.module.value === "todos" || record.modulo === ui.module.value;
       const searchable = normalizeText([record.id, record.titulo, record.modulo, record.responsavel, record.versao,
-        record.problemaRelatado, record.parecerTecnico, record.solucao, record.passosReproducao].join(" "));
+        record.problemaRelatado, record.parecerTecnico, record.solucao, record.passosReproducao,
+        ...[record.imagensProblema, record.imagensParecer, record.imagensSolucao].flat().map((image) => image.legenda)].join(" "));
       return matchesStatus && matchesPriority && matchesModule && searchable.includes(search);
     }).sort((a, b) => {
       if (ui.sort.value === "titulo") return a.titulo.localeCompare(b.titulo, "pt-BR");
@@ -144,6 +172,101 @@
     });
   }
 
+  function renderImageViewer() {
+    const image = viewer.images[viewer.index];
+    const request = ++viewer.request;
+    const multiple = viewer.images.length > 1;
+    ui.viewerTitle.textContent = viewer.label;
+    ui.viewerCaption.textContent = image.legenda || `Imagem ${viewer.index + 1}`;
+    ui.viewerCounter.textContent = `${viewer.index + 1} / ${viewer.images.length}`;
+    ui.viewerPrevious.hidden = !multiple;
+    ui.viewerNext.hidden = !multiple;
+    ui.viewerStage.classList.toggle("single-image", !multiple);
+    ui.viewerOriginal.href = image.arquivo;
+    const photo = createElement("img", "problem-expanded-image");
+    photo.alt = image.legenda || `${viewer.label}: imagem ${viewer.index + 1}`;
+    photo.decoding = "async";
+    photo.referrerPolicy = "no-referrer";
+    photo.hidden = true;
+    const message = createElement("p", "problem-image-message", "Carregando imagem...");
+    message.setAttribute("role", "status");
+    photo.addEventListener("load", () => {
+      if (request !== viewer.request || !ui.viewer.open) return;
+      photo.hidden = false;
+      message.hidden = true;
+    });
+    photo.addEventListener("error", () => {
+      if (request !== viewer.request || !ui.viewer.open) return;
+      photo.hidden = true;
+      message.hidden = false;
+      message.textContent = "Não foi possível carregar esta imagem.";
+      message.setAttribute("role", "alert");
+    });
+    ui.viewerMedia.replaceChildren(photo, message);
+    photo.src = image.arquivo;
+  }
+
+  function openImageViewer(images, index, label, trigger) {
+    viewer.images = images;
+    viewer.index = index;
+    viewer.label = label;
+    viewer.trigger = trigger;
+    ui.viewer.showModal();
+    document.body.classList.toggle("image-viewer-open", true);
+    renderImageViewer();
+    ui.viewerClose.focus();
+  }
+
+  function changeImage(step) {
+    if (!ui.viewer.open || viewer.images.length < 2) return;
+    viewer.index = (viewer.index + step + viewer.images.length) % viewer.images.length;
+    renderImageViewer();
+  }
+
+  function closeImageViewer() {
+    if (ui.viewer.open) ui.viewer.close();
+  }
+
+  function appendImages(section, images, label) {
+    if (!images || !images.length) return;
+    const gallery = createElement("div", "problem-image-gallery");
+    images.forEach((image, index) => {
+      const caption = image.legenda || `Imagem ${index + 1}`;
+      const figure = createElement("figure", "problem-image-figure");
+      const button = createElement("button", "problem-image-button");
+      button.type = "button";
+      button.title = `Ampliar imagem: ${caption}`;
+      button.setAttribute("aria-label", button.title);
+      button.setAttribute("aria-haspopup", "dialog");
+      const photo = createElement("img");
+      photo.alt = caption;
+      photo.loading = "lazy";
+      photo.decoding = "async";
+      photo.referrerPolicy = "no-referrer";
+      photo.width = 320;
+      photo.height = 200;
+      const expand = createElement("span", "problem-image-expand");
+      expand.setAttribute("aria-hidden", "true");
+      expand.appendChild(createIcon("maximize-2"));
+      photo.addEventListener("error", () => {
+        if (button.disabled) return;
+        button.disabled = true;
+        button.setAttribute("aria-label", `${caption}: imagem indisponível`);
+        photo.hidden = true;
+        expand.hidden = true;
+        button.appendChild(createElement("span", "problem-image-unavailable", "Imagem indisponível"));
+      });
+      button.append(photo, expand);
+      button.addEventListener("click", () => {
+        if (!button.disabled) openImageViewer(images, index, label, button);
+      });
+      figure.append(button, createElement("figcaption", "problem-image-legend", caption));
+      gallery.appendChild(figure);
+      photo.src = image.arquivo;
+    });
+    section.appendChild(gallery);
+  }
+
   function renderDetail(record) {
     ui.detail.replaceChildren();
     if (!record) return;
@@ -170,14 +293,15 @@
       info.appendChild(item);
     });
     ui.detail.append(heading, info);
-    [["PROBLEMA RELATADO", record.problemaRelatado, "circle-alert", "reported-narrative"],
-      ["PARECER TÉCNICO", record.parecerTecnico, "clipboard-check", "technical-narrative"],
-      ["POSSÍVEL SOLUÇÃO", record.solucao, "wrench", "solution-narrative"],
-      ["PASSOS PARA REPRODUZIR", record.passosReproducao, "list-checks", ""]].forEach(([label, content, icon, variant]) => {
+    [["PROBLEMA RELATADO", record.problemaRelatado, "circle-alert", "reported-narrative", "imagensProblema"],
+      ["PARECER TÉCNICO", record.parecerTecnico, "clipboard-check", "technical-narrative", "imagensParecer"],
+      ["POSSÍVEL SOLUÇÃO", record.solucao, "wrench", "solution-narrative", "imagensSolucao"],
+      ["PASSOS PARA REPRODUZIR", record.passosReproducao, "list-checks", ""]].forEach(([label, content, icon, variant, imageKey]) => {
       const section = createElement("section", `problem-narrative ${variant}`);
       const sectionTitle = createElement("h4");
       sectionTitle.append(createIcon(icon), createElement("span", "", label));
       section.append(sectionTitle, createElement("p", content ? "" : "narrative-empty", content || "Ainda não registrado."));
+      appendImages(section, record[imageKey], label);
       ui.detail.appendChild(section);
     });
   }
@@ -247,6 +371,28 @@
     const resetView = () => { clearFilters(); render(); };
     query("problem-clear-filters").addEventListener("click", resetView);
     ui.emptyAction.addEventListener("click", resetView);
+    ui.viewerClose.addEventListener("click", closeImageViewer);
+    ui.viewerPrevious.addEventListener("click", () => changeImage(-1));
+    ui.viewerNext.addEventListener("click", () => changeImage(1));
+    ui.viewer.addEventListener("cancel", (event) => { event.preventDefault(); closeImageViewer(); });
+    ui.viewer.addEventListener("click", (event) => { if (event.target === ui.viewer) closeImageViewer(); });
+    ui.viewer.addEventListener("keydown", (event) => {
+      if (viewer.images.length > 1 && (event.key === "ArrowLeft" || event.key === "ArrowRight")) {
+        event.preventDefault();
+        changeImage(event.key === "ArrowLeft" ? -1 : 1);
+      }
+    });
+    ui.viewer.addEventListener("close", () => {
+      const trigger = viewer.trigger;
+      viewer.request++;
+      viewer.images = [];
+      viewer.trigger = null;
+      ui.viewerMedia.replaceChildren();
+      document.body.classList.toggle("image-viewer-open", false);
+      if (trigger && trigger.isConnected && !query("panel-problems").hidden) trigger.focus({ preventScroll: true });
+      else query(query("panel-problems").hidden ? "tab-notes" : "tab-problems").focus({ preventScroll: true });
+    });
+    window.addEventListener("hashchange", closeImageViewer);
     document.querySelectorAll("[data-problem-view]").forEach((button) => button.addEventListener("click", () => {
       clearFilters();
       const view = button.dataset.problemView;

@@ -78,6 +78,37 @@ const notasTecnicas = [
     dataAnalise: "2026-10-02",
     prazoHomologacao: "2026-04-06",
     prazoProducao: "2026-07-06"
+  },
+  {
+    descricao: "NT SE/CGNFS-e 009 v1.01 - NFS-e Padrão Nacional / RTC",
+    tipo: "Nota técnica · NFS-e padrão nacional",
+    documento: "NFS-e",
+    uf: "Todos",
+    observacoes: [
+      "Cronograma ainda não publicado: a NT não informa datas de homologação ou produção. Os prazos serão divulgados no portal da NFS-e. Cadastro sem urgência, conforme definição da IFSOFT.",
+      "Escopo: atualização do leiaute da NFS-e de padrão nacional e da DPS para a Reforma Tributária do Consumo. A identificação segue a capa e o conteúdo da NT 009 v1.01; não confundir com a NT 010 da NFS-e Via.",
+      "CST/cClassTrib: os campos passam para IBSCBS/valores/trib, antes de gIBSCBS. O detalhamento tributário, inclusive vBC na NFS-e, depende do indicador ind_gIBSCBS da tabela CST/cClassTrib. Não preencher esses dados quando o indicador não exigir; a NT destaca CST 400, 410 e 820.",
+      "Estrutura do XML: indDest e o grupo dest passam para a raiz infDPS, após toma. Revisar a ordem dos elementos e os mapeamentos de emissão e leitura; indFinal é reinserido para identificar uso ou consumo pessoal.",
+      "CNPJ alfanumérico: todos os campos CNPJ passam de numérico para caractere. Preservar letras e zeros à esquerda em cadastros, XML, integrações e validações; não converter CNPJ para número.",
+      "Ajustes de base: vDedRed e gReeRepRes são unificados em vAjusteBC. Revisar os tipos de ajuste, os documentos referenciados e os campos calculados vCalcAjusteBCISSQN, vCalcAjusteBCIBSCBS e vCalcAjusteBCLocImoveis, evitando deduções duplicadas e respeitando a repercussão por tributo no Anexo VI.",
+      "Notas de ajuste: conferir finNFSe (0 regular, 1 crédito, 2 débito), tpNFSeCredito/tpNFSeDebito e gIBSCBSAjuste. Usar a planilha NFS-e_AJUSTE_LEIAUTE; regras tachadas ainda estão em evolução e não devem ser tratadas como validações definitivas.",
+      "Simples Nacional: incluir opSimpNac=4 (optante pendente), regApIBSCBSSN e cAtvSN. Conferir as condições recíprocas de cAtvSN, vReceitaBrutaSN, gTribSN e a segregação de receita interna/externa pelo indicador tpRBSN da classificação tributária.",
+      "Endereços e ISSQN: validar o município IBGE do tomador/adquirente e do destinatário contra os cadastros CPF/CNPJ. Para o subitem 17.05, observar a exceção do destinatário com a mesma raiz CNPJ ou o mesmo CPF, inclusive a alteração de endereço admitida pela NT; fora dessas hipóteses, considerar o tomador.",
+      "Comércio exterior: acrescentar nFatura, vFatura e nContCambio, renomear nDI/nRE para nDUIMP/nDUE e validar tpMoeda pela tabela do Banco Central. O fim do domínio Desconhecido no compartilhamento municipal ao ADN em 01/01/2027 é uma regra específica, não o prazo geral de implantação desta NT.",
+      "Ajuste no comércio exterior: vAjusteBCIBSCBSComExt admite valor positivo ou negativo e altera apenas a base IBS/CBS, sem alterar vServ. Atualizar a fórmula de vBC e respeitar a transição prevista para dedução de PIS/COFINS até 2026.",
+      "Eventos e imóveis: conferir cMun em atvEvento nos subitens 12.13 e 17.10, com o grupo obrigatório para 17.10. Revisar gLocacao, gUnidImob e copropriedade; gLocBensMoveis passa a bensMoveis, com até 1.000 registros.",
+      "Condomínios: novo código 99.05.01, grupo condominios com cobranças/descontos e exigência do grupo imovel. Conferir a composição de vServ, vDescIncond e vDescCond; a NT prevê essas operações nos emissores públicos nacionais.",
+      "Pagamentos e calculadora: gPgtoVinc permite vincular até 99 transações conhecidas na emissão. verCalcIBSCBS é gerado pela Sefin Nacional (ambGer=2), não é campo a ser exigido de notas municipais próprias posteriormente compartilhadas com o ADN.",
+      "Anexos: na consulta de 05/10/2026, o portal oficial lista Anexo VI v1.04.01 e Anexo VII v1.03.00. O PDF e o resumo do ACBr citam Anexo VII v1.02.01; conferir os arquivos oficiais atualizados antes de implementar. Portal: https://www.gov.br/nfse/pt-br/biblioteca/documentacao-tecnica/rtc .",
+      "ACBr: o tópico informa a criação da tarefa ACBr-9969 para adequar o ACBrNFSeX. Acompanhar a entrega, os schemas e a versão do componente; a criação da tarefa não confirma implementação concluída."
+    ],
+    link: "documentos/nt-009-v1.01-nfse-nacional-rtc.pdf",
+    linkAcbr: "https://www.projetoacbr.com.br/forum/topic/95165-publicada-nota-t%C3%A9cnica-atualizando-o-leiaute-da-nfs-e-no-padr%C3%A3o-nacional/",
+    vigente: true,
+    urgente: false,
+    dataAnalise: "2026-10-05",
+    prazoHomologacao: "",
+    prazoProducao: ""
   }
 ];
 

@@ -2,19 +2,22 @@
 
 Site estático em HTML, CSS e JavaScript, com as abas **Notas técnicas** e **Problemas no sistema**. Compatível com abertura local e GitHub Pages, sem servidor ou etapa de build.
 
-A lista atual contém três notas reais, analisadas em **01 e 02/10/2026**:
+A lista atual contém quatro notas reais, analisadas em **01, 02 e 05/10/2026**:
 
 | Nota técnica | Documentos | Homologação | Produção | Prioridade |
 | --- | --- | --- | --- | --- |
 | NT 2026.010 v1.00 - DANFE Reforma Tributária | NF-e, modelo 55 | Não informada | 01/12/2026 | Urgente por marcação da equipe |
 | NT 2026.008 v1.00 - Valor Líquido do Produto | NF-e/NFC-e, modelos 55/65 | 05/10/2026 | 03/11/2026 | Automática, pelos próximos 30 dias de produção |
 | NT Conjunta 2025.001 v1.00 - CNPJ Alfanumérico | NF-e, NFC-e e MDF-e | 06/04/2026 | 06/07/2026 | Urgente manual, prazo já vencido |
+| NT SE/CGNFS-e 009 v1.01 - NFS-e Padrão Nacional / RTC | NFS-e | Aguardando cronograma | Aguardando cronograma | Não urgente, sem prazo de produção |
+
+A NT SE/CGNFS-e 009 v1.01 não informa datas de homologação ou produção. Os dois campos ficam vazios, e o site exibe **Sem data**; o cronograma será publicado no portal da NFS-e. A data específica de **01/01/2027** para o fim do domínio Desconhecido em campos de comércio exterior compartilhados pelos municípios ao ADN não foi usada como prazo geral da NT. A nota está com `urgente: false` e não gera urgência automática enquanto não houver prazo de produção.
 
 Na NT 2026.008, **NB01-30** tem prazo específico: homologação em **01/02/2027** e produção em **01/03/2027**. Esse prazo está nas observações; o prazo principal do registro mantém a entrega geral de novembro. Pela regra automática, a nota entra em Urgentes em **04/10/2026**, sem marcação manual.
 
 O cadastro do CNPJ alfanumérico preserva as datas do cronograma do PDF enviado. O complemento específico de schemas da NF-e/NFC-e, **NT 2026.004 v1.01**, informa homologação em **15/06/2026**; conferir os pacotes e comunicados aplicáveis antes de testar. A implantação dos sistemas da Receita Federal em **27/07/2026** e o primeiro CNPJ alfanumérico em **31/07/2026** são marcos distintos. A NFS-e não está no escopo da NT conjunta e exige conferência do padrão/provedor utilizado.
 
-Os PDFs enviados estão em `documentos/`. Os dois cadastros de 2026 oferecem também o tópico do ACBr; nenhum link do ACBr foi informado para a nota de CNPJ. Os pontos de implementação, mapeamentos e dependências estão em [ANALISE-NT-2026-010.md](ANALISE-NT-2026-010.md), [ANALISE-NT-2026-008.md](ANALISE-NT-2026-008.md) e [ANALISE-NT-2025-001.md](ANALISE-NT-2025-001.md).
+Os PDFs enviados estão em `documentos/`. As notas do DANFE, Valor Líquido do Produto e NFS-e oferecem também o tópico do ACBr; nenhum link do ACBr foi informado para a nota de CNPJ. Os pontos de implementação, mapeamentos e dependências estão em [ANALISE-NT-2026-010.md](ANALISE-NT-2026-010.md), [ANALISE-NT-2026-008.md](ANALISE-NT-2026-008.md), [ANALISE-NT-2025-001.md](ANALISE-NT-2025-001.md) e [ANALISE-NT-009-NFSE.md](ANALISE-NT-009-NFSE.md).
 
 ## Como editar os registros
 
@@ -44,7 +47,7 @@ Cada registro segue este formato:
 
 Use datas no formato `AAAA-MM-DD`. O site exibe automaticamente no formato brasileiro.
 
-Se o prazo de homologação não tiver sido publicado, use `prazoHomologacao: ""` para deixar o campo sem data. `linkAcbr` é opcional. O campo `vigente` identifica a versão de referência da NT; o prazo de produção é informado separadamente.
+Se os prazos não tiverem sido publicados, use `prazoHomologacao: ""` e/ou `prazoProducao: ""` para deixar os campos sem data. Não use datas de publicação ou regras específicas como substitutas do cronograma geral. `linkAcbr` é opcional. O campo `vigente` identifica a versão de referência da NT; o prazo de produção é informado separadamente.
 
 Os documentos fiscais são **NF-e**, **NFC-e**, **NFS-e** e **MDF-e**. Para uma nota de um único documento, use, por exemplo, `documento: "NFS-e"`. Para uma nota que se aplica a mais de um, use `documento: ["NF-e", "NFC-e"]`. A nota será encontrada nos filtros de ambos os documentos, sem duplicar o total de registros.
 
@@ -92,6 +95,9 @@ window.IFSOFT_PROBLEMAS = [
     parecerTecnico: "Registre a análise técnica.",
     solucao: "Registre uma possível solução.",
     passosReproducao: "",
+    imagensProblema: [],
+    imagensParecer: [],
+    imagensSolucao: [],
     criadoEm: "2026-10-02T12:00:00.000Z",
     atualizadoEm: "2026-10-02T12:00:00.000Z"
   }
@@ -109,6 +115,31 @@ O site lê **somente a lista publicada**. Alterações locais salvas pela versã
 
 Para que somente você altere a publicação, mantenha sua conta do GitHub e o acesso de escrita ao repositório sob seu controle. O site, o arquivo de dados e os PDFs continuam públicos. Não publique senhas, tokens, dados pessoais de clientes ou informações comerciais confidenciais.
 
+### Imagens dos problemas
+
+Cada registro aceita três campos opcionais: `imagensProblema` (relato), `imagensParecer` (parecer técnico) e `imagensSolucao` (possível solução). Os dois registros atuais têm esses campos vazios, sem imagens de demonstração. Use `[]` para não exibir imagens naquele campo.
+
+Quando tiver uma captura de tela, coloque o arquivo na pasta `imagens/problemas/` e preencha a lista correspondente em `problemas-data.js`. Exemplo para o relato:
+
+```js
+imagensProblema: [
+  {
+    arquivo: "imagens/problemas/erro-devolucao.png",
+    legenda: "Mensagem exibida ao emitir a devolução"
+  }
+],
+imagensParecer: [],
+imagensSolucao: [],
+```
+
+`arquivo` é o caminho da imagem e `legenda` é opcional. Use caminhos relativos com `/`, sem a barra inicial, sem caminhos do Windows e sem sair da pasta do site. Arquivos locais podem ser PNG, JPG/JPEG, WebP, GIF ou AVIF. Também são aceitos endereços completos HTTPS, sem usuário ou senha no endereço. Prefira arquivos locais para não depender de serviços externos.
+
+Cada campo aceita até dez imagens. Para adicionar mais, separe os objetos por vírgulas. Não mude os nomes `arquivo` e `legenda`. Ao publicar, envie ao GitHub tanto o `problemas-data.js` atualizado quanto os arquivos de imagem; informar apenas o nome do arquivo não envia a imagem.
+
+As miniaturas aparecem abaixo do texto correspondente. Ao clicar, a imagem abre ampliada, sem recorte, em uma janela com legenda. Há navegação pelas imagens do mesmo campo, fechamento pelo botão, por Escape ou pelo fundo da janela, e um link para abrir o arquivo original. As setas esquerda/direita também navegam entre as imagens. Falhas de carregamento são sinalizadas e campos vazios não ocupam espaço na página.
+
+Esta funcionalidade não permite upload ou edição por visitantes. Antes de publicar capturas de tela, oculte dados pessoais, senhas, tokens e informações confidenciais; as imagens publicadas no GitHub Pages são públicas.
+
 ### Arquivos e navegação
 
 `problemas-data.js` contém os registros publicados; `problemas.js` controla exclusivamente a consulta, a lista e os filtros; `navigation.js` controla as abas. Os cadastros de notas continuam em `script.js`, sem alteração.
@@ -118,7 +149,7 @@ Para que somente você altere a publicação, mantenha sua conta do GitHub e o a
 ## Como publicar no GitHub Pages
 
 1. Crie um repositório no GitHub.
-2. Envie os arquivos `index.html`, `styles.css`, `script.js`, `navigation.js`, `problemas.js`, `problemas-data.js`, `README.md`, os arquivos `ANALISE-NT-*.md` e as pastas `vendor/` e `documentos/` para a raiz do repositório. `vendor/` contém os ícones locais do Lucide e sua licença; `documentos/` contém as NTs em PDF. Envie os arquivos extraídos do ZIP, não somente o ZIP.
+2. Envie os arquivos `index.html`, `styles.css`, `script.js`, `navigation.js`, `problemas.js`, `problemas-data.js`, `README.md`, os arquivos `ANALISE-NT-*.md` e as pastas `vendor/`, `documentos/` e `imagens/` para a raiz do repositório. `vendor/` contém os ícones locais do Lucide e sua licença; `documentos/` contém as NTs em PDF; `imagens/problemas/` recebe as capturas de tela das ocorrências. Envie os arquivos extraídos do ZIP, não somente o ZIP.
 3. No GitHub, acesse `Settings` > `Pages`.
 4. Em `Build and deployment`, escolha `Deploy from a branch`.
 5. Selecione a branch `main` e a pasta `/root`.

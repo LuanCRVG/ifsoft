@@ -153,6 +153,22 @@
       </section>
     </main>
 
+    <dialog class="problem-image-dialog" id="problem-image-viewer" aria-labelledby="problem-image-title" aria-describedby="problem-image-caption">
+      <div class="problem-image-dialog-heading">
+        <h2 id="problem-image-title">Imagem</h2>
+        <div class="problem-image-dialog-tools">
+          <a class="icon-button" id="problem-image-original" target="_blank" rel="noopener noreferrer" title="Abrir imagem original" aria-label="Abrir imagem original"><i data-lucide="external-link" aria-hidden="true"></i></a>
+          <button class="icon-button" id="problem-image-close" type="button" title="Fechar imagem" aria-label="Fechar imagem"><i data-lucide="x" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div class="problem-image-stage" id="problem-image-stage">
+        <button class="icon-button" id="problem-image-previous" type="button" title="Imagem anterior" aria-label="Imagem anterior"><i data-lucide="chevron-left" aria-hidden="true"></i></button>
+        <div class="problem-image-media" id="problem-image-media"></div>
+        <button class="icon-button" id="problem-image-next" type="button" title="Próxima imagem" aria-label="Próxima imagem"><i data-lucide="chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <div class="problem-image-dialog-caption"><p id="problem-image-caption"></p><span id="problem-image-counter" aria-live="polite"></span></div>
+    </dialog>
+
     <footer class="site-footer"><span>IFSOFT <strong>Sistemas</strong></span><span id="portal-footer-context">Notas e informes técnicos</span></footer>
   </body>
 </html>
