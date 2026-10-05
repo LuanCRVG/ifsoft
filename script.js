@@ -284,6 +284,16 @@ function createNoteTitleLink(note) {
   return link;
 }
 
+function bindNoteContainer(container, titleLink) {
+  container.classList.toggle("note-clickable", true);
+  container.addEventListener("click", (event) => {
+    if (event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    if (event.target.closest("a, button, input, select, textarea, summary, [role='button'], [contenteditable]")) return;
+    if (window.getSelection()?.toString()) return;
+    titleLink.click();
+  });
+}
+
 function createLink(note) {
   const sources = [
     { href: note.link, label: "Abrir NT", icon: "file-text" },
@@ -383,7 +393,8 @@ function renderTable(notes) {
       createElement("td"),
       createElement("td")
     ];
-    cells[0].appendChild(createNoteTitleLink(note));
+    const titleLink = createNoteTitleLink(note);
+    cells[0].appendChild(titleLink);
     cells[0].appendChild(createElement("span", "note-type", note.tipo || "Nota técnica / Informe técnico"));
     cells[1].append(...getNoteDocuments(note).map((documento) => createElement("span", "document-name", documento)), createElement("span", "document-uf", `UF: ${note.uf}`));
     cells[2].appendChild(createUrgencyBadge(note));
@@ -393,6 +404,7 @@ function renderTable(notes) {
     cells[7].appendChild(createElement("p", "note-summary", getNoteSummary(note)));
     cells[8].appendChild(createLink(note));
     cells.forEach((cell) => row.appendChild(cell));
+    bindNoteContainer(row, titleLink);
     elements.tableBody.appendChild(row);
   });
 }
@@ -416,7 +428,8 @@ function renderCards(notes) {
   notes.forEach((note) => {
     const card = createElement("article", isUrgent(note) ? "note-card is-urgent" : "note-card");
     const title = createElement("h3");
-    title.appendChild(createNoteTitleLink(note));
+    const titleLink = createNoteTitleLink(note);
+    title.appendChild(titleLink);
     const topline = createElement("div", "card-topline");
     const meta = createElement("div", "card-meta");
     const infoGrid = createElement("div", "card-deadlines");
@@ -434,6 +447,7 @@ function renderCards(notes) {
     const bottom = createElement("div", "card-bottom");
     bottom.append(createElement("span", "card-analysis", `Analisada em ${formatDate(note.dataAnalise)}`), createLink(note));
     card.appendChild(bottom);
+    bindNoteContainer(card, titleLink);
     elements.cards.appendChild(card);
   });
 }

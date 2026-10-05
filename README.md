@@ -2,7 +2,7 @@
 
 Site estático em HTML, CSS e JavaScript, com as abas **Notas técnicas** e **Problemas no sistema**. Compatível com abertura local e GitHub Pages, sem servidor ou etapa de build.
 
-Na listagem de notas, cada registro mostra apenas uma **observação resumida**. O título é um link com a indicação **Leia aqui**: abre `nota.html?id=...`, com todas as observações organizadas por assunto, sumário, prazos e links do PDF e do ACBr. Não há mais botão de expandir/recolher observações na tabela ou nos cards de celular. O link **Voltar às notas técnicas** retorna à lista.
+Na listagem de notas, cada registro mostra apenas uma **observação resumida**. Clicar em qualquer área da linha da tabela ou do card no celular abre `nota.html?id=...`, com todas as observações organizadas por assunto, sumário, prazos e links do PDF e do ACBr. O título continua sendo um link com a indicação **Leia aqui**, acessível pelo teclado. Os links **Abrir NT** e **ACBr** mantêm seus destinos próprios; selecionar texto não abre a nota. Não há mais botão de expandir/recolher observações na tabela ou nos cards de celular. O link **Voltar às notas técnicas** retorna à lista.
 
 A lista atual contém quatro notas reais, analisadas em **01, 02 e 05/10/2026**:
 

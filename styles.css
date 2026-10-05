@@ -100,7 +100,8 @@ th:nth-child(8) { width: 267px; }
 th:nth-child(9) { width: 112px; }
 td { font-size: 12px; line-height: 1.6; color: #434a58; }
 tbody tr:last-child td { border-bottom: 0; }
-tbody tr:hover td { background: #fafbfe; }
+.note-clickable { cursor: pointer; }
+tbody tr.note-clickable:hover td, tbody tr.note-clickable:focus-within td { background: #f3f7ff; }
 tbody tr.urgent-row td:first-child { border-left: 3px solid #d54959; padding-left: 11px; }
 .note-title { display: block; font-weight: 650; font-size: 13px; line-height: 1.5; color: #2e3440; }
 .note-title-link { display: block; color: var(--brand); text-decoration: none; overflow-wrap: anywhere; }
@@ -186,6 +187,7 @@ tbody tr.urgent-row td:first-child { border-left: 3px solid #d54959; padding-lef
   .table-wrap { display: none; }
   .cards-list { display: grid; gap: 12px; }
   .note-card { padding: 17px 16px; border: 1px solid var(--line); border-radius: 7px; background: #fff; }
+  .note-card.note-clickable:hover, .note-card.note-clickable:focus-within { background: #f3f7ff; border-color: #9ab9ed; }
   .note-card.is-urgent { border-left: 3px solid #d54959; padding-left: 14px; }
   .card-topline { display: flex; justify-content: space-between; gap: 8px; align-items: center; margin-bottom: 13px; }
   .card-document { font-size: 11px; font-weight: 600; color: #5f6a80; }
