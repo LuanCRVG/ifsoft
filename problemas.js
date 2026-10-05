@@ -329,6 +329,11 @@
     query("problems-urgent-count").textContent = String(counts.urgentes);
     query("problems-resolved-count").textContent = String(counts.resolvidos);
     query("tab-problems-count").textContent = String(all.length);
+    const problemTab = query("tab-problems");
+    const openLabel = `${counts.abertos} ${counts.abertos === 1 ? "problema em aberto" : "problemas em aberto"}`;
+    problemTab.classList.toggle("has-open-problems", counts.abertos > 0);
+    problemTab.title = counts.abertos > 0 ? openLabel : "Nenhum problema em aberto";
+    problemTab.setAttribute("aria-label", `Problemas no sistema: ${openLabel}; ${all.length} no total`);
     query("problem-result-summary").textContent = `${records.length} ocorrência${records.length === 1 ? "" : "s"} · ${all.length} no total`;
     document.querySelectorAll("[data-problem-view]").forEach((button) => {
       const view = button.dataset.problemView;

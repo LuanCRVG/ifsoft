@@ -267,6 +267,26 @@ tbody tr.urgent-row td:first-child { border-left: 3px solid #d54959; padding-lef
 .portal-tab svg { width: 18px; height: 18px; }
 .tab-count { display: inline-grid; place-items: center; min-width: 23px; height: 22px; padding-inline: 5px; border-radius: 4px; background: #e7ebf1; color: #6c7587; font-size: 11px; font-variant-numeric: tabular-nums; }
 .is-active .tab-count { background: #dce9ff; color: #235ab5; }
+.portal-tab.problem-tab > .problem-tab-label { min-width: 0; overflow-wrap: anywhere; }
+.problem-tab-bell { display: inline-grid; place-items: center; width: 22px; height: 22px; flex-shrink: 0; transform-origin: 50% 15%; }
+.portal-tab .problem-tab-bell svg { width: 20px; height: 20px; }
+.portal-tab.problem-tab .tab-count { display: inline-grid; min-width: 28px; height: 25px; flex-shrink: 0; font-size: 12px; font-weight: 700; }
+.portal-tab.has-open-problems:not(.is-active) { background: #fff4d7; color: #82520d; box-shadow: inset 0 0 0 1px #efd39a; }
+.portal-tab.has-open-problems:not(.is-active):hover { background: #ffedbd; }
+.portal-tab.has-open-problems:not(.is-active) .tab-count { background: #82520d; color: #fff; }
+.portal-tab.problem-tab.is-active { background: var(--brand-soft); }
+.portal-tab.has-open-problems:not(.is-active) .problem-tab-bell { animation: problem-bell-ring 4.8s ease-in-out infinite; }
+@keyframes problem-bell-ring {
+  0%, 18%, 100% { transform: rotate(0deg); }
+  2% { transform: rotate(-16deg); }
+  4% { transform: rotate(14deg); }
+  6% { transform: rotate(-12deg); }
+  8% { transform: rotate(10deg); }
+  10% { transform: rotate(-7deg); }
+  12% { transform: rotate(5deg); }
+  14% { transform: rotate(-3deg); }
+  16% { transform: rotate(0deg); }
+}
 [role="tabpanel"]:focus-visible { outline: 2px solid #1963e866; outline-offset: 6px; }
 .section-kicker { display: block; margin-bottom: 5px; color: #7a8291; font-size: 10px; font-weight: 650; }
 .problem-page-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 22px; }

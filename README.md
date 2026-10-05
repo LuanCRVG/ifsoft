@@ -71,6 +71,8 @@ Os indicadores contam todos os registros cadastrados; o número de resultados in
 
 ## Problemas no sistema
 
+A aba **Problemas no sistema** tem um sino e recebe destaque âmbar quando existe pelo menos uma ocorrência não resolvida. Enquanto a aba estiver fora de foco, o sino faz um breve movimento a cada 4,8 segundos; ao selecionar a aba, a animação deixa de ser aplicada. Se todos os problemas estiverem resolvidos, não há alerta. A preferência de movimento reduzido do navegador desativa a animação, mantendo o destaque estático. O contador continua mostrando o total de ocorrências e fica visível também no celular; o tooltip informa quantas estão em aberto. Esse aviso não altera a prioridade dos problemas nem marca ocorrências normais como urgentes.
+
 A aba pública é **somente para consulta**. Visitantes podem visualizar os detalhes, buscar, filtrar e ordenar as ocorrências. Não há formulário de cadastro, edição, exclusão, importação, resolução ou reabertura no site. A área continua sem ocorrências fictícias.
 
 Os textos de **Problema relatado**, **Parecer técnico**, **Possível solução** e **Passos para reproduzir** aparecem completos. Os indicadores de urgência contam somente os problemas ainda não resolvidos. Os filtros desta aba são independentes dos filtros das notas técnicas.
