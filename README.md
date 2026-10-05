@@ -2,6 +2,8 @@
 
 Site estático em HTML, CSS e JavaScript, com as abas **Notas técnicas** e **Problemas no sistema**. Compatível com abertura local e GitHub Pages, sem servidor ou etapa de build.
 
+Na listagem de notas, cada registro mostra apenas uma **observação resumida**. O título é um link com a indicação **Leia aqui**: abre `nota.html?id=...`, com todas as observações organizadas por assunto, sumário, prazos e links do PDF e do ACBr. Não há mais botão de expandir/recolher observações na tabela ou nos cards de celular. O link **Voltar às notas técnicas** retorna à lista.
+
 A lista atual contém quatro notas reais, analisadas em **01, 02 e 05/10/2026**:
 
 | Nota técnica | Documentos | Homologação | Produção | Prioridade |
@@ -27,7 +29,9 @@ Cada registro segue este formato:
 
 ```js
 {
+  id: "nt-2026-011-v1-00",
   descricao: "Descrição da NT",
+  resumo: "Uma observação curta para a listagem principal.",
   tipo: "Nota técnica",
   documento: ["NF-e", "NFC-e"],
   uf: "Todos",
@@ -46,6 +50,10 @@ Cada registro segue este formato:
 ```
 
 Use datas no formato `AAAA-MM-DD`. O site exibe automaticamente no formato brasileiro.
+
+`id` é um identificador único e estável para o link da nota; não mude o ID ao corrigir apenas o título ou o texto. `resumo` é a única observação exibida na listagem. A lista `observacoes` contém os textos completos, exibidos somente na página da nota. Tanto a lista quanto a página de detalhes usam o mesmo cadastro em `script.js`: não duplique os dados em `nota.js` ou no HTML. Para cadastros antigos sem `id` ou `resumo`, o site usa a descrição como identificador e a primeira observação como resumo.
+
+A busca principal continua consultando todas as observações, mesmo as que estão somente na página de detalhes. O sumário dessa página usa o assunto que precede `:` no começo de uma observação, quando houver; observações sem esse prefixo recebem um título genérico. O texto original permanece completo.
 
 Se os prazos não tiverem sido publicados, use `prazoHomologacao: ""` e/ou `prazoProducao: ""` para deixar os campos sem data. Não use datas de publicação ou regras específicas como substitutas do cronograma geral. `linkAcbr` é opcional. O campo `vigente` identifica a versão de referência da NT; o prazo de produção é informado separadamente.
 
@@ -151,7 +159,7 @@ Esta funcionalidade não permite upload ou edição por visitantes. Antes de pub
 ## Como publicar no GitHub Pages
 
 1. Crie um repositório no GitHub.
-2. Envie os arquivos `index.html`, `styles.css`, `script.js`, `navigation.js`, `problemas.js`, `problemas-data.js`, `README.md`, os arquivos `ANALISE-NT-*.md` e as pastas `vendor/`, `documentos/` e `imagens/` para a raiz do repositório. `vendor/` contém os ícones locais do Lucide e sua licença; `documentos/` contém as NTs em PDF; `imagens/problemas/` recebe as capturas de tela das ocorrências. Envie os arquivos extraídos do ZIP, não somente o ZIP.
+2. Envie os arquivos `index.html`, `nota.html`, `nota.js`, `styles.css`, `script.js`, `navigation.js`, `problemas.js`, `problemas-data.js`, `README.md`, os arquivos `ANALISE-NT-*.md` e as pastas `vendor/`, `documentos/` e `imagens/` para a raiz do repositório. `nota.html` e `nota.js` são necessários para os links de observações completas; `vendor/` contém os ícones locais do Lucide e sua licença; `documentos/` contém as NTs em PDF; `imagens/problemas/` recebe as capturas de tela das ocorrências. Envie os arquivos extraídos do ZIP, não somente o ZIP.
 3. No GitHub, acesse `Settings` > `Pages`.
 4. Em `Build and deployment`, escolha `Deploy from a branch`.
 5. Selecione a branch `main` e a pasta `/root`.

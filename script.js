@@ -3,7 +3,9 @@ const DOCUMENTOS_FISCAIS = ["NF-e", "NFC-e", "NFS-e", "MDF-e"];
 
 const notasTecnicas = [
   {
+    id: "nt-2026-010-v1-00",
     descricao: "NT 2026.010 v1.00 - DANFE Reforma Tributária",
+    resumo: "Novo leiaute do DANFE com os campos de IBS, CBS e IS. Revisar impressão, PDF e campos opcionais.",
     tipo: "Nota técnica · NF-e modelo 55",
     documento: "NF-e",
     uf: "Todos",
@@ -28,7 +30,9 @@ const notasTecnicas = [
     prazoProducao: "2026-12-01"
   },
   {
+    id: "nt-2026-008-v1-00",
     descricao: "NT 2026.008 v1.00 - Valor Líquido do Produto",
+    resumo: "Novos campos de valor líquido na NF-e/NFC-e, com atenção à totalização e ao pagamento antecipado.",
     tipo: "Nota técnica · NF-e/NFC-e modelos 55/65",
     documento: ["NF-e", "NFC-e"],
     uf: "Todos",
@@ -53,7 +57,9 @@ const notasTecnicas = [
     prazoProducao: "2026-11-03"
   },
   {
+    id: "nt-conjunta-2025-001-v1-00",
     descricao: "NT Conjunta 2025.001 v1.00 - CNPJ Alfanumérico",
+    resumo: "CNPJ passa a aceitar letras. Revisar cadastros, XML, chaves de acesso, validações e documentos auxiliares.",
     tipo: "Nota técnica conjunta · CNPJ Alfa",
     documento: ["NF-e", "NFC-e", "MDF-e"],
     uf: "Todos",
@@ -80,7 +86,9 @@ const notasTecnicas = [
     prazoProducao: "2026-07-06"
   },
   {
+    id: "nt-se-cgnfse-009-v1-01",
     descricao: "NT SE/CGNFS-e 009 v1.01 - NFS-e Padrão Nacional / RTC",
+    resumo: "Atualização do leiaute da NFS-e nacional para a RTC; cronograma de implantação ainda não informado.",
     tipo: "Nota técnica · NFS-e padrão nacional",
     documento: "NFS-e",
     uf: "Todos",
@@ -258,31 +266,22 @@ function createUrgencyBadge(note) {
   return badge;
 }
 
-function createObservacoesList(observacoes) {
-  const wrapper = createElement("div");
-  const list = createElement("ul", "obs-list");
-  observacoes.forEach((observacao, index) => {
-    const item = createElement("li", "", observacao);
-    item.hidden = index > 0;
-    list.appendChild(item);
-  });
-  wrapper.appendChild(list);
-  if (observacoes.length > 1) {
-    const toggle = createElement("button", "observations-toggle");
-    toggle.type = "button";
-    toggle.setAttribute("aria-expanded", "false");
-    const collapsedLabel = `Ler mais ${observacoes.length - 1} observaç${observacoes.length === 2 ? "ão" : "ões"}`;
-    const label = createElement("span", "", collapsedLabel);
-    toggle.append(label, createIcon("chevron-down"));
-    toggle.addEventListener("click", () => {
-      const expanded = toggle.getAttribute("aria-expanded") === "true";
-      toggle.setAttribute("aria-expanded", String(!expanded));
-      Array.from(list.children).forEach((item, index) => { item.hidden = index > 0 && expanded; });
-      label.textContent = expanded ? collapsedLabel : "Recolher observações";
-    });
-    wrapper.appendChild(toggle);
-  }
-  return wrapper;
+function getNoteId(note) {
+  return note.id || note.descricao;
+}
+
+function getNoteSummary(note) {
+  return note.resumo || note.observacoes[0] || "Nenhuma observação cadastrada.";
+}
+
+function createNoteTitleLink(note) {
+  const link = createElement("a", "note-title-link");
+  link.href = `nota.html?id=${encodeURIComponent(getNoteId(note))}`;
+  link.setAttribute("aria-label", `${note.descricao}: ler observações completas`);
+  const cue = createElement("span", "note-read-link");
+  cue.append(createElement("span", "", "Leia aqui"), createIcon("arrow-right"));
+  link.append(createElement("span", "note-title", note.descricao), cue);
+  return link;
 }
 
 function createLink(note) {
@@ -318,6 +317,7 @@ function createDeadline(dateString, production = false) {
 function noteMatchesSearch(note) {
   const searchable = [
     note.descricao,
+    getNoteSummary(note),
     getNoteDocuments(note).join("/"),
     note.uf,
     note.vigente ? "sim vigente" : "nao não",
@@ -383,14 +383,14 @@ function renderTable(notes) {
       createElement("td"),
       createElement("td")
     ];
-    cells[0].appendChild(createElement("span", "note-title", note.descricao));
+    cells[0].appendChild(createNoteTitleLink(note));
     cells[0].appendChild(createElement("span", "note-type", note.tipo || "Nota técnica / Informe técnico"));
     cells[1].append(...getNoteDocuments(note).map((documento) => createElement("span", "document-name", documento)), createElement("span", "document-uf", `UF: ${note.uf}`));
     cells[2].appendChild(createUrgencyBadge(note));
     cells[3].appendChild(createBadge(note.vigente ? "Sim" : "Não", note.vigente ? "badge-success" : "badge-neutral", note.vigente ? "circle-check" : null));
     cells[4].appendChild(createDeadline(note.prazoHomologacao));
     cells[5].appendChild(createDeadline(note.prazoProducao, true));
-    cells[7].appendChild(createObservacoesList(note.observacoes));
+    cells[7].appendChild(createElement("p", "note-summary", getNoteSummary(note)));
     cells[8].appendChild(createLink(note));
     cells.forEach((cell) => row.appendChild(cell));
     elements.tableBody.appendChild(row);
@@ -415,7 +415,8 @@ function renderCards(notes) {
 
   notes.forEach((note) => {
     const card = createElement("article", isUrgent(note) ? "note-card is-urgent" : "note-card");
-    const title = createElement("h3", "", note.descricao);
+    const title = createElement("h3");
+    title.appendChild(createNoteTitleLink(note));
     const topline = createElement("div", "card-topline");
     const meta = createElement("div", "card-meta");
     const infoGrid = createElement("div", "card-deadlines");
@@ -428,7 +429,7 @@ function renderCards(notes) {
     addInfoItem(infoGrid, "Prazo produção", createDeadline(note.prazoProducao, true));
     card.appendChild(infoGrid);
     const observations = createElement("div", "card-observations");
-    addInfoItem(observations, "Observações", createObservacoesList(note.observacoes));
+    addInfoItem(observations, "Observação", createElement("p", "note-summary", getNoteSummary(note)));
     card.appendChild(observations);
     const bottom = createElement("div", "card-bottom");
     bottom.append(createElement("span", "card-analysis", `Analisada em ${formatDate(note.dataAnalise)}`), createLink(note));
@@ -569,6 +570,9 @@ function bindEvents() {
   });
 }
 
-setupDocumentFilter();
-bindEvents();
-render();
+// The detail page shares the same records and helpers, without starting the list.
+if (elements.tableBody) {
+  setupDocumentFilter();
+  bindEvents();
+  render();
+}

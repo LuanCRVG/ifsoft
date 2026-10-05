@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#191b20">
+    <title>Nota técnica | IFSOFT Sistemas</title>
+    <meta name="description" content="Observações completas e prazos das notas técnicas dos documentos fiscais eletrônicos, analisadas pela IFSOFT Sistemas.">
+    <link rel="stylesheet" href="styles.css?v=20261005-notas-3">
+    <script src="vendor/lucide.min.js" defer></script>
+    <script src="script.js?v=20261005-notas-3" defer></script>
+    <script src="nota.js?v=20261005-notas-3" defer></script>
+  </head>
+  <body>
+    <header class="site-header note-detail-header">
+      <div class="header-inner brand-row">
+        <a class="brand brand-home" href="index.html#notas-tecnicas" aria-label="IFSOFT Sistemas: notas técnicas">
+          <span class="brand-symbol" aria-hidden="true"><i data-lucide="blocks"></i></span>
+          <span class="detail-brand-name">IFSOFT <span>Sistemas</span></span>
+        </a>
+        <span class="header-label"><i data-lucide="file-text" aria-hidden="true"></i> Notas técnicas</span>
+      </div>
+    </header>
+
+    <main class="page-shell note-detail-shell">
+      <nav aria-label="Navegação da nota"><a class="note-back" href="index.html#notas-tecnicas"><i data-lucide="arrow-left" aria-hidden="true"></i><span>Voltar às notas técnicas</span></a></nav>
+
+      <article id="note-detail" aria-labelledby="note-detail-title" hidden>
+        <header class="note-detail-heading">
+          <p id="note-detail-kind"></p>
+          <h1 id="note-detail-title"></h1>
+          <p class="note-summary" id="note-detail-summary"></p>
+          <div class="note-detail-status" id="note-detail-status"></div>
+          <div class="note-source-links" id="note-detail-sources"></div>
+        </header>
+
+        <dl class="note-metadata" id="note-detail-metadata"></dl>
+
+        <div class="note-detail-layout">
+          <nav class="note-outline" id="note-outline" aria-labelledby="note-outline-title">
+            <h2 id="note-outline-title">Nesta nota</h2>
+            <ol id="note-outline-list"></ol>
+          </nav>
+          <section class="note-observations" aria-labelledby="note-observations-title">
+            <div class="note-observations-heading"><h2 id="note-observations-title">Observações completas</h2><span id="note-observations-count"></span></div>
+            <div id="note-observations-list"></div>
+          </section>
+        </div>
+      </article>
+
+      <section class="note-not-found" id="note-not-found" aria-labelledby="note-not-found-title" hidden>
+        <h1 id="note-not-found-title">Nota técnica não encontrada</h1>
+        <p>Este registro não está disponível na publicação atual.</p>
+      </section>
+      <noscript><p>O conteúdo da nota não pôde ser carregado.</p></noscript>
+    </main>
+
+    <footer class="site-footer"><span>IFSOFT <strong>Sistemas</strong></span><span>Central técnica · Documentos fiscais eletrônicos</span></footer>
+  </body>
+</html>
