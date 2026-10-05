@@ -6,7 +6,7 @@ window.IFSOFT_PROBLEMAS = [
     modulo: "NF-e",
     versao: "",
     status: "analise",
-    prioridade: "urgente",
+    prioridade: "normal",
     ambiente: "nao-aplica",
     responsavel: "",
     dataRelato: "2026-10-05",
@@ -17,5 +17,23 @@ window.IFSOFT_PROBLEMAS = [
     passosReproducao: "",
     criadoEm: "2026-10-05T15:03:29.000Z",
     atualizadoEm: "2026-10-05T15:03:29.000Z"
+  },
+  {
+    id: "PRB-20261005-002",
+    titulo: "Não gerar base de cálculo",
+    modulo: "Cadastros",
+    versao: "",
+    status: "analise",
+    prioridade: "normal",
+    ambiente: "nao-aplica",
+    responsavel: "LUAN",
+    dataRelato: "2026-10-05",
+    prazo: "",
+    problemaRelatado: "O sistema está gerando base de cálculo de IBS/CBS para cClassTrib que não possuem alíquota.",
+    parecerTecnico: "Existem cClassTrib que não possuem alíquota. Para esses cClassTrib, a análise relatada é que não deve ser gerada base de cálculo de IBS/CBS.",
+    solucao: "Criar uma checkbox \"Não gerar B.C\" no cadastro do cClassTrib, ou outra identificação equivalente, para indicar os códigos que não devem gerar base de cálculo de IBS/CBS.",
+    passosReproducao: "",
+    criadoEm: "2026-10-05T16:41:58.000Z",
+    atualizadoEm: "2026-10-05T16:41:58.000Z"
   }
 ];
