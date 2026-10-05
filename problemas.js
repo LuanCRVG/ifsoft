@@ -218,7 +218,26 @@
       option.value = module;
       ui.module.appendChild(option);
     });
-    try { published = normalizeRecords(window.IFSOFT_PROBLEMAS ?? []); }
+    try { published = normalizeRecords(window.IFSOFT_PROBLEMAS ?? [{
+    id: "PRB-001",
+    titulo: "Título do problema",
+    modulo: "NF-e",
+    versao: "",
+    status: "relatado",
+    prioridade: "normal",
+    ambiente: "producao",
+    responsavel: "IFSOFT",
+    dataRelato: "2026-10-05",
+    prazo: "",
+    problemaRelatado: "Descreva aqui o problema.",
+    parecerTecnico: "Escreva aqui a análise técnica.",
+    solucao: "Escreva aqui uma possível solução.",
+    passosReproducao: "",
+    criadoEm: "2026-10-05T12:00:00.000Z",
+    atualizadoEm: "2026-10-05T12:00:00.000Z"
+
+
+    }]); }
     catch {
       publishedReadFailed = true;
       feedback("O arquivo de problemas publicados está inválido.", true);
