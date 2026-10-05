@@ -289,7 +289,15 @@ tbody tr.urgent-row td:first-child { border-left: 3px solid #d54959; padding-lef
 .solution-narrative h4 { color: #26787d; }
 .problem-narrative p { margin: 0; font-size: 13px; line-height: 1.8; white-space: pre-wrap; overflow-wrap: anywhere; }
 .problem-narrative .narrative-empty { color: #969dab; font-size: 12px; }
-.problem-image-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr)); gap: 16px; margin-top: 18px; }
+.problem-image-field { min-width: 0; margin-top: 18px; }
+.problem-image-field-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 14px; }
+.problem-image-field-heading h5 { display: flex; align-items: center; gap: 8px; min-width: 0; margin: 0; color: var(--muted); font-size: 12px; font-weight: 600; line-height: 1.6; }
+.problem-image-field-heading h5 > span { min-width: 0; overflow-wrap: anywhere; }
+.problem-image-field-heading svg, .problem-image-empty svg { width: 18px; height: 18px; flex-shrink: 0; }
+.problem-image-count { color: var(--muted); font-size: 11px; line-height: 1.6; font-variant-numeric: tabular-nums; }
+.problem-image-empty { display: flex; align-items: center; gap: 10px; min-height: 56px; margin-top: 10px; padding: 12px; border: 1px dashed #cbd3df; border-radius: 4px; background: #f8f9fc; color: var(--muted); }
+.problem-narrative .problem-image-empty p { min-width: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.problem-image-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr)); gap: 16px; margin-top: 12px; }
 .problem-image-figure { min-width: 0; margin: 0; }
 .problem-image-button { display: block; position: relative; width: 100%; aspect-ratio: 16 / 10; padding: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 6px; background: #edf0f4; color: var(--text); }
 .problem-image-button > img { display: block; width: 100%; height: 100%; object-fit: contain; }

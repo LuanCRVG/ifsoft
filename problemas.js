@@ -227,8 +227,21 @@
     if (ui.viewer.open) ui.viewer.close();
   }
 
-  function appendImages(section, images, label) {
-    if (!images || !images.length) return;
+  function appendImages(section, images, label, imageLabel) {
+    if (!imageLabel) return;
+    const field = createElement("div", "problem-image-field");
+    const heading = createElement("div", "problem-image-field-heading");
+    const title = createElement("h5");
+    title.append(createIcon("images"), createElement("span", "", imageLabel));
+    heading.append(title, createElement("span", "problem-image-count", `${images.length} ${images.length === 1 ? "imagem" : "imagens"}`));
+    field.appendChild(heading);
+    section.appendChild(field);
+    if (!images.length) {
+      const empty = createElement("div", "problem-image-empty");
+      empty.append(createIcon("image"), createElement("p", "", "Nenhuma imagem cadastrada."));
+      field.appendChild(empty);
+      return;
+    }
     const gallery = createElement("div", "problem-image-gallery");
     images.forEach((image, index) => {
       const caption = image.legenda || `Imagem ${index + 1}`;
@@ -264,7 +277,7 @@
       gallery.appendChild(figure);
       photo.src = image.arquivo;
     });
-    section.appendChild(gallery);
+    field.appendChild(gallery);
   }
 
   function renderDetail(record) {
@@ -293,15 +306,15 @@
       info.appendChild(item);
     });
     ui.detail.append(heading, info);
-    [["PROBLEMA RELATADO", record.problemaRelatado, "circle-alert", "reported-narrative", "imagensProblema"],
-      ["PARECER TÉCNICO", record.parecerTecnico, "clipboard-check", "technical-narrative", "imagensParecer"],
-      ["POSSÍVEL SOLUÇÃO", record.solucao, "wrench", "solution-narrative", "imagensSolucao"],
-      ["PASSOS PARA REPRODUZIR", record.passosReproducao, "list-checks", ""]].forEach(([label, content, icon, variant, imageKey]) => {
+    [["PROBLEMA RELATADO", record.problemaRelatado, "circle-alert", "reported-narrative", "imagensProblema", "Imagens do relato"],
+      ["PARECER TÉCNICO", record.parecerTecnico, "clipboard-check", "technical-narrative", "imagensParecer", "Imagens do parecer"],
+      ["POSSÍVEL SOLUÇÃO", record.solucao, "wrench", "solution-narrative", "imagensSolucao", "Imagens da solução"],
+      ["PASSOS PARA REPRODUZIR", record.passosReproducao, "list-checks", ""]].forEach(([label, content, icon, variant, imageKey, imageLabel]) => {
       const section = createElement("section", `problem-narrative ${variant}`);
       const sectionTitle = createElement("h4");
       sectionTitle.append(createIcon(icon), createElement("span", "", label));
       section.append(sectionTitle, createElement("p", content ? "" : "narrative-empty", content || "Ainda não registrado."));
-      appendImages(section, record[imageKey], label);
+      appendImages(section, record[imageKey], label, imageLabel);
       ui.detail.appendChild(section);
     });
   }

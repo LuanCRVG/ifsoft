@@ -1,3 +1,4 @@
+# IFSOFT Sistemas - Central Técnica
 
 Site estático em HTML, CSS e JavaScript, com as abas **Notas técnicas** e **Problemas no sistema**. Compatível com abertura local e GitHub Pages, sem servidor ou etapa de build.
 
@@ -116,7 +117,7 @@ Para que somente você altere a publicação, mantenha sua conta do GitHub e o a
 
 ### Imagens dos problemas
 
-Cada registro aceita três campos opcionais: `imagensProblema` (relato), `imagensParecer` (parecer técnico) e `imagensSolucao` (possível solução). Os dois registros atuais têm esses campos vazios, sem imagens de demonstração. Use `[]` para não exibir imagens naquele campo.
+Cada registro aceita três campos opcionais: `imagensProblema` (relato), `imagensParecer` (parecer técnico) e `imagensSolucao` (possível solução). Os dois registros atuais têm esses campos vazios, sem imagens de demonstração. As áreas **Imagens do relato**, **Imagens do parecer** e **Imagens da solução** ficam visíveis mesmo com `[]`, mostrando a contagem zero e **Nenhuma imagem cadastrada.** Não há botão público de envio; o cadastro continua sendo feito no arquivo.
 
 Quando tiver uma captura de tela, coloque o arquivo na pasta `imagens/problemas/` e preencha a lista correspondente em `problemas-data.js`. Exemplo para o relato:
 
@@ -135,7 +136,9 @@ imagensSolucao: [],
 
 Cada campo aceita até dez imagens. Para adicionar mais, separe os objetos por vírgulas. Não mude os nomes `arquivo` e `legenda`. Ao publicar, envie ao GitHub tanto o `problemas-data.js` atualizado quanto os arquivos de imagem; informar apenas o nome do arquivo não envia a imagem.
 
-As miniaturas aparecem abaixo do texto correspondente. Ao clicar, a imagem abre ampliada, sem recorte, em uma janela com legenda. Há navegação pelas imagens do mesmo campo, fechamento pelo botão, por Escape ou pelo fundo da janela, e um link para abrir o arquivo original. As setas esquerda/direita também navegam entre as imagens. Falhas de carregamento são sinalizadas e campos vazios não ocupam espaço na página.
+As miniaturas aparecem abaixo do texto correspondente, na área de imagens de cada campo. Ao clicar, a imagem abre ampliada, sem recorte, em uma janela com legenda. Há navegação pelas imagens do mesmo campo, fechamento pelo botão, por Escape ou pelo fundo da janela, e um link para abrir o arquivo original. As setas esquerda/direita também navegam entre as imagens. Falhas de carregamento são sinalizadas; o aviso de campo vazio é substituído pela galeria quando houver imagens cadastradas.
+
+Ao atualizar esta versão no GitHub, publique também `index.html`, `styles.css` e `problemas.js`; alterar apenas `problemas-data.js` não atualiza a interface. O HTML usa uma versão na URL dos estilos e do script de problemas para evitar que o navegador reutilize os arquivos antigos após a publicação.
 
 Esta funcionalidade não permite upload ou edição por visitantes. Antes de publicar capturas de tela, oculte dados pessoais, senhas, tokens e informações confidenciais; as imagens publicadas no GitHub Pages são públicas.
 
