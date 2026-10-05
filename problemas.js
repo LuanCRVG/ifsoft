@@ -224,7 +224,7 @@
     modulo: "NF-e",
     versao: "",
     status: "relatado",
-    prioridade: "normal",
+    prioridade: "urgente",
     ambiente: "producao",
     responsavel: "IFSOFT",
     dataRelato: "2026-10-05",
