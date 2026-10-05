@@ -1,4 +1,3 @@
-# IFSOFT Sistemas - Central Técnica
 
 Site estático em HTML, CSS e JavaScript, com as abas **Notas técnicas** e **Problemas no sistema**. Compatível com abertura local e GitHub Pages, sem servidor ou etapa de build.
 
