@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-labelledby="favicon-title">
+  <title id="favicon-title">IFSOFT Sistemas</title>
+  <rect width="64" height="64" rx="10" fill="#1963e8"/>
+  <path d="M8 12H24V20H20V44H24V52H8V44H12V20H8Z" fill="#fff"/>
+  <path d="M32 12H56V20H40V28H52V36H40V52H32Z" fill="#fff"/>
+  <rect x="48" y="44" width="8" height="8" fill="#8fe6ff"/>
+</svg>

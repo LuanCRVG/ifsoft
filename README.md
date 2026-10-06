@@ -158,10 +158,18 @@ Esta funcionalidade não permite upload ou edição por visitantes. Antes de pub
 
 É possível abrir diretamente `index.html#notas-tecnicas` ou `index.html#problemas-no-sistema`. As abas também respondem às setas do teclado, Home e End, e à navegação voltar/avançar do navegador. Nenhum problema foi criado a partir das notas técnicas: são cadastros diferentes.
 
+## Ícone do navegador
+
+O favicon usa um monograma **IF** branco sobre azul, com um detalhe em azul-claro. Ele aparece na aba do navegador tanto na página principal quanto nos detalhes das notas, sem alterar o símbolo existente no cabeçalho do site.
+
+`favicon.svg` é a versão vetorial; `favicon-32.png` e `favicon.ico` são alternativas para outros navegadores. O ICO inclui tamanhos de 16, 32 e 48 pixels. `apple-touch-icon.png` tem 180 pixels e identifica o site quando adicionado à tela inicial de dispositivos Apple.
+
+Publique os quatro arquivos de ícone junto com `index.html` e `nota.html`. Os caminhos são relativos para funcionar também no endereço de projeto do GitHub Pages. Ao trocar o desenho no futuro, atualize os arquivos derivados e a versão `?v=...` dos links nas duas páginas, pois navegadores podem manter favicons antigos em cache.
+
 ## Como publicar no GitHub Pages
 
 1. Crie um repositório no GitHub.
-2. Envie os arquivos `index.html`, `nota.html`, `nota.js`, `styles.css`, `script.js`, `navigation.js`, `problemas.js`, `problemas-data.js`, `README.md`, os arquivos `ANALISE-NT-*.md` e as pastas `vendor/`, `documentos/` e `imagens/` para a raiz do repositório. `nota.html` e `nota.js` são necessários para os links de observações completas; `vendor/` contém os ícones locais do Lucide e sua licença; `documentos/` contém as NTs em PDF; `imagens/problemas/` recebe as capturas de tela das ocorrências. Envie os arquivos extraídos do ZIP, não somente o ZIP.
+2. Envie os arquivos `index.html`, `nota.html`, `nota.js`, `styles.css`, `script.js`, `navigation.js`, `problemas.js`, `problemas-data.js`, `README.md`, `favicon.svg`, `favicon-32.png`, `favicon.ico`, `apple-touch-icon.png`, os arquivos `ANALISE-NT-*.md` e as pastas `vendor/`, `documentos/` e `imagens/` para a raiz do repositório. `nota.html` e `nota.js` são necessários para os links de observações completas; os arquivos de favicon identificam o site na aba do navegador; `vendor/` contém os ícones locais do Lucide e sua licença; `documentos/` contém as NTs em PDF; `imagens/problemas/` recebe as capturas de tela das ocorrências. Envie os arquivos extraídos do ZIP, não somente o ZIP.
 3. No GitHub, acesse `Settings` > `Pages`.
 4. Em `Build and deployment`, escolha `Deploy from a branch`.
 5. Selecione a branch `main` e a pasta `/root`.
