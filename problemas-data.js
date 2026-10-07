@@ -5,7 +5,7 @@ window.IFSOFT_PROBLEMAS = [
     titulo: "Devolução de NF-e com as tags da reforma",
     modulo: "NF-e",
     versao: "",
-    status: "analise",
+    status: "relatado",
     prioridade: "normal",
     ambiente: "nao-aplica",
     responsavel: "",
@@ -19,14 +19,14 @@ window.IFSOFT_PROBLEMAS = [
     imagensParecer: [],
     imagensSolucao: [],
     criadoEm: "2026-10-05T15:03:29.000Z",
-    atualizadoEm: "2026-10-05T15:03:29.000Z"
+    atualizadoEm: "2026-10-07T17:06:41.000Z"
   },
   {
     id: "PRB-20261005-002",
     titulo: "Não gerar base de cálculo",
     modulo: "Cadastros",
     versao: "",
-    status: "analise",
+    status: "relatado",
     prioridade: "normal",
     ambiente: "nao-aplica",
     responsavel: "LUAN",
@@ -40,7 +40,7 @@ window.IFSOFT_PROBLEMAS = [
     imagensParecer: [],
     imagensSolucao: [],
     criadoEm: "2026-10-05T16:41:58.000Z",
-    atualizadoEm: "2026-10-05T16:41:58.000Z"
+    atualizadoEm: "2026-10-07T17:06:41.000Z"
   },
   {
     id: "PRB-20261005-003",
