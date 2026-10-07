@@ -27,6 +27,12 @@ O cadastro do CNPJ alfanumérico preserva as datas do cronograma do PDF enviado.
 
 Os PDFs enviados estão em `documentos/`. Todas as quatro notas oferecem também o tópico do ACBr, incluindo a nota de CNPJ alfanumérico; os links aparecem na listagem e na página de detalhes. Os pontos de implementação, mapeamentos e dependências estão em [ANALISE-NT-2026-010.md](ANALISE-NT-2026-010.md), [ANALISE-NT-2026-008.md](ANALISE-NT-2026-008.md), [ANALISE-NT-2025-001.md](ANALISE-NT-2025-001.md) e [ANALISE-NT-009-NFSE.md](ANALISE-NT-009-NFSE.md).
 
+## Tema claro ou escuro
+
+O botão com ícone de lua/sol no canto superior direito alterna o tema em todas as abas, na leitura das notas, nas notícias e nas galerias. O tema claro continua sendo o padrão. A escolha fica somente no navegador, na chave `ifsoft.tema.v1` do `localStorage`, sem login, API ou alteração dos registros publicados. Ela é reaplicada antes dos estilos para evitar um clarão ao abrir outra página, e sincronizada entre abas abertas do mesmo site. Se o navegador bloquear esse armazenamento, o controle continua funcionando na página atual; na abertura local de HTML, a persistência entre arquivos depende do navegador.
+
+Publique também `theme.js` e `theme.css`, além das três páginas HTML atualizadas. O tema não inverte nem recolore as imagens enviadas e mantém a impressão com fundo claro. Para voltar ao tema claro, use o ícone de sol. Os ícones têm descrição ao passar o mouse e o botão pode ser acionado pelo teclado.
+
 ## Como editar os registros
 
 Abra o arquivo `script.js` e altere a lista `notasTecnicas`.

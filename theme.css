@@ -1,0 +1,100 @@
+.header-actions { display: flex; align-items: center; gap: 20px; flex-shrink: 0; }
+.theme-toggle { width: 40px; height: 40px; flex-shrink: 0; background: #2e4058; border-color: #50637d; color: #f0f5ff; }
+.theme-toggle:hover { background: #3a506e; border-color: #91b9ff; color: #fff; }
+.theme-toggle:focus-visible { outline: 3px solid #91b9ff; outline-offset: 3px; }
+.theme-toggle > span { display: inline-grid; place-items: center; }
+.theme-toggle .theme-icon-light { display: none; }
+:root[data-theme="dark"] .theme-toggle .theme-icon-light { display: inline-grid; }
+:root[data-theme="dark"] .theme-toggle .theme-icon-dark { display: none; }
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #14171c;
+  --surface: #1c2027;
+  --text: #e8edf3;
+  --muted: #b1bbc9;
+  --line: #38424f;
+  --brand: #93b9ff;
+  --brand-soft: #23334f;
+  --danger: #ffa3ae;
+  --danger-soft: #40242d;
+  --amber: #f3cb7c;
+  --amber-soft: #3c3121;
+  --theme-raised: #272e38;
+  --theme-hover: #293342;
+  --theme-success: #93e0b1;
+  --theme-success-soft: #20382d;
+  --theme-teal: #8bdfdb;
+  --theme-teal-soft: #203638;
+  --theme-action: #245fd3;
+}
+
+:root[data-theme="dark"] .site-header { background: #171b22; border-color: var(--line); }
+:root[data-theme="dark"] .brand-symbol { background: #0758ef; color: #fff; }
+:root[data-theme="dark"] :where(.table-wrap, .note-card, .icon-button, .secondary-action, .problem-metrics, .problem-workspace, .problem-item, .problem-list-heading select, .problem-image-dialog, .problem-dialog, .confirmation-dialog, .field textarea, .briefing-story, .briefing-image-button, .briefing-image-expand) { background: var(--surface); border-color: var(--line); }
+:root[data-theme="dark"] :where(td, .document-name, .note-title, .date-text, .problem-info-grid dd, .problem-metric, .briefing-story-title, .briefing-article-heading h1, .briefing-publisher strong, .briefing-sidebar-section a) { color: var(--text); }
+:root[data-theme="dark"] .note-title-link .note-title { color: inherit; }
+:root[data-theme="dark"] :where(.field > span, .note-type, .card-document, .card-analysis, .link-muted, .site-footer, .site-footer > span:first-child, .section-kicker, .summary-top svg, .problem-metric svg, .problem-item-meta, .problem-item-module, .problem-identification, .problem-info-grid dt, .problem-narrative h4, .narrative-empty, .briefing-edition-date, .briefing-kicker, .briefing-story-meta, .briefing-publisher, .note-outline a > span:first-child) { color: var(--muted); }
+:root[data-theme="dark"] .site-footer > span:first-child { color: var(--muted); }
+:root[data-theme="dark"] :is(.field input, .field select, .field textarea) { border-color: #546276; }
+:root[data-theme="dark"] :is(.field input, .field textarea)::placeholder { color: var(--muted); opacity: 1; }
+:root[data-theme="dark"] .search-control svg { color: var(--muted); }
+:root[data-theme="dark"] :is(button, a, input, select, textarea, .table-wrap, [role="tabpanel"]):focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; }
+:root[data-theme="dark"] :is(.field input, .field select, .field textarea):focus { border-color: var(--brand); outline: 2px solid var(--brand); }
+:root[data-theme="dark"] :where(th, .problem-image-empty, .problem-image-button, .problem-image-stage, .dialog-footer, .briefing-cover-link) { background: var(--theme-raised); }
+:root[data-theme="dark"] :where(th, .icon-button, .secondary-action, .problem-list-heading select) { color: var(--muted); }
+:root[data-theme="dark"] .field select:disabled { background: var(--theme-raised); color: var(--muted); }
+:root[data-theme="dark"] :where(th, td, .card-deadlines, .portal-tabs, .problem-item-resolution, .problem-image-empty) { border-color: var(--line); }
+:root[data-theme="dark"] .note-card.is-urgent, :root[data-theme="dark"] .urgent-row td:first-child { border-left-color: var(--danger); }
+:root[data-theme="dark"] :is(.table-wrap, .problem-list, .note-outline) { scrollbar-color: #64748b var(--bg); }
+:root[data-theme="dark"] :is(tbody tr.note-clickable:hover td, tbody tr.note-clickable:focus-within td, .note-card.note-clickable:hover, .note-card.note-clickable:focus-within, .problem-item.is-selected, .summary-button.is-active, .portal-tab:hover, .portal-tab.is-active, .problem-metric:hover, .icon-button:hover, .secondary-action:hover) { background: var(--theme-hover); }
+:root[data-theme="dark"] :is(.summary-button:hover, .problem-item:hover, .note-card.note-clickable:hover, .note-card.note-clickable:focus-within, .icon-button:hover, .secondary-action:hover) { border-color: #7d95b5; }
+:root[data-theme="dark"] :is(.problem-item.is-selected, .summary-button.is-active) { border-color: var(--brand); }
+:root[data-theme="dark"] .urgent-summary { border-color: #855361; }
+:root[data-theme="dark"] .summary-button.urgent-summary.is-active { background: var(--danger-soft); border-color: var(--danger); }
+:root[data-theme="dark"] :is(.count-badge, .tab-count, .badge-info, .badge-neutral, .problem-priority-normal, .problem-status-relatado) { background: var(--theme-raised); color: var(--muted); }
+:root[data-theme="dark"] :is(.badge-success, .is-active .tab-count, .production-deadline .date-text, .problem-status-analise, .problem-feedback, .technical-narrative h4, .technical-field > span, .problem-metric.is-active, .portal-tab.is-active) { color: var(--brand); }
+:root[data-theme="dark"] .is-active .tab-count { background: var(--brand-soft); }
+:root[data-theme="dark"] :is(.urgent-row .production-deadline .date-text, .reported-narrative h4, .reported-field > span, .problem-feedback.is-error) { color: var(--danger); }
+:root[data-theme="dark"] .problem-metric.metric-urgent.is-active { background: var(--danger-soft); color: var(--danger); }
+:root[data-theme="dark"] :is(.metric-urgent strong, .metric-urgent svg) { color: var(--danger); }
+:root[data-theme="dark"] .portal-tab.has-open-problems:not(.is-active) { background: var(--amber-soft); color: var(--amber); box-shadow: inset 0 0 0 1px #7f6841; }
+:root[data-theme="dark"] .portal-tab.has-open-problems:not(.is-active):hover { background: #4b3c27; }
+:root[data-theme="dark"] .portal-tab.has-open-problems:not(.is-active) .tab-count { background: #654c25; color: #ffdf9f; }
+:root[data-theme="dark"] .problem-resolution-pending { background: var(--amber-soft); color: var(--amber); border-color: var(--amber); }
+:root[data-theme="dark"] :is(.problem-item-resolved, .problem-item.problem-item-resolved.is-selected, .problem-detail-heading.is-resolved) { background: var(--theme-success-soft); border-color: #599b75; box-shadow: inset 3px 0 #599b75; }
+:root[data-theme="dark"] .problem-item-resolved:hover { border-color: var(--theme-success); }
+:root[data-theme="dark"] :is(.problem-item-resolved .problem-item-title, .problem-detail-heading.is-resolved h3, .problem-resolution-resolved, .metric-resolved strong, .metric-resolved svg) { color: var(--theme-success); }
+:root[data-theme="dark"] .problem-item-resolved .problem-item-resolution { border-color: #477359; }
+:root[data-theme="dark"] .problem-status-resolvido { color: var(--theme-success); background: var(--theme-success-soft); }
+:root[data-theme="dark"] :is(.problem-status-correcao, .briefing-tag:nth-child(2)) { color: var(--theme-teal); background: var(--theme-teal-soft); }
+:root[data-theme="dark"] :is(.solution-narrative h4, .solution-field > span) { color: var(--theme-teal); }
+:root[data-theme="dark"] :is(.problem-image-expand, .empty-problem-symbol, .briefing-tag) { color: var(--brand); background: var(--brand-soft); border-color: var(--line); }
+:root[data-theme="dark"] :is(.briefing-tag:nth-child(3), .briefing-category) { color: var(--muted); background: var(--theme-raised); border-color: var(--line); }
+:root[data-theme="dark"] :is(.primary-action, .briefing-category[aria-pressed="true"], .briefing-tab-hint) { background: var(--theme-action); border-color: var(--theme-action); color: #fff; }
+:root[data-theme="dark"] .primary-action:hover { background: #1c50b9; border-color: #1c50b9; }
+:root[data-theme="dark"] .danger-action { background: #9e2c39; border-color: #9e2c39; color: #fff; }
+:root[data-theme="dark"] .danger-action:hover { background: #842330; }
+:root[data-theme="dark"] :is(.briefing-story-title:hover, .briefing-sidebar-section a:hover, .briefing-category:hover, .icon-button:hover, .secondary-action:hover) { color: var(--brand); }
+:root[data-theme="dark"] .briefing-category[aria-pressed="true"]:hover { background: #1c50b9; border-color: #1c50b9; color: #fff; }
+:root[data-theme="dark"] .briefing-archive-link[aria-current="date"] { color: var(--brand); }
+:root[data-theme="dark"] .briefing-invitation { background: var(--brand-soft); border-color: #4c6999; }
+:root[data-theme="dark"] .briefing-invitation-symbol { color: var(--brand); }
+:root[data-theme="dark"] .briefing-invitation-copy p { color: var(--muted); }
+:root[data-theme="dark"] .briefing-credit { background: var(--theme-teal-soft); color: var(--theme-teal); border-color: #6bc4ca; }
+:root[data-theme="dark"] :is(.problem-image-dialog, .problem-dialog, .confirmation-dialog) { box-shadow: 0 20px 80px #0008; }
+:root[data-theme="dark"] :is(.problem-image-dialog, .problem-dialog, .confirmation-dialog)::backdrop { background: #000b; }
+:root[data-theme="dark"] .theme-toggle { background: var(--theme-raised); color: #f3cb7c; border-color: #64748b; }
+:root[data-theme="dark"] .theme-toggle:hover { background: var(--theme-hover); color: #ffdfa2; border-color: var(--brand); }
+
+@media (max-width: 450px) {
+  .brand-row { gap: 12px; }
+  .brand { gap: 10px; }
+  .brand h1 { font-size: 22px; }
+  .brand h1 span { font-size: 16px; }
+  .header-actions { gap: 10px; }
+}
+@media print {
+  :root[data-theme="dark"] { color-scheme: light; --bg: #fff; --surface: #fff; --text: #202c3e; --muted: #586980; --line: #dce5ef; --brand: #0758ef; --brand-soft: #eaf1ff; --danger: #bb3644; --danger-soft: #fff0f1; --amber: #936316; --amber-soft: #fff6e6; --theme-raised: #edf3fa; --theme-hover: #f3f7ff; --theme-success: #175a3d; --theme-success-soft: #f0faf4; --theme-teal: #246d6a; --theme-teal-soft: #eaf6f8; }
+  .theme-toggle { display: none !important; }
+}
