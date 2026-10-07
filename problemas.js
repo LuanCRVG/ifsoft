@@ -148,7 +148,15 @@
     const resolved = record.status === "resolvido";
     const correcting = record.status === "correcao";
     const marker = createElement("span", `problem-resolution problem-resolution-${resolved ? "resolved" : correcting ? "correction" : "pending"}`);
-    marker.append(createIcon(resolved ? "circle-check" : correcting ? "hammer" : "clock-3"), createElement("span", "", resolved ? "RESOLVIDO" : correcting ? "EM CORREÇÃO" : "Aguardando solução"));
+    if (correcting) {
+      const work = createElement("span", "problem-work-icon");
+      work.setAttribute("aria-hidden", "true");
+      const hammer = createIcon("hammer");
+      hammer.className = "work-hammer";
+      work.append(createIcon("hard-hat"), hammer);
+      marker.appendChild(work);
+    } else marker.appendChild(createIcon(resolved ? "circle-check" : "clock-3"));
+    marker.appendChild(createElement("span", "", resolved ? "RESOLVIDO" : correcting ? "EM CORREÇÃO" : "Aguardando solução"));
     return marker;
   }
 
