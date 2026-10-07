@@ -111,6 +111,7 @@
 
   function filteredRecords() {
     const search = normalizeText(ui.search.value.trim());
+    const statusRank = { correcao: 0, relatado: 1, analise: 2, resolvido: 3 };
     const rank = { urgente: 0, alta: 1, normal: 2 };
     return published.filter((record) => {
       const matchesStatus = ui.status.value === "todos" || (ui.status.value === "abertos" ? record.status !== "resolvido" : record.status === ui.status.value);
@@ -121,10 +122,11 @@
         ...[record.imagensProblema, record.imagensParecer, record.imagensSolucao].flat().map((image) => image.legenda)].join(" "));
       return matchesStatus && matchesPriority && matchesModule && searchable.includes(search);
     }).sort((a, b) => {
+      const statusOrder = statusRank[a.status] - statusRank[b.status];
+      if (statusOrder) return statusOrder;
       if (ui.sort.value === "titulo") return a.titulo.localeCompare(b.titulo, "pt-BR");
       if (ui.sort.value === "relato") return b.dataRelato.localeCompare(a.dataRelato) || b.atualizadoEm.localeCompare(a.atualizadoEm);
-      if (ui.sort.value === "prioridade") return Number(a.status === "resolvido") - Number(b.status === "resolvido")
-        || rank[a.prioridade] - rank[b.prioridade] || b.atualizadoEm.localeCompare(a.atualizadoEm);
+      if (ui.sort.value === "prioridade") return rank[a.prioridade] - rank[b.prioridade] || b.atualizadoEm.localeCompare(a.atualizadoEm);
       return b.atualizadoEm.localeCompare(a.atualizadoEm);
     });
   }

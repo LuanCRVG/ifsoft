@@ -19,7 +19,7 @@
     <script src="problemas-data.js?v=20261007-relatados-1" defer></script>
     <script src="briefing-data.js?v=20261007-briefing-2" defer></script>
     <script src="navigation.js?v=20261007-briefing-2" defer></script>
-    <script src="problemas.js?v=20261007-correcao-2" defer></script>
+    <script src="problemas.js?v=20261007-status-order-1" defer></script>
     <script src="briefing.js?v=20261007-briefing-2" defer></script>
   </head>
   <body>
@@ -159,7 +159,7 @@
 
         <div class="problem-workspace" id="problem-workspace" hidden>
           <aside class="problem-sidebar" aria-label="Lista de ocorrências">
-            <div class="problem-list-heading"><h3>Ocorrências</h3><label><span class="visually-hidden">Ordenar problemas</span><select id="problem-sort"><option value="prioridade">Prioridade</option><option value="atualizacao">Atualização recente</option><option value="relato">Relato mais recente</option><option value="titulo">Título A-Z</option></select></label></div>
+            <div class="problem-list-heading"><h3>Ocorrências</h3><label><span class="visually-hidden">Ordenar problemas dentro de cada status</span><select id="problem-sort" title="Ordenar dentro de cada status"><option value="prioridade">Prioridade</option><option value="atualizacao">Atualização recente</option><option value="relato">Relato mais recente</option><option value="titulo">Título A-Z</option></select></label></div>
             <div class="problem-list" id="problem-list"></div>
           </aside>
           <article class="problem-detail" id="problem-detail" aria-label="Detalhes da ocorrência"></article>
