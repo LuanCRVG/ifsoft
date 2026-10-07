@@ -3,19 +3,22 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#191b20">
+    <meta name="theme-color" content="#1c2b40">
     <link rel="icon" href="favicon.ico?v=20261006-1" sizes="16x16 32x32 48x48">
     <link rel="icon" href="favicon-32.png?v=20261006-1" type="image/png" sizes="32x32">
     <link rel="icon" href="favicon.svg?v=20261006-1" type="image/svg+xml" sizes="any">
     <link rel="apple-touch-icon" href="apple-touch-icon.png?v=20261006-1" sizes="180x180">
     <title>IFSOFT Sistemas | Central Técnica</title>
     <meta name="description" content="Notas técnicas dos documentos fiscais eletrônicos e acompanhamento de problemas, pareceres técnicos e soluções do sistema.">
-    <link rel="stylesheet" href="styles.css?v=20261007-resolvidos-1">
+    <link rel="stylesheet" href="styles.css?v=20261007-briefing-1">
+    <link rel="stylesheet" href="briefing.css?v=20261007-briefing-1">
     <script src="vendor/lucide.min.js" defer></script>
     <script src="script.js?v=20261005-cnpj-6" defer></script>
     <script src="problemas-data.js?v=20261007-resolvidos-1" defer></script>
-    <script src="navigation.js" defer></script>
+    <script src="briefing-data.js?v=20261007-briefing-1" defer></script>
+    <script src="navigation.js?v=20261007-briefing-1" defer></script>
     <script src="problemas.js?v=20261007-resolvidos-1" defer></script>
+    <script src="briefing.js?v=20261007-briefing-1" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -25,7 +28,7 @@
             <span class="brand-symbol" aria-hidden="true"><i data-lucide="blocks"></i></span>
             <h1>IFSOFT <span>Sistemas</span></h1>
           </div>
-          <span class="header-label"><i data-lucide="file-code-2" aria-hidden="true"></i> Documentos fiscais eletrônicos</span>
+          <span class="header-label"><i data-lucide="layers" aria-hidden="true"></i><span id="portal-header-label">Documentos fiscais eletrônicos</span></span>
         </div>
         <div class="header-description">
           <h2 id="portal-heading">Notas e informes técnicos dos documentos fiscais eletrônicos</h2>
@@ -38,6 +41,7 @@
       <nav class="portal-tabs" id="portal-tabs" role="tablist" aria-label="Central técnica">
         <button type="button" role="tab" id="tab-notes" class="portal-tab is-active" aria-selected="true" aria-controls="panel-notes" tabindex="0"><i data-lucide="file-text" aria-hidden="true"></i><span>Notas técnicas</span><span class="tab-count" id="tab-notes-count">0</span></button>
         <button type="button" role="tab" id="tab-problems" class="portal-tab problem-tab" aria-selected="false" aria-controls="panel-problems" tabindex="-1"><span class="problem-tab-bell" aria-hidden="true"><i data-lucide="bell-ring"></i></span><span class="problem-tab-label">Problemas no sistema</span><span class="tab-count" id="tab-problems-count">0</span></button>
+        <button type="button" role="tab" id="tab-briefing" class="portal-tab" aria-selected="false" aria-controls="panel-briefing" tabindex="-1"><i data-lucide="coffee" aria-hidden="true"></i><span>Briefing diário</span></button>
       </nav>
 
       <div id="panel-notes" role="tabpanel" aria-labelledby="tab-notes" tabindex="0">
@@ -154,6 +158,29 @@
           <h3 id="problems-empty-title">Nenhum problema registrado</h3>
           <button class="action-button secondary-action" id="problem-empty-action" type="button" hidden><i data-lucide="filter-x" aria-hidden="true"></i>Limpar filtros</button>
         </div>
+      </section>
+      <section id="panel-briefing" class="briefing-panel" role="tabpanel" aria-labelledby="tab-briefing" tabindex="0" hidden>
+        <div class="briefing-breadcrumb"><span>IFSOFT</span><span aria-hidden="true">/</span><span>Briefing diário</span></div>
+        <div class="briefing-page-heading">
+          <div><h2><i data-lucide="coffee" aria-hidden="true"></i>Briefing diário</h2><p>Uma pausa para o nosso universo de tecnologia.</p></div>
+          <span class="briefing-edition-date"><i data-lucide="calendar-days" aria-hidden="true"></i><span id="briefing-edition-date"></span></span>
+        </div>
+        <div class="briefing-toolbar" role="search" aria-label="Filtros do briefing">
+          <label class="field"><span>Edição</span><select id="briefing-edition-select"></select></label>
+          <label class="field"><span>Buscar nesta edição</span><div class="search-control"><i data-lucide="search" aria-hidden="true"></i><input id="briefing-search" type="search" placeholder="Título, categoria, conteúdo..." autocomplete="off"></div></label>
+          <button class="icon-button" type="button" id="briefing-clear" title="Limpar filtros do briefing" aria-label="Limpar filtros do briefing"><i data-lucide="filter-x" aria-hidden="true"></i></button>
+        </div>
+        <div class="briefing-categories" id="briefing-categories" role="group" aria-label="Categorias do briefing"></div>
+        <p class="briefing-result-summary" id="briefing-result-summary" role="status"></p>
+        <div class="briefing-layout">
+          <div id="briefing-content" class="briefing-content"></div>
+          <aside class="briefing-sidebar" aria-label="Índice e edições do briefing">
+            <section class="briefing-sidebar-section"><h3><i data-lucide="newspaper" aria-hidden="true"></i>Nesta edição</h3><ol id="briefing-edition-index"></ol></section>
+            <section class="briefing-sidebar-section"><h3><i data-lucide="archive" aria-hidden="true"></i>Edições</h3><ol id="briefing-archive"></ol></section>
+            <p class="briefing-editorial-note"><i data-lucide="info" aria-hidden="true"></i><span>Seleção e comentários da equipe IFSOFT. As fontes estão disponíveis na leitura completa de cada notícia.</span></p>
+          </aside>
+        </div>
+        <noscript><p>O briefing não pôde ser carregado porque o JavaScript está desativado.</p></noscript>
       </section>
     </main>
 

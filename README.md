@@ -1,6 +1,10 @@
 # IFSOFT Sistemas - Central Técnica
 
-Site estático em HTML, CSS e JavaScript, com as abas **Notas técnicas** e **Problemas no sistema**. Compatível com abertura local e GitHub Pages, sem servidor ou etapa de build.
+Site estático em HTML, CSS e JavaScript, com as abas **Notas técnicas**, **Problemas no sistema** e **Briefing diário**. Compatível com abertura local e GitHub Pages, sem servidor ou etapa de build.
+
+O visual compartilhado usa cabeçalho azul-marinho, superfícies brancas e destaque azul, mantendo os filtros e cadastros fiscais existentes. O briefing é editorial e independente: não utiliza os registros ou prazos das outras abas. A primeira edição, de **07/10/2026**, contém somente a notícia real sobre KAI 1.1.1. As duas capturas serão acrescentadas quando a equipe as entregar.
+
+Para publicar o briefing, envie também `briefing.html`, `briefing.js`, `briefing.css`, `briefing-data.js`, `BRIEFING.md` e a pasta `imagens/briefing/`, além dos arquivos existentes. A notícia usa `briefing.html?edicao=...&noticia=...`; o retorno preserva a edição selecionada. Leia [BRIEFING.md](BRIEFING.md) para acrescentar edições, múltiplas notícias e imagens sem editar o layout.
 
 Na listagem de notas, cada registro mostra apenas uma **observação resumida**. Clicar em qualquer área da linha da tabela ou do card no celular abre `nota.html?id=...`, com todas as observações organizadas por assunto, sumário, prazos e links do PDF e do ACBr. O título continua sendo um link com a indicação **Leia aqui**, acessível pelo teclado. Os links **Abrir NT** e **ACBr** mantêm seus destinos próprios; selecionar texto não abre a nota. Não há mais botão de expandir/recolher observações na tabela ou nos cards de celular. O link **Voltar às notas técnicas** retorna à lista.
 
