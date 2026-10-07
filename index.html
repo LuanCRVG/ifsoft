@@ -11,14 +11,14 @@
     <title>IFSOFT Sistemas | Central Técnica</title>
     <meta name="description" content="Notas técnicas dos documentos fiscais eletrônicos e acompanhamento de problemas, pareceres técnicos e soluções do sistema.">
     <link rel="stylesheet" href="styles.css?v=20261007-briefing-1">
-    <link rel="stylesheet" href="briefing.css?v=20261007-briefing-1">
+    <link rel="stylesheet" href="briefing.css?v=20261007-briefing-2">
     <script src="vendor/lucide.min.js" defer></script>
     <script src="script.js?v=20261005-cnpj-6" defer></script>
     <script src="problemas-data.js?v=20261007-resolvidos-1" defer></script>
-    <script src="briefing-data.js?v=20261007-briefing-1" defer></script>
-    <script src="navigation.js?v=20261007-briefing-1" defer></script>
+    <script src="briefing-data.js?v=20261007-briefing-2" defer></script>
+    <script src="navigation.js?v=20261007-briefing-2" defer></script>
     <script src="problemas.js?v=20261007-resolvidos-1" defer></script>
-    <script src="briefing.js?v=20261007-briefing-1" defer></script>
+    <script src="briefing.js?v=20261007-briefing-2" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -41,8 +41,15 @@
       <nav class="portal-tabs" id="portal-tabs" role="tablist" aria-label="Central técnica">
         <button type="button" role="tab" id="tab-notes" class="portal-tab is-active" aria-selected="true" aria-controls="panel-notes" tabindex="0"><i data-lucide="file-text" aria-hidden="true"></i><span>Notas técnicas</span><span class="tab-count" id="tab-notes-count">0</span></button>
         <button type="button" role="tab" id="tab-problems" class="portal-tab problem-tab" aria-selected="false" aria-controls="panel-problems" tabindex="-1"><span class="problem-tab-bell" aria-hidden="true"><i data-lucide="bell-ring"></i></span><span class="problem-tab-label">Problemas no sistema</span><span class="tab-count" id="tab-problems-count">0</span></button>
-        <button type="button" role="tab" id="tab-briefing" class="portal-tab" aria-selected="false" aria-controls="panel-briefing" tabindex="-1"><i data-lucide="coffee" aria-hidden="true"></i><span>Briefing diário</span></button>
+        <button type="button" role="tab" id="tab-briefing" class="portal-tab briefing-tab" aria-selected="false" aria-controls="panel-briefing" tabindex="-1"><span class="briefing-tab-hint" aria-hidden="true">Confira<i data-lucide="arrow-down"></i></span><i data-lucide="coffee" aria-hidden="true"></i><span>Briefing diário</span></button>
       </nav>
+
+      <aside class="briefing-invitation" id="briefing-invitation" aria-labelledby="briefing-invitation-title" hidden>
+        <span class="briefing-invitation-symbol" aria-hidden="true"><i data-lucide="coffee"></i></span>
+        <div class="briefing-invitation-copy"><h2 id="briefing-invitation-title">Confira também o Briefing diário</h2><p id="briefing-invitation-date"></p></div>
+        <button type="button" class="action-button primary-action" id="briefing-invitation-open"><span>Ver briefing</span><i data-lucide="arrow-right" aria-hidden="true"></i></button>
+        <button type="button" class="icon-button" id="briefing-invitation-close" title="Fechar convite" aria-label="Fechar convite do briefing"><i data-lucide="x" aria-hidden="true"></i></button>
+      </aside>
 
       <div id="panel-notes" role="tabpanel" aria-labelledby="tab-notes" tabindex="0">
       <section class="overview" aria-labelledby="overview-title">
@@ -177,7 +184,7 @@
           <aside class="briefing-sidebar" aria-label="Índice e edições do briefing">
             <section class="briefing-sidebar-section"><h3><i data-lucide="newspaper" aria-hidden="true"></i>Nesta edição</h3><ol id="briefing-edition-index"></ol></section>
             <section class="briefing-sidebar-section"><h3><i data-lucide="archive" aria-hidden="true"></i>Edições</h3><ol id="briefing-archive"></ol></section>
-            <p class="briefing-editorial-note"><i data-lucide="info" aria-hidden="true"></i><span>Seleção e comentários da equipe IFSOFT. As fontes estão disponíveis na leitura completa de cada notícia.</span></p>
+            <p class="briefing-editorial-note"><i data-lucide="info" aria-hidden="true"></i><span>Notícias selecionadas para a equipe IFSOFT.</span></p>
           </aside>
         </div>
         <noscript><p>O briefing não pôde ser carregado porque o JavaScript está desativado.</p></noscript>

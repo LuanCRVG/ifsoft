@@ -2,7 +2,9 @@
 
 Site estático em HTML, CSS e JavaScript, com as abas **Notas técnicas**, **Problemas no sistema** e **Briefing diário**. Compatível com abertura local e GitHub Pages, sem servidor ou etapa de build.
 
-O visual compartilhado usa cabeçalho azul-marinho, superfícies brancas e destaque azul, mantendo os filtros e cadastros fiscais existentes. O briefing é editorial e independente: não utiliza os registros ou prazos das outras abas. A primeira edição, de **07/10/2026**, contém somente a notícia real sobre KAI 1.1.1. As duas capturas serão acrescentadas quando a equipe as entregar.
+O visual compartilhado usa cabeçalho azul-marinho, superfícies brancas e destaque azul, mantendo os filtros e cadastros fiscais existentes. O briefing é independente: não utiliza os registros ou prazos das outras abas. A primeira edição, de **07/10/2026**, contém somente a notícia real sobre KAI 1.1.1, as duas imagens ilustrativas fornecidas e **Publicado por: Luan Paranhos**. A publicação apresenta a notícia e suas fontes, sem sugestões de adoção ou pareceres da equipe.
+
+Na entrada, um convite fechável destaca o briefing, e a indicação **Confira** pulsa suavemente acima da aba enquanto ela não está selecionada. A preferência de movimento reduzido mantém a indicação estática; não há GIF, coleta de dados nem alteração da aba inicial.
 
 Para publicar o briefing, envie também `briefing.html`, `briefing.js`, `briefing.css`, `briefing-data.js`, `BRIEFING.md` e a pasta `imagens/briefing/`, além dos arquivos existentes. A notícia usa `briefing.html?edicao=...&noticia=...`; o retorno preserva a edição selecionada. Leia [BRIEFING.md](BRIEFING.md) para acrescentar edições, múltiplas notícias e imagens sem editar o layout.
 

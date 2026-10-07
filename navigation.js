@@ -9,7 +9,7 @@
   const headings = [
     ["Notas e informes técnicos dos documentos fiscais eletrônicos", "Prazos para implementação nos ambientes de homologação e produção", "Notas e informes técnicos", "Documentos fiscais eletrônicos"],
     ["Ocorrências e pareceres técnicos do sistema", "Registro de problemas, análise técnica e possíveis soluções", "Ocorrências e pareceres técnicos", "Acompanhamento técnico"],
-    ["Tecnologia, Delphi e ideias para o nosso projeto", "Seleção editorial da equipe IFSOFT", "Briefing diário · Editorial da equipe", "Tecnologia e desenvolvimento"]
+    ["Notícias de tecnologia e desenvolvimento", "Conteúdo selecionado para a equipe IFSOFT", "Briefing diário · Notícias e fontes", "Tecnologia e desenvolvimento"]
   ];
   document.querySelector("#tab-notes-count").textContent = String(notasTecnicas.length);
 

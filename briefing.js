@@ -36,7 +36,10 @@
     const url = new URL(arquivo, "https://ifsoft.invalid/portal/");
     if (!/^imagens\/briefing\/[a-zA-Z0-9._/-]+\.(png|jpe?g|webp|gif|avif)$/i.test(arquivo)
       || !url.pathname.startsWith("/portal/imagens/briefing/")) throw new Error("Use uma imagem local na pasta imagens/briefing.");
-    return { arquivo, alt: text(value.alt, true, 300), legenda: text(value.legenda, true, 600) };
+    const { largura, altura } = value;
+    if ((largura !== undefined || altura !== undefined)
+      && (!Number.isInteger(largura) || !Number.isInteger(altura) || largura < 1 || altura < 1 || largura > 20000 || altura > 20000)) throw new Error("Dimensões da imagem inválidas.");
+    return { arquivo, alt: text(value.alt, true, 300), legenda: text(value.legenda, true, 600), largura, altura };
   };
   const images = (value = []) => {
     if (!Array.isArray(value) || value.length > 10) throw new Error("Lista de imagens inválida.");
@@ -58,6 +61,7 @@
           id, titulo: text(story.titulo, true, 250), resumo: text(story.resumo),
           categorias: [...new Set(story.categorias.map((category) => text(category, true, 60)))],
           dataOriginal: date(story.dataOriginal), dataPublicacao: published,
+          publicadoPor: text(story.publicadoPor ?? "", false, 100),
           creditoEditorial: text(story.creditoEditorial), capa: story.capa ? image(story.capa) : null,
           secoes: story.secoes.map((section) => {
             if (!Array.isArray(section.paragrafos) || section.paragrafos.length > 30) throw new Error("Parágrafos inválidos.");
@@ -91,6 +95,12 @@
     return row;
   };
   const minutes = (story) => Math.max(1, Math.ceil([story.resumo, ...story.secoes.flatMap((section) => section.paragrafos)].join(" ").split(/\s+/).length / 200));
+  const publisher = (story) => {
+    const byline = element("p", "briefing-publisher");
+    byline.hidden = !story.publicadoPor;
+    if (story.publicadoPor) byline.append(element("span", "", "Publicado por: "), element("strong", "", story.publicadoPor));
+    return byline;
+  };
   let editions;
   try { editions = normalizeEditions(window.IFSOFT_BRIEFING); }
   catch {
@@ -109,6 +119,7 @@
       const photo = element("img");
       photo.src = story.capa.arquivo;
       photo.alt = story.capa.alt;
+      if (story.capa.largura) { photo.width = story.capa.largura; photo.height = story.capa.altura; }
       photo.loading = "lazy";
       photo.decoding = "async";
       photo.addEventListener("error", () => { coverLink.hidden = true; card.classList.toggle("has-cover", false); });
@@ -124,9 +135,35 @@
     meta.append(element("span", "", `Artigo original: ${formatDate(story.dataOriginal)}`), element("span", "", `Nesta edição: ${formatDate(story.dataPublicacao)}`), element("span", "", `Leitura de ${minutes(story)} min`));
     const read = link(href, "action-button primary-action", "Ler notícia completa");
     read.appendChild(icon("arrow-right"));
-    body.append(title, element("p", "briefing-story-summary", story.resumo), meta, read);
+    body.append(title, element("p", "briefing-story-summary", story.resumo), publisher(story), meta, read);
     card.appendChild(body);
     return card;
+  }
+
+  function initializeDiscovery(selectedEdition) {
+    const tab = query("tab-briefing");
+    const invitation = query("briefing-invitation");
+    if (!tab || !invitation) return;
+    const latest = editions.find((edition) => edition.noticias.length);
+    tab.classList.toggle("has-briefing", Boolean(latest));
+    if (!latest || !selectedEdition.noticias.length) return;
+    tab.setAttribute("aria-label", `Briefing diário: edição de ${formatDate(selectedEdition.data)}`);
+    query("briefing-invitation-date").textContent = `Edição de ${formatDate(selectedEdition.data)} disponível para leitura.`;
+    let dismissed = false;
+    const update = () => {
+      if (tab.getAttribute("aria-selected") === "true") dismissed = true;
+      invitation.hidden = dismissed;
+    };
+    const tabs = Array.from(document.querySelectorAll("#portal-tabs [role='tab']"));
+    tabs.forEach((item) => item.addEventListener("click", update));
+    window.addEventListener("hashchange", update);
+    query("briefing-invitation-open").addEventListener("click", () => { tab.click(); tab.focus({ preventScroll: true }); });
+    query("briefing-invitation-close").addEventListener("click", () => {
+      dismissed = true;
+      update();
+      tabs.find((item) => item.getAttribute("aria-selected") === "true")?.focus({ preventScroll: true });
+    });
+    update();
   }
 
   function initializeList() {
@@ -210,6 +247,7 @@
     ui.search.addEventListener("input", renderStories);
     query("briefing-clear").addEventListener("click", () => { category = "Todas"; ui.search.value = ""; renderStories(); });
     renderEdition();
+    initializeDiscovery(selected);
   }
 
   function initializeArticle() {
@@ -222,6 +260,9 @@
     query("briefing-article-edition").textContent = `EDIÇÃO DE ${formatDate(edition.data, true).toUpperCase()}`;
     query("briefing-article-title").textContent = story.titulo;
     query("briefing-article-summary").textContent = story.resumo;
+    const byline = publisher(story);
+    query("briefing-article-publisher").replaceChildren(...byline.children);
+    query("briefing-article-publisher").hidden = byline.hidden;
     query("briefing-article-credit").textContent = story.creditoEditorial;
     query("briefing-article-categories").replaceChildren(...tags(story).children);
     [["Artigo original", formatDate(story.dataOriginal)], ["Publicado no briefing", formatDate(story.dataPublicacao)], ["Tempo de leitura", `${minutes(story)} min`]].forEach(([label, value]) => {
@@ -243,6 +284,7 @@
       query("briefing-image-stage").classList.toggle("single-image", gallery.length < 2);
       const photo = element("img", "problem-expanded-image");
       photo.alt = photoData.alt;
+      if (photoData.largura) { photo.width = photoData.largura; photo.height = photoData.altura; }
       photo.decoding = "async";
       photo.hidden = true;
       const message = element("p", "problem-image-message", "Carregando imagem...");
@@ -264,6 +306,7 @@
       const photo = element("img");
       photo.src = photoData.arquivo;
       photo.alt = photoData.alt;
+      if (photoData.largura) { photo.width = photoData.largura; photo.height = photoData.altura; }
       photo.loading = "lazy";
       photo.decoding = "async";
       const expand = element("span", "briefing-image-expand");

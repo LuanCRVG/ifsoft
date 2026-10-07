@@ -15,7 +15,7 @@ O conteúdo é carregado como JavaScript para funcionar também ao abrir `index.
 1. Abra `briefing-data.js` e acrescente um objeto na lista externa, separado dos demais por vírgula. Não apague as edições anteriores.
 2. Informe `data` em `AAAA-MM-DD`, `destaque` com o identificador da notícia principal e `noticias` com uma ou mais notícias.
 3. Cada notícia precisa de um `id` único na edição, usando letras minúsculas, números e hífens. `dataPublicacao` deve ser igual à data da edição. `dataOriginal` é a data do artigo da fonte, não a data do briefing.
-4. Acrescente textos, categorias e fontes. Para acrescentar outra notícia à mesma edição, adicione outro objeto dentro de `noticias`; não crie uma segunda edição com a mesma data.
+4. Acrescente apenas o texto da notícia enviado, categorias, fontes e `publicadoPor`. Não acrescente avaliações da equipe, recomendações ou sugestões de adoção. Para outra notícia na mesma edição, adicione outro objeto dentro de `noticias`.
 5. Coloque as imagens em `imagens/briefing/` e preencha `capa` ou `imagens` da seção correspondente. Sem imagem, mantenha `capa: null` e as listas `imagens: []`.
 6. Altere a versão de `briefing-data.js?v=...` em **index.html e briefing.html**, por exemplo para `20261008-1`. Publique os dados, os dois HTMLs e as novas imagens no seu commit e push.
 
@@ -34,12 +34,12 @@ Modelo de objeto para preencher, sem substituir os conteúdos publicados:
       "categorias": ["Delphi"],
       "dataOriginal": "AAAA-MM-DD",
       "dataPublicacao": "AAAA-MM-DD",
+      "publicadoPor": "Luan Paranhos",
       "resumo": "Resumo para o cartão.",
-      "creditoEditorial": "Resumo editorial da equipe IFSOFT, baseado nas fontes indicadas abaixo.",
+      "creditoEditorial": "Resumo informativo baseado nas fontes indicadas abaixo.",
       "capa": null,
       "secoes": [
-        { "titulo": "O que foi apresentado", "paragrafos": ["Texto da seção."], "imagens": [] },
-        { "titulo": "Por que importa para nós", "paragrafos": ["Avaliação da equipe."], "imagens": [] }
+        { "titulo": "O que foi apresentado", "paragrafos": ["Texto da notícia enviado para publicação."], "imagens": [] }
       ],
       "fontes": [
         { "titulo": "Nome da fonte", "url": "https://endereco-da-fonte.example/artigo" }
@@ -53,9 +53,9 @@ O modelo acima é apenas documentação. Não publique sem preencher os campos. 
 
 ## Imagens da edição de 07/10/2026
 
-As duas capturas serão fornecidas posteriormente. A notícia está sem imagens, sem caminhos quebrados e sem imagens substitutas. Não use a referência do layout como foto da notícia.
+As duas capturas fornecidas foram copiadas integralmente, sem recorte ou recompressão. A configuração de Smart CodeInsight é a capa; o editor Delphi aparece no corpo. Elas são ilustrativas, sem atribuição de autoria e sem comprovar recursos específicos do KAI 1.1.1. Não use a referência do layout como foto da notícia.
 
-Quando recebidas, preserve os arquivos originais e use:
+Arquivos publicados:
 
 - `imagens/briefing/rad-studio-ia-configuracao.png`: capa e primeira imagem na leitura completa.
 - `imagens/briefing/delphi-editor-codigo.png`: corpo da seção “O que foi apresentado”.
@@ -82,12 +82,18 @@ Na primeira seção, preencha:
 ]
 ```
 
-Cada imagem exige `arquivo`, `alt` e `legenda`. Não atribua autoria sem confirmação. A capa usa `object-fit: contain`; no corpo, a altura acompanha a proporção original. Na leitura completa, clicar abre o visualizador com legenda, navegação, fechamento por Escape e link para o arquivo original. Os caminhos são relativos e funcionam em `/ifsoft/` no GitHub Pages.
+Cada imagem exige `arquivo`, `alt` e `legenda`. Os campos opcionais `largura` e `altura` devem ser informados juntos, com as dimensões reais em pixels, para reservar espaço durante o carregamento. Não atribua autoria sem confirmação. A capa usa `object-fit: contain`; no corpo, a altura acompanha a proporção original. Na leitura completa, clicar abre o visualizador com legenda, navegação, fechamento por Escape e link para o arquivo original. Os caminhos são relativos e funcionam em `/ifsoft/` no GitHub Pages.
 
 Os arquivos do GitHub Pages são públicos. Oculte senhas, tokens, dados pessoais e informações confidenciais antes de entregar capturas.
 
 ## Entregar a próxima edição ao Codex
 
-Envie a data da edição, a notícia de destaque e, para cada notícia: título, categorias, data original, resumo, texto por seções e links das fontes. Anexe as imagens e indique a capa; envie legendas ou informações para escrevê-las sem inventar autoria ou contexto. Texto normal é suficiente: o Codex organiza o arquivo de dados.
+Envie a data da edição, a notícia de destaque e, para cada notícia: título, categorias, data original, resumo, texto da notícia, nome do publicador e fontes. O conteúdo não deve receber sugestões ou pareceres extras. `publicadoPor` identifica quem publicou no site, não a autoria do artigo original nem das imagens. Anexe imagens, indique a capa e envie legendas ou contexto confirmado. Texto normal é suficiente: o Codex organiza os dados.
 
 Peça para acrescentar sem remover as edições anteriores, na pasta versionada `C:/Users/conta/Desktop/Scripts Python/ifsoft`. Não são necessárias chaves de API ou credenciais.
+
+## Convite na entrada
+
+Quando há notícias disponíveis e o visitante está em outra aba, aparece um aviso fechável para conferir o briefing. Clicar em **Ver briefing** seleciona a aba real e move o foco para ela. Fechar ou visitar o briefing oculta o aviso até a próxima abertura/recarregamento da página; não há armazenamento de dados do visitante.
+
+Acima da aba, a indicação **Confira** tem uma seta e pulsação suave em CSS, sem GIF externo. A animação para ao selecionar o briefing e fica estática com a preferência de movimento reduzido. Sem edições com notícias, não aparece convite nem indicação animada.
