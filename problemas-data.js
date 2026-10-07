@@ -41,5 +41,26 @@ window.IFSOFT_PROBLEMAS = [
     imagensSolucao: [],
     criadoEm: "2026-10-05T16:41:58.000Z",
     atualizadoEm: "2026-10-05T16:41:58.000Z"
+  },
+  {
+    id: "PRB-20261005-003",
+    titulo: "Falha na consulta de NFS-e, NFC-e e NF-e",
+    modulo: "Outros",
+    versao: "",
+    status: "resolvido",
+    prioridade: "normal",
+    ambiente: "nao-aplica",
+    responsavel: "",
+    dataRelato: "2026-10-05",
+    prazo: "",
+    problemaRelatado: "O sistema não consegue consultar NFS-e, NFC-e e NF-e.",
+    parecerTecnico: "Quando ocorre um erro de duplicidade, o sistema não consegue consultar a autorização da nota.",
+    solucao: "Alterar a rotina de consulta para que as consultas de autorização funcionem novamente.",
+    passosReproducao: "",
+    imagensProblema: [],
+    imagensParecer: [],
+    imagensSolucao: [],
+    criadoEm: "2026-10-07T13:06:21.000Z",
+    atualizadoEm: "2026-10-07T13:11:47.000Z"
   }
 ];

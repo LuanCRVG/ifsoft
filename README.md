@@ -121,6 +121,8 @@ Use um `id` único por ocorrência, somente com letras, números, hífen ou subl
 - `ambiente`: `producao`, `homologacao`, `ambos` ou `nao-aplica`.
 - `modulo`: `NF-e`, `NFC-e`, `NFS-e`, `MDF-e`, `Cadastros`, `Financeiro`, `Integrações` ou `Outros`.
 
+Problemas com `status: "resolvido"` aparecem em verde, com um símbolo de confirmação e o carimbo **RESOLVIDO** no card e no cabeçalho dos detalhes. Os demais mostram um relógio e **Aguardando solução**, sem mudar seu status ou prioridade. Na ordenação padrão por prioridade, os problemas em aberto continuam antes dos resolvidos.
+
 O site lê **somente a lista publicada**. Alterações locais salvas pela versão anterior não são carregadas nem apagadas por esta versão. Preserve eventuais backups antigos antes de limpar os dados do navegador.
 
 Para que somente você altere a publicação, mantenha sua conta do GitHub e o acesso de escrita ao repositório sob seu controle. O site, o arquivo de dados e os PDFs continuam públicos. Não publique senhas, tokens, dados pessoais de clientes ou informações comerciais confidenciais.

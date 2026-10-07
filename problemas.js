@@ -144,6 +144,13 @@
     return createBadge(PRIORITIES[record.prioridade], `problem-priority-${record.prioridade}`, record.prioridade === "urgente" ? "alarm-clock" : null);
   }
 
+  function resolutionMarker(record) {
+    const resolved = record.status === "resolvido";
+    const marker = createElement("span", `problem-resolution problem-resolution-${resolved ? "resolved" : "pending"}`);
+    marker.append(createIcon(resolved ? "circle-check" : "clock-3"), createElement("span", "", resolved ? "RESOLVIDO" : "Aguardando solução"));
+    return marker;
+  }
+
   function focusSelection() {
     const target = selectedId ? query(`problem-item-${selectedId}`) : ui.emptyAction;
     if (target) target.focus({ preventScroll: true });
@@ -152,7 +159,8 @@
   function renderList(records) {
     ui.list.replaceChildren();
     records.forEach((record) => {
-      const button = createElement("button", `problem-item${record.id === selectedId ? " is-selected" : ""}`);
+      const stateClass = record.status === "resolvido" ? "problem-item-resolved" : "problem-item-pending";
+      const button = createElement("button", `problem-item ${stateClass}${record.id === selectedId ? " is-selected" : ""}`);
       button.type = "button";
       button.id = `problem-item-${record.id}`;
       button.setAttribute("aria-pressed", String(record.id === selectedId));
@@ -161,7 +169,9 @@
       top.append(statusBadge(record), priorityBadge(record));
       const meta = createElement("span", "problem-item-meta");
       meta.append(createElement("span", "problem-item-module", record.modulo), createElement("span", "", formatDate(record.dataRelato)));
-      button.append(top, createElement("span", "problem-item-title", record.titulo), meta);
+      const resolution = createElement("span", "problem-item-resolution");
+      resolution.appendChild(resolutionMarker(record));
+      button.append(top, createElement("span", "problem-item-title", record.titulo), meta, resolution);
       button.addEventListener("click", () => {
         selectedId = record.id;
         render();
@@ -283,14 +293,14 @@
   function renderDetail(record) {
     ui.detail.replaceChildren();
     if (!record) return;
-    const heading = createElement("div", "problem-detail-heading");
+    const heading = createElement("div", `problem-detail-heading${record.status === "resolvido" ? " is-resolved" : ""}`);
     const title = createElement("div", "problem-detail-title");
     const identification = createElement("div", "problem-identification");
     identification.append(createElement("span", "problem-id", record.id), createBadge("Publicado", "badge-neutral"));
     const badges = createElement("div", "problem-detail-status");
     badges.append(statusBadge(record), priorityBadge(record));
     title.append(identification, createElement("h3", "", record.titulo), badges);
-    heading.appendChild(title);
+    heading.append(title, resolutionMarker(record));
     const info = createElement("dl", "problem-info-grid");
     const updated = new Date(record.atualizadoEm).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
     [["Módulo / versão", `${record.modulo}${record.versao ? ` · ${record.versao}` : ""}`], ["Ambiente", ENVIRONMENTS[record.ambiente]],
