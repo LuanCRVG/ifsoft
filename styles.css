@@ -340,12 +340,18 @@ tbody tr.urgent-row td:first-child { border-left: 3px solid #d54959; padding-lef
 .problem-item-resolved:hover { border-color: #5b9f75; }
 .problem-item-resolved.is-selected { border-color: #21834e; box-shadow: inset 3px 0 #21834e; background: #e4f5eb; }
 .problem-item-resolved .problem-item-title { color: #175a3d; }
+.problem-item-correction { border-color: #9ecad5; background: #f0f8fb; box-shadow: inset 3px 0 #247f93; }
+.problem-item-correction:hover { border-color: #247f93; }
+.problem-item-correction.is-selected { border-color: #176f80; background: #dff0f5; box-shadow: inset 3px 0 #176f80; }
+.problem-item-correction .problem-item-title { color: #185568; }
 .problem-item-resolution { display: flex; justify-content: flex-end; min-height: 42px; margin-top: 12px; padding-top: 10px; border-top: 1px solid #e6ebee; }
 .problem-item-resolved .problem-item-resolution { border-color: #b9dbc5; }
+.problem-item-correction .problem-item-resolution { border-color: #a9ced8; }
 .problem-resolution { display: inline-flex; align-items: center; gap: 7px; max-width: 100%; min-height: 28px; font-size: 11px; font-weight: 700; line-height: 1.4; }
 .problem-resolution > span { min-width: 0; overflow-wrap: anywhere; }
 .problem-resolution svg { width: 16px; height: 16px; flex-shrink: 0; }
 .problem-resolution-resolved { padding: 4px 9px; border: 3px double currentColor; border-radius: 3px; color: #187344; transform: rotate(-3deg); }
+.problem-resolution-correction { padding: 4px 9px; border: 3px double currentColor; border-radius: 3px; background: #edf7fb; color: #176f80; transform: rotate(-2deg); }
 .problem-resolution-pending { padding: 4px 8px; border-left: 2px solid #c8912e; color: #805609; background: #fff4dc; }
 .problem-item-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 5px; margin-bottom: 9px; }
 .problem-item-title { display: block; margin-bottom: 12px; font-size: 14px; font-weight: 700; line-height: 1.5; overflow-wrap: anywhere; }
@@ -359,8 +365,11 @@ tbody tr.urgent-row td:first-child { border-left: 3px solid #d54959; padding-lef
 .problem-detail-title { min-width: 0; flex: 1 1 260px; }
 .problem-detail-heading > .problem-resolution { align-self: center; margin: 5px 4px 5px auto; font-size: 12px; }
 .problem-detail-heading > .problem-resolution-resolved { font-size: 14px; }
+.problem-detail-heading > .problem-resolution-correction { font-size: 14px; }
 .problem-detail-heading.is-resolved { padding: 16px; border-left: 3px solid #21834e; background: #f0faf4; }
 .problem-detail-heading.is-resolved h3 { color: #175a3d; }
+.problem-detail-heading.is-correction { padding: 16px; border-left: 3px solid #247f93; background: #edf7fb; }
+.problem-detail-heading.is-correction h3 { color: #185568; }
 .problem-identification { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; color: #778396; font-size: 10px; }
 .problem-id { font-family: Consolas, monospace; overflow-wrap: anywhere; }
 .problem-detail-heading h3 { margin: 0 0 14px; font-size: 23px; font-weight: 700; line-height: 1.4; overflow-wrap: anywhere; }

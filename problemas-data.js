@@ -47,7 +47,7 @@ window.IFSOFT_PROBLEMAS = [
     titulo: "Falha na consulta de NFS-e, NFC-e e NF-e",
     modulo: "Outros",
     versao: "",
-    status: "resolvido",
+    status: "correcao",
     prioridade: "normal",
     ambiente: "nao-aplica",
     responsavel: "",
@@ -61,6 +61,6 @@ window.IFSOFT_PROBLEMAS = [
     imagensParecer: [],
     imagensSolucao: [],
     criadoEm: "2026-10-07T13:06:21.000Z",
-    atualizadoEm: "2026-10-07T13:11:47.000Z"
+    atualizadoEm: "2026-10-07T16:45:34.000Z"
   }
 ];

@@ -69,6 +69,11 @@
 :root[data-theme="dark"] :is(.problem-item-resolved .problem-item-title, .problem-detail-heading.is-resolved h3, .problem-resolution-resolved, .metric-resolved strong, .metric-resolved svg) { color: var(--theme-success); }
 :root[data-theme="dark"] .problem-item-resolved .problem-item-resolution { border-color: #477359; }
 :root[data-theme="dark"] .problem-status-resolvido { color: var(--theme-success); background: var(--theme-success-soft); }
+:root[data-theme="dark"] :is(.problem-item-correction, .problem-item.problem-item-correction.is-selected, .problem-detail-heading.is-correction) { background: var(--theme-teal-soft); border-color: #579ca5; box-shadow: inset 3px 0 #579ca5; }
+:root[data-theme="dark"] .problem-item-correction:hover { border-color: var(--theme-teal); }
+:root[data-theme="dark"] :is(.problem-item-correction .problem-item-title, .problem-detail-heading.is-correction h3) { color: var(--theme-teal); }
+:root[data-theme="dark"] .problem-item-correction .problem-item-resolution { border-color: #47757b; }
+:root[data-theme="dark"] .problem-resolution-correction { background: var(--theme-teal-soft); color: var(--theme-teal); }
 :root[data-theme="dark"] :is(.problem-status-correcao, .briefing-tag:nth-child(2)) { color: var(--theme-teal); background: var(--theme-teal-soft); }
 :root[data-theme="dark"] :is(.solution-narrative h4, .solution-field > span) { color: var(--theme-teal); }
 :root[data-theme="dark"] :is(.problem-image-expand, .empty-problem-symbol, .briefing-tag) { color: var(--brand); background: var(--brand-soft); border-color: var(--line); }

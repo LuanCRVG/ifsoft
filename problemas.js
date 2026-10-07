@@ -137,7 +137,7 @@
   }
 
   function statusBadge(record) {
-    return createBadge(STATUSES[record.status], `problem-status-${record.status}`, record.status === "resolvido" ? "circle-check" : null);
+    return createBadge(STATUSES[record.status], `problem-status-${record.status}`, record.status === "resolvido" ? "circle-check" : record.status === "correcao" ? "hammer" : null);
   }
 
   function priorityBadge(record) {
@@ -146,8 +146,9 @@
 
   function resolutionMarker(record) {
     const resolved = record.status === "resolvido";
-    const marker = createElement("span", `problem-resolution problem-resolution-${resolved ? "resolved" : "pending"}`);
-    marker.append(createIcon(resolved ? "circle-check" : "clock-3"), createElement("span", "", resolved ? "RESOLVIDO" : "Aguardando solução"));
+    const correcting = record.status === "correcao";
+    const marker = createElement("span", `problem-resolution problem-resolution-${resolved ? "resolved" : correcting ? "correction" : "pending"}`);
+    marker.append(createIcon(resolved ? "circle-check" : correcting ? "hammer" : "clock-3"), createElement("span", "", resolved ? "RESOLVIDO" : correcting ? "EM CORREÇÃO" : "Aguardando solução"));
     return marker;
   }
 
@@ -159,7 +160,7 @@
   function renderList(records) {
     ui.list.replaceChildren();
     records.forEach((record) => {
-      const stateClass = record.status === "resolvido" ? "problem-item-resolved" : "problem-item-pending";
+      const stateClass = record.status === "resolvido" ? "problem-item-resolved" : record.status === "correcao" ? "problem-item-correction" : "problem-item-pending";
       const button = createElement("button", `problem-item ${stateClass}${record.id === selectedId ? " is-selected" : ""}`);
       button.type = "button";
       button.id = `problem-item-${record.id}`;
@@ -299,7 +300,7 @@
   function renderDetail(record) {
     ui.detail.replaceChildren();
     if (!record) return;
-    const heading = createElement("div", `problem-detail-heading${record.status === "resolvido" ? " is-resolved" : ""}`);
+    const heading = createElement("div", `problem-detail-heading${record.status === "resolvido" ? " is-resolved" : record.status === "correcao" ? " is-correction" : ""}`);
     const title = createElement("div", "problem-detail-title");
     const identification = createElement("div", "problem-identification");
     identification.append(createElement("span", "problem-id", record.id), createBadge("Publicado", "badge-neutral"));
