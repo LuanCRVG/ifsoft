@@ -29,7 +29,7 @@ window.IFSOFT_PROBLEMAS = [
     status: "relatado",
     prioridade: "normal",
     ambiente: "nao-aplica",
-    responsavel: "LUAN",
+    responsavel: "",
     dataRelato: "2026-10-05",
     prazo: "",
     problemaRelatado: "O sistema está gerando base de cálculo de IBS/CBS para cClassTrib que não possuem alíquota.",
@@ -40,7 +40,7 @@ window.IFSOFT_PROBLEMAS = [
     imagensParecer: [],
     imagensSolucao: [],
     criadoEm: "2026-10-05T16:41:58.000Z",
-    atualizadoEm: "2026-10-07T17:06:41.000Z"
+    atualizadoEm: "2026-10-07T18:40:44.000Z"
   },
   {
     id: "PRB-20261005-003",
