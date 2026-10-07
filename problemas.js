@@ -171,7 +171,13 @@
       meta.append(createElement("span", "problem-item-module", record.modulo), createElement("span", "", formatDate(record.dataRelato)));
       const resolution = createElement("span", "problem-item-resolution");
       resolution.appendChild(resolutionMarker(record));
-      button.append(top, createElement("span", "problem-item-title", record.titulo), meta, resolution);
+      button.append(top, createElement("span", "problem-item-title", record.titulo), meta);
+      if (record.responsavel) {
+        const owner = createElement("span", "problem-item-owner");
+        owner.append(createIcon("user-round"), createElement("span", "", `Responsável: ${record.responsavel}`));
+        button.appendChild(owner);
+      }
+      button.appendChild(resolution);
       button.addEventListener("click", () => {
         selectedId = record.id;
         render();
@@ -308,6 +314,10 @@
       ["Prazo de correção", record.prazo ? formatDate(record.prazo) : "Não definido"], ["Última atualização", updated]].forEach(([label, value]) => {
       const item = createElement("div");
       const detail = createElement("dd", "", value);
+      if (label === "Responsável" && record.responsavel) {
+        item.className = "problem-info-owner";
+        detail.replaceChildren(createIcon("user-round"), createElement("span", "", value));
+      }
       if (label === "Prazo de correção" && record.prazo && record.prazo < today() && record.status !== "resolvido") {
         detail.className = "deadline-overdue";
         detail.textContent += " · Vencido";

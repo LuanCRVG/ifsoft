@@ -11,6 +11,7 @@
   color-scheme: dark;
   --bg: #14171c;
   --surface: #1c2027;
+  --surface-alt: #20262f;
   --text: #e8edf3;
   --muted: #b1bbc9;
   --line: #38424f;
@@ -46,6 +47,7 @@
 :root[data-theme="dark"] .field select:disabled { background: var(--theme-raised); color: var(--muted); }
 :root[data-theme="dark"] :where(th, td, .card-deadlines, .portal-tabs, .problem-item-resolution, .problem-image-empty) { border-color: var(--line); }
 :root[data-theme="dark"] .note-card.is-urgent, :root[data-theme="dark"] .urgent-row td:first-child { border-left-color: var(--danger); }
+:root[data-theme="dark"] .note-card.is-urgent .production-deadline .date-text { background: var(--danger-soft); color: var(--danger); }
 :root[data-theme="dark"] :is(.table-wrap, .problem-list, .note-outline) { scrollbar-color: #64748b var(--bg); }
 :root[data-theme="dark"] :is(tbody tr.note-clickable:hover td, tbody tr.note-clickable:focus-within td, .note-card.note-clickable:hover, .note-card.note-clickable:focus-within, .problem-item.is-selected, .summary-button.is-active, .portal-tab:hover, .portal-tab.is-active, .problem-metric:hover, .icon-button:hover, .secondary-action:hover) { background: var(--theme-hover); }
 :root[data-theme="dark"] :is(.summary-button:hover, .problem-item:hover, .note-card.note-clickable:hover, .note-card.note-clickable:focus-within, .icon-button:hover, .secondary-action:hover) { border-color: #7d95b5; }
@@ -95,6 +97,6 @@
   .header-actions { gap: 10px; }
 }
 @media print {
-  :root[data-theme="dark"] { color-scheme: light; --bg: #fff; --surface: #fff; --text: #202c3e; --muted: #586980; --line: #dce5ef; --brand: #0758ef; --brand-soft: #eaf1ff; --danger: #bb3644; --danger-soft: #fff0f1; --amber: #936316; --amber-soft: #fff6e6; --theme-raised: #edf3fa; --theme-hover: #f3f7ff; --theme-success: #175a3d; --theme-success-soft: #f0faf4; --theme-teal: #246d6a; --theme-teal-soft: #eaf6f8; }
+  :root[data-theme="dark"] { color-scheme: light; --bg: #fff; --surface: #fff; --surface-alt: #f8fafc; --text: #202c3e; --muted: #586980; --line: #dce5ef; --brand: #0758ef; --brand-soft: #eaf1ff; --danger: #bb3644; --danger-soft: #fff0f1; --amber: #936316; --amber-soft: #fff6e6; --theme-raised: #edf3fa; --theme-hover: #f3f7ff; --theme-success: #175a3d; --theme-success-soft: #f0faf4; --theme-teal: #246d6a; --theme-teal-soft: #eaf6f8; }
   .theme-toggle { display: none !important; }
 }

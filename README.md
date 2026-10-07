@@ -2,6 +2,8 @@
 
 Site estático em HTML, CSS e JavaScript, com as abas **Notas técnicas**, **Problemas no sistema** e **Briefing diário**. Compatível com abertura local e GitHub Pages, sem servidor ou etapa de build.
 
+O acabamento visual mantém filtros em faixas abertas, tamanhos consistentes nos controles, tabela com linhas alternadas e a primeira coluna fixa durante a rolagem horizontal. Os prazos de produção recebem destaque azul ou vermelho, conforme a urgência. As ocorrências mostram o responsável quando informado, preservando os carimbos de pendência e resolução. O briefing mantém a proporção das capas, evidencia a edição selecionada e organiza as fontes para leitura. Os dois temas usam essas mesmas regras; nenhum registro ou conteúdo editorial foi alterado.
+
 O visual compartilhado usa cabeçalho azul-marinho, superfícies brancas e destaque azul, mantendo os filtros e cadastros fiscais existentes. O briefing é independente: não utiliza os registros ou prazos das outras abas. A primeira edição, de **07/10/2026**, contém somente a notícia real sobre KAI 1.1.1, as duas imagens ilustrativas fornecidas e **Publicado por: Luan Paranhos**. A publicação apresenta a notícia e suas fontes, sem sugestões de adoção ou pareceres da equipe.
 
 Na entrada, um convite fechável destaca o briefing, e a indicação **Confira** pulsa suavemente acima da aba enquanto ela não está selecionada. A preferência de movimento reduzido mantém a indicação estática; não há GIF, coleta de dados nem alteração da aba inicial.
