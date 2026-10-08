@@ -90,7 +90,9 @@ Os arquivos do GitHub Pages são públicos. Oculte senhas, tokens, dados pessoai
 
 A notícia `firebird-6-roadmap` é o destaque desta edição, publicada por Luan Paranhos. A data original é **20/03/2024**, do anúncio; a edição do site é **08/10/2026**. O texto complementa o anúncio com o roadmap oficial atualizado em junho de 2026, identificando o cronograma como estimado. Ambos os links estão nas fontes.
 
-A captura enviada serve como referência de conteúdo, não como capa. Esta notícia usa `capa: null` e `imagens: []`; o layout existente aceita notícias textuais. A edição de 07/10/2026 e suas imagens permanecem intactas no arquivo. Para estudar o cadastro de uma nova edição, compare os dois objetos em `briefing-data.js`: cada um tem sua data, destaque e lista de notícias.
+A captura enviada serve como referência de conteúdo, não como capa. A notícia usa `imagens/briefing/firebird-6-roadmap.png`, uma ilustração editorial original gerada com IA, com 1536 x 1024 pixels. Não reproduz o logotipo oficial nem apresenta uma captura do software. A legenda identifica essa natureza; a capa preserva a proporção e pode ser ampliada na leitura completa. O prompt está em `imagens/briefing/README.md`. As listas de imagens das seções continuam vazias, sem duplicar a capa.
+
+A edição de 07/10/2026 e suas imagens permanecem intactas no arquivo. Para estudar o cadastro de uma nova edição, compare os dois objetos em `briefing-data.js`: cada um tem sua data, destaque e lista de notícias. O campo `capa` contém o caminho relativo, texto alternativo, legenda e dimensões; trocar esses dados não exige alterar o layout.
 
 ## Entregar a próxima edição ao Codex
 

@@ -13,7 +13,13 @@ window.IFSOFT_BRIEFING = [
         "publicadoPor": "Luan Paranhos",
         "resumo": "O planejamento do Firebird 6 reúne funções JSON, schemas, tablespaces e melhorias de cache e otimização. Confira as novidades previstas e o cronograma estimado de desenvolvimento.",
         "creditoEditorial": "Resumo informativo baseado no anúncio original e no roadmap oficial. Cronograma conferido para esta edição; sujeito a revisão pelo projeto Firebird.",
-        "capa": null,
+        "capa": {
+          "arquivo": "imagens/briefing/firebird-6-roadmap.png",
+          "alt": "Ilustração de um banco de dados com tabelas conectadas e o texto Firebird 6 Roadmap.",
+          "legenda": "Ilustração editorial original gerada com IA para esta notícia. Não é o logotipo oficial do Firebird nem uma captura do software.",
+          "largura": 1536,
+          "altura": 1024
+        },
         "secoes": [
           {
             "titulo": "Sobre o anúncio",
