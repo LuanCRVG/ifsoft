@@ -1,6 +1,57 @@
 // Notícias selecionadas manualmente. Mantenha as edições anteriores nesta lista.
 window.IFSOFT_BRIEFING = [
   {
+    "data": "2026-10-08",
+    "destaque": "firebird-6-roadmap",
+    "noticias": [
+      {
+        "id": "firebird-6-roadmap",
+        "titulo": "Firebird 6: roadmap reúne JSON, schemas e melhorias no banco de dados",
+        "categorias": ["Firebird", "Banco de dados", "Tecnologia"],
+        "dataOriginal": "2024-03-20",
+        "dataPublicacao": "2026-10-08",
+        "publicadoPor": "Luan Paranhos",
+        "resumo": "O planejamento do Firebird 6 reúne funções JSON, schemas, tablespaces e melhorias de cache e otimização. Confira as novidades previstas e o cronograma estimado de desenvolvimento.",
+        "creditoEditorial": "Resumo informativo baseado no anúncio original e no roadmap oficial. Cronograma conferido para esta edição; sujeito a revisão pelo projeto Firebird.",
+        "capa": null,
+        "secoes": [
+          {
+            "titulo": "Sobre o anúncio",
+            "paragrafos": [
+              "O projeto Firebird anunciou o roadmap da versão 6 em 20/03/2024, após a reunião do seu grupo técnico. Esta edição retoma o anúncio e complementa a notícia com o planejamento oficial atualizado em junho de 2026."
+            ],
+            "imagens": []
+          },
+          {
+            "titulo": "Novidades previstas",
+            "paragrafos": [
+              "JSON: funções compatíveis com o padrão SQL para trabalhar com dados JSON.",
+              "Schemas: suporte a esquemas SQL para organizar os objetos do banco de dados.",
+              "Tablespaces: suporte para ampliar as opções de organização do armazenamento.",
+              "Cache e otimização: cache compartilhado de metadados e melhorias no otimizador de consultas.",
+              "SQL: o planejamento também inclui EXPLAIN e funções como GREATEST e LEAST."
+            ],
+            "imagens": []
+          },
+          {
+            "titulo": "Cronograma estimado",
+            "paragrafos": [
+              "Alpha: quarto trimestre de 2026 (outubro a dezembro), indicada como em andamento no roadmap.",
+              "Beta: segundo trimestre de 2027 (abril a junho).",
+              "Versão final: quarto trimestre de 2027 (outubro a dezembro).",
+              "As datas são estimativas, não compromissos de lançamento. O roadmap reúne recursos em diferentes estágios; a inclusão na versão 6 depende da conclusão antes da fase Beta. Não representa uma versão estável já disponível."
+            ],
+            "imagens": []
+          }
+        ],
+        "fontes": [
+          { "titulo": "Anúncio original do Firebird: roadmap da versão 6", "url": "https://firebirdsql.org/en/news/firebird-6-roadmap-is-published" },
+          { "titulo": "Roadmap oficial: recursos e cronograma atualizado", "url": "https://www.firebirdsql.org/en/roadmap/" }
+        ]
+      }
+    ]
+  },
+  {
     "data": "2026-10-07",
     "destaque": "kai-1-1-1-ia-local-rad-studio",
     "noticias": [

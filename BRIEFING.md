@@ -86,6 +86,12 @@ Cada imagem exige `arquivo`, `alt` e `legenda`. Os campos opcionais `largura` e 
 
 Os arquivos do GitHub Pages são públicos. Oculte senhas, tokens, dados pessoais e informações confidenciais antes de entregar capturas.
 
+## Edição de 08/10/2026
+
+A notícia `firebird-6-roadmap` é o destaque desta edição, publicada por Luan Paranhos. A data original é **20/03/2024**, do anúncio; a edição do site é **08/10/2026**. O texto complementa o anúncio com o roadmap oficial atualizado em junho de 2026, identificando o cronograma como estimado. Ambos os links estão nas fontes.
+
+A captura enviada serve como referência de conteúdo, não como capa. Esta notícia usa `capa: null` e `imagens: []`; o layout existente aceita notícias textuais. A edição de 07/10/2026 e suas imagens permanecem intactas no arquivo. Para estudar o cadastro de uma nova edição, compare os dois objetos em `briefing-data.js`: cada um tem sua data, destaque e lista de notícias.
+
 ## Entregar a próxima edição ao Codex
 
 Envie a data da edição, a notícia de destaque e, para cada notícia: título, categorias, data original, resumo, texto da notícia, nome do publicador e fontes. O conteúdo não deve receber sugestões ou pareceres extras. `publicadoPor` identifica quem publicou no site, não a autoria do artigo original nem das imagens. Anexe imagens, indique a capa e envie legendas ou contexto confirmado. Texto normal é suficiente: o Codex organiza os dados.
