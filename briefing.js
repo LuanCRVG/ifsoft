@@ -147,7 +147,7 @@
     const latest = editions.find((edition) => edition.noticias.length);
     tab.classList.toggle("has-briefing", Boolean(latest));
     if (!latest || !selectedEdition.noticias.length) return;
-    tab.setAttribute("aria-label", `Briefing diário: edição de ${formatDate(selectedEdition.data)}`);
+    tab.setAttribute("aria-label", `Briefing tecnológico: edição de ${formatDate(selectedEdition.data)}`);
     query("briefing-invitation-date").textContent = `Edição de ${formatDate(selectedEdition.data)} disponível para leitura.`;
     let dismissed = false;
     const update = () => {
@@ -256,7 +256,7 @@
     if (!story) { query("briefing-not-found").hidden = false; refreshIcons(); return; }
     const back = editionHref(edition);
     ["briefing-back", "briefing-bottom-back"].forEach((id) => { query(id).href = back; });
-    document.title = `${story.titulo} | Briefing IFSOFT`;
+    document.title = `${story.titulo} | Briefing tecnológico IFSOFT`;
     query("briefing-article-edition").textContent = `EDIÇÃO DE ${formatDate(edition.data, true).toUpperCase()}`;
     query("briefing-article-title").textContent = story.titulo;
     query("briefing-article-summary").textContent = story.resumo;

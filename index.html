@@ -18,9 +18,9 @@
     <script src="script.js?v=20261005-cnpj-6" defer></script>
     <script src="problemas-data.js?v=20261007-responsavel-1" defer></script>
     <script src="briefing-data.js?v=20261008-firebird-2" defer></script>
-    <script src="navigation.js?v=20261007-briefing-2" defer></script>
+    <script src="navigation.js?v=20261008-briefing-tecnologico-1" defer></script>
     <script src="problemas.js?v=20261007-status-order-1" defer></script>
-    <script src="briefing.js?v=20261007-briefing-2" defer></script>
+    <script src="briefing.js?v=20261008-briefing-tecnologico-1" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -46,12 +46,12 @@
       <nav class="portal-tabs" id="portal-tabs" role="tablist" aria-label="Central técnica">
         <button type="button" role="tab" id="tab-notes" class="portal-tab is-active" aria-selected="true" aria-controls="panel-notes" tabindex="0"><i data-lucide="file-text" aria-hidden="true"></i><span>Notas técnicas</span><span class="tab-count" id="tab-notes-count">0</span></button>
         <button type="button" role="tab" id="tab-problems" class="portal-tab problem-tab" aria-selected="false" aria-controls="panel-problems" tabindex="-1"><span class="problem-tab-bell" aria-hidden="true"><i data-lucide="bell-ring"></i></span><span class="problem-tab-label">Problemas no sistema</span><span class="tab-count" id="tab-problems-count">0</span></button>
-        <button type="button" role="tab" id="tab-briefing" class="portal-tab briefing-tab" aria-selected="false" aria-controls="panel-briefing" tabindex="-1"><span class="briefing-tab-hint" aria-hidden="true">Confira<i data-lucide="arrow-down"></i></span><i data-lucide="coffee" aria-hidden="true"></i><span>Briefing diário</span></button>
+        <button type="button" role="tab" id="tab-briefing" class="portal-tab briefing-tab" aria-selected="false" aria-controls="panel-briefing" tabindex="-1"><span class="briefing-tab-hint" aria-hidden="true">Confira<i data-lucide="arrow-down"></i></span><i data-lucide="coffee" aria-hidden="true"></i><span>Briefing tecnológico</span></button>
       </nav>
 
       <aside class="briefing-invitation" id="briefing-invitation" aria-labelledby="briefing-invitation-title" hidden>
         <span class="briefing-invitation-symbol" aria-hidden="true"><i data-lucide="coffee"></i></span>
-        <div class="briefing-invitation-copy"><h2 id="briefing-invitation-title">Confira também o Briefing diário</h2><p id="briefing-invitation-date"></p></div>
+        <div class="briefing-invitation-copy"><h2 id="briefing-invitation-title">Confira também o Briefing tecnológico</h2><p id="briefing-invitation-date"></p></div>
         <button type="button" class="action-button primary-action" id="briefing-invitation-open"><span>Ver briefing</span><i data-lucide="arrow-right" aria-hidden="true"></i></button>
         <button type="button" class="icon-button" id="briefing-invitation-close" title="Fechar convite" aria-label="Fechar convite do briefing"><i data-lucide="x" aria-hidden="true"></i></button>
       </aside>
@@ -172,9 +172,9 @@
         </div>
       </section>
       <section id="panel-briefing" class="briefing-panel" role="tabpanel" aria-labelledby="tab-briefing" tabindex="0" hidden>
-        <div class="briefing-breadcrumb"><span>IFSOFT</span><span aria-hidden="true">/</span><span>Briefing diário</span></div>
+        <div class="briefing-breadcrumb"><span>IFSOFT</span><span aria-hidden="true">/</span><span>Briefing tecnológico</span></div>
         <div class="briefing-page-heading">
-          <div><h2><i data-lucide="coffee" aria-hidden="true"></i>Briefing diário</h2><p>Uma pausa para o nosso universo de tecnologia.</p></div>
+          <div><h2><i data-lucide="coffee" aria-hidden="true"></i>Briefing tecnológico</h2><p>Uma pausa para o nosso universo de tecnologia.</p></div>
           <span class="briefing-edition-date"><i data-lucide="calendar-days" aria-hidden="true"></i><span id="briefing-edition-date"></span></span>
         </div>
         <div class="briefing-toolbar" role="search" aria-label="Filtros do briefing">

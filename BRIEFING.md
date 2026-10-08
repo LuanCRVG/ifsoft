@@ -1,4 +1,6 @@
-# Briefing diário
+# Briefing tecnológico
+
+Notícias selecionadas quando houver conteúdo relevante, sem compromisso de publicação diária. As edições continuam organizadas por data, preservando o histórico. Os arquivos e o endereço interno `#briefing-diario` mantêm os nomes anteriores para não quebrar links existentes; o nome apresentado ao visitante é **Briefing tecnológico**.
 
 ## Estrutura
 
