@@ -1,6 +1,8 @@
-# IFSOFT Sistemas - Central Técnica
+# LP - Central Técnica
 
 Site estático em HTML, CSS e JavaScript, com as abas **Notas técnicas**, **Problemas no sistema** e **Briefing tecnológico**. Compatível com abertura local e GitHub Pages, sem servidor ou etapa de build.
+
+A identidade pública é **LP**, iniciais de Luan Paranhos. O endereço do repositório e do GitHub Pages permanece o mesmo. Os identificadores internos `IFSOFT_PROBLEMAS`, `IFSOFT_BRIEFING` e a chave de tema foram preservados por compatibilidade; não são nomes exibidos no site.
 
 O acabamento visual mantém filtros em faixas abertas, tamanhos consistentes nos controles, tabela com linhas alternadas e a primeira coluna fixa durante a rolagem horizontal. Os prazos de produção recebem destaque azul ou vermelho, conforme a urgência. As ocorrências mostram o responsável quando informado, preservando os carimbos de pendência e resolução. O briefing mantém a proporção das capas, evidencia a edição selecionada e organiza as fontes para leitura. Os dois temas usam essas mesmas regras; nenhum registro ou conteúdo editorial foi alterado.
 
@@ -112,7 +114,7 @@ window.IFSOFT_PROBLEMAS = [
     status: "analise",
     prioridade: "urgente",
     ambiente: "producao",
-    responsavel: "IFSOFT",
+    responsavel: "",
     dataRelato: "2026-10-02",
     prazo: "",
     problemaRelatado: "Descreva o problema relatado.",
@@ -178,11 +180,11 @@ Esta funcionalidade não permite upload ou edição por visitantes. Antes de pub
 
 ## Ícone do navegador
 
-O favicon usa um monograma **IF** branco sobre azul, com um detalhe em azul-claro. Ele aparece na aba do navegador tanto na página principal quanto nos detalhes das notas, sem alterar o símbolo existente no cabeçalho do site.
+O favicon usa um monograma **LP** branco sobre azul, também usado no cabeçalho. Ele aparece na aba do navegador na página principal, nos detalhes das notas e na leitura do briefing.
 
 `favicon.svg` é a versão vetorial; `favicon-32.png` e `favicon.ico` são alternativas para outros navegadores. O ICO inclui tamanhos de 16, 32 e 48 pixels. `apple-touch-icon.png` tem 180 pixels e identifica o site quando adicionado à tela inicial de dispositivos Apple.
 
-Publique os quatro arquivos de ícone junto com `index.html` e `nota.html`. Os caminhos são relativos para funcionar também no endereço de projeto do GitHub Pages. Ao trocar o desenho no futuro, atualize os arquivos derivados e a versão `?v=...` dos links nas duas páginas, pois navegadores podem manter favicons antigos em cache.
+Publique os quatro arquivos de ícone junto com `index.html`, `nota.html` e `briefing.html`. Os caminhos são relativos para funcionar também no endereço de projeto do GitHub Pages. Ao trocar o desenho no futuro, atualize os arquivos derivados e a versão `?v=...` dos links nas três páginas, pois navegadores podem manter favicons antigos em cache.
 
 ## Como publicar no GitHub Pages
 

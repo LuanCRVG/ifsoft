@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-labelledby="favicon-title">
-  <title id="favicon-title">IFSOFT Sistemas</title>
-  <rect width="64" height="64" rx="10" fill="#1963e8"/>
-  <path d="M8 12H24V20H20V44H24V52H8V44H12V20H8Z" fill="#fff"/>
-  <path d="M32 12H56V20H40V28H52V36H40V52H32Z" fill="#fff"/>
-  <rect x="48" y="44" width="8" height="8" fill="#8fe6ff"/>
+  <title id="favicon-title">LP - Central técnica</title>
+  <rect width="64" height="64" rx="10" fill="#0758ef"/>
+  <path d="M10 13H19V43H31V51H10Z" fill="#fff"/>
+  <path d="M35 13H46C54 13 58 18 58 27S54 41 46 41H44V51H35ZM44 21V33H46C49 33 50 31 50 27S49 21 46 21Z" fill="#fff" fill-rule="evenodd"/>
 </svg>

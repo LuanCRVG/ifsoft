@@ -4,12 +4,12 @@
   const note = notasTecnicas.find((item) => getNoteId(item) === id);
   if (!note) {
     query("note-not-found").hidden = false;
-    document.title = "Nota técnica não encontrada | IFSOFT Sistemas";
+    document.title = "Nota técnica não encontrada | LP";
     renderIcons();
     return;
   }
 
-  document.title = `${note.descricao} | IFSOFT Sistemas`;
+  document.title = `${note.descricao} | LP`;
   query("note-detail-kind").textContent = note.tipo || "Nota técnica / Informe técnico";
   query("note-detail-title").textContent = note.descricao;
   query("note-detail-summary").textContent = getNoteSummary(note);

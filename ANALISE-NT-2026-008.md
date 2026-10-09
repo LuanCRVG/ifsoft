@@ -1,6 +1,6 @@
 # NT 2026.008 v1.00 - Valor Líquido do Produto
 
-Análise realizada em **01/10/2026** para a IFSOFT Sistemas, com base no [PDF enviado](documentos/nt-2026-008-v1.00-rtc-valor-liquido-produto.pdf) e no [tópico do Projeto ACBr](https://www.projetoacbr.com.br/forum/topic/95140-publicada-nota-t%C3%A9cnica-criando-novos-campos-de-valoriza%C3%A7%C3%A3o-para-maior-transpar%C3%AAncia-na-nota-fiscal/).
+Análise realizada em **01/10/2026** para acompanhamento técnico, com base no [PDF enviado](documentos/nt-2026-008-v1.00-rtc-valor-liquido-produto.pdf) e no [tópico do Projeto ACBr](https://www.projetoacbr.com.br/forum/topic/95140-publicada-nota-t%C3%A9cnica-criando-novos-campos-de-valoriza%C3%A7%C3%A3o-para-maior-transpar%C3%AAncia-na-nota-fiscal/).
 
 ## Escopo e cronograma
 
@@ -65,7 +65,7 @@ A regra **UB16-10**, associada à rejeição **1104** por divergência da base d
 
 O tópico consultado em 01/10/2026 informa que adequações nas soluções ACBr serão necessárias e cita a tarefa **ACBr-9950**. A postagem anuncia a tarefa, sem confirmar sua entrega.
 
-Como encaminhamento para a IFSOFT, acompanhar a implementação e conferir os schemas, componentes e eventuais rotinas próprias de valorização utilizadas pelo sistema. O cadastro contém o PDF para consulta e o link para acompanhar o tópico.
+Como encaminhamento técnico, acompanhar a implementação e conferir os schemas, componentes e eventuais rotinas próprias de valorização utilizadas pelo sistema. O cadastro contém o PDF para consulta e o link para acompanhar o tópico.
 
 ## Verificações recomendadas
 

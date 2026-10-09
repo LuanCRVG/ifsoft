@@ -256,7 +256,7 @@
     if (!story) { query("briefing-not-found").hidden = false; refreshIcons(); return; }
     const back = editionHref(edition);
     ["briefing-back", "briefing-bottom-back"].forEach((id) => { query(id).href = back; });
-    document.title = `${story.titulo} | Briefing tecnológico IFSOFT`;
+    document.title = `${story.titulo} | Briefing tecnológico LP`;
     query("briefing-article-edition").textContent = `EDIÇÃO DE ${formatDate(edition.data, true).toUpperCase()}`;
     query("briefing-article-title").textContent = story.titulo;
     query("briefing-article-summary").textContent = story.resumo;

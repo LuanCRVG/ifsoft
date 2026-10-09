@@ -11,7 +11,7 @@ const notasTecnicas = [
     uf: "Todos",
     observacoes: [
       "Adequar a impressão e o PDF do DANFE da NF-e (modelo 55) ao leiaute da Reforma Tributária, com produção em 01/12/2026.",
-      "Cronograma: a NT não informa data para testes/homologação. Prioridade urgente definida pela IFSOFT para antecipar a implementação.",
+      "Cronograma: a NT não informa data para testes/homologação. Prioridade urgente definida manualmente para antecipar a implementação.",
       "Emitente: imprimir o CRT (C21). Reservar o campo de regime de apuração IBS/CBS, sem preenchê-lo até a publicação da tag/ID em NT futura.",
       "Itens: incluir cClassTrib (UB14), base IBS/CBS vBC (UB16), alíquotas e valores de IBS UF, IBS Município e CBS, além do IS. Para a base do IS, usar vBCIS (UB05), conforme o PDF.",
       "Alíquotas: se gRed estiver informado, inclusive nas hipóteses de compra governamental, imprimir pAliqEfet de IBS UF (UB28), IBS Município (UB47) e CBS (UB66). Sem gRed, usar pIBSUF, pIBSMun e pCBS. O IS permanece com pIS (UB06).",
@@ -64,9 +64,9 @@ const notasTecnicas = [
     documento: ["NF-e", "NFC-e", "MDF-e"],
     uf: "Todos",
     observacoes: [
-      "URGENTE: produção prevista no PDF em 06/07/2026, com prazo já vencido. Prioridade manual solicitada pela IFSOFT; revisar a adequação de cadastros, XML, chaves de acesso e impressão imediatamente.",
+      "URGENTE: produção prevista no PDF em 06/07/2026, com prazo já vencido. Prioridade definida manualmente; revisar a adequação de cadastros, XML, chaves de acesso e impressão imediatamente.",
       "Cronograma da NT enviada: homologação em 06/04/2026 e produção em 06/07/2026. São os prazos registrados nesta nota; não confundir com a implantação dos sistemas da Receita Federal em 27/07/2026 e o primeiro CNPJ alfanumérico em 31/07/2026.",
-      "Escopo: entre os documentos da IFSOFT, esta NT conjunta abrange NF-e, NFC-e e MDF-e. NFS-e não consta do escopo; verificar as regras do padrão nacional ou do provedor municipal, sem atribuir automaticamente os prazos desta NT à NFS-e.",
+      "Escopo: entre os documentos acompanhados nesta central, esta NT conjunta abrange NF-e, NFC-e e MDF-e. NFS-e não consta do escopo; verificar as regras do padrão nacional ou do provedor municipal, sem atribuir automaticamente os prazos desta NT à NFS-e.",
       "Cadastros e banco de dados: manter CNPJ como texto de 14 posições, com letras maiúsculas e números nas primeiras 12 e dois DVs numéricos no final. Preservar zeros à esquerda; remover apenas a máscara, nunca as letras. Revisar clientes, fornecedores, emitentes, APIs, importações e integrações.",
       "Schemas e validações: adequar todos os campos CNPJ, eventos e serviços ao padrão [A-Z0-9]{12}[0-9]{2}. Para NF-e/NFC-e, conferir também a NT 2026.004 v1.01 e os schemas complementares; esse complemento indica homologação em 15/06/2026. Apenas aceitar no XSD não comprova validação/autorização correta.",
       "Dígitos verificadores do CNPJ: manter módulo 11, convertendo cada caractere por ASCII menos 48 (A=17, B=18 etc.). Garantir compatibilidade com CNPJs numéricos existentes, que continuam válidos e não devem ser renumerados.",
@@ -93,7 +93,7 @@ const notasTecnicas = [
     documento: "NFS-e",
     uf: "Todos",
     observacoes: [
-      "Cronograma ainda não publicado: a NT não informa datas de homologação ou produção. Os prazos serão divulgados no portal da NFS-e. Cadastro sem urgência, conforme definição da IFSOFT.",
+      "Cronograma ainda não publicado: a NT não informa datas de homologação ou produção. Os prazos serão divulgados no portal da NFS-e. Cadastro sem urgência, conforme definição manual.",
       "Escopo: atualização do leiaute da NFS-e de padrão nacional e da DPS para a Reforma Tributária do Consumo. A identificação segue a capa e o conteúdo da NT 009 v1.01; não confundir com a NT 010 da NFS-e Via.",
       "CST/cClassTrib: os campos passam para IBSCBS/valores/trib, antes de gIBSCBS. O detalhamento tributário, inclusive vBC na NFS-e, depende do indicador ind_gIBSCBS da tabela CST/cClassTrib. Não preencher esses dados quando o indicador não exigir; a NT destaca CST 400, 410 e 820.",
       "Estrutura do XML: indDest e o grupo dest passam para a raiz infDPS, após toma. Revisar a ordem dos elementos e os mapeamentos de emissão e leitura; indFinal é reinserido para identificar uso ou consumo pessoal.",

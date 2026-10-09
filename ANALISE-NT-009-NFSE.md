@@ -1,6 +1,6 @@
 # NT SE/CGNFS-e 009 v1.01 - NFS-e Padrão Nacional / RTC
 
-Análise realizada em **05/10/2026** para a IFSOFT Sistemas, com base no [PDF enviado](documentos/nt-009-v1.01-nfse-nacional-rtc.pdf), no [tópico do ACBr](https://www.projetoacbr.com.br/forum/topic/95165-publicada-nota-t%C3%A9cnica-atualizando-o-leiaute-da-nfs-e-no-padr%C3%A3o-nacional/) e na [documentação oficial RTC da NFS-e](https://www.gov.br/nfse/pt-br/biblioteca/documentacao-tecnica/rtc). As páginas abaixo se referem ao PDF enviado, preservado sem alterações.
+Análise realizada em **05/10/2026** para acompanhamento técnico, com base no [PDF enviado](documentos/nt-009-v1.01-nfse-nacional-rtc.pdf), no [tópico do ACBr](https://www.projetoacbr.com.br/forum/topic/95165-publicada-nota-t%C3%A9cnica-atualizando-o-leiaute-da-nfs-e-no-padr%C3%A3o-nacional/) e na [documentação oficial RTC da NFS-e](https://www.gov.br/nfse/pt-br/biblioteca/documentacao-tecnica/rtc). As páginas abaixo se referem ao PDF enviado, preservado sem alterações.
 
 ## Escopo, datas e prioridade
 
@@ -11,7 +11,7 @@ O conteúdo e a capa identificam a **NT SE/CGNFS-e nº 009, versão 1.01**, de a
 | Documento fiscal | NFS-e |
 | Homologação | Sem data, aguardando cronograma |
 | Produção | Sem data, aguardando cronograma |
-| Urgente | Não, conforme solicitação da IFSOFT |
+| Urgente | Não, conforme definição manual |
 | Análise | 05/10/2026 |
 | Vigente | Sim, como versão de referência; não significa implantação em produção |
 

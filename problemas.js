@@ -399,7 +399,7 @@
     status: "relatado",
     prioridade: "normal",
     ambiente: "producao",
-    responsavel: "IFSOFT",
+    responsavel: "",
     dataRelato: "2026-10-05",
     prazo: "",
     problemaRelatado: "Descreva aqui o problema.",

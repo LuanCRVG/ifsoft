@@ -1,6 +1,6 @@
 # NT 2026.010 v1.00 - DANFE Reforma Tributária
 
-Análise realizada em **01/10/2026** para a IFSOFT Sistemas, com base no [PDF enviado](documentos/nt-2026-010-v1.00-danfe-rtc.pdf) e no [tópico do Projeto ACBr](https://www.projetoacbr.com.br/forum/topic/95131-publicado-leiaute-do-danfe-com-os-campos-da-reforma-tribut%C3%A1ria/).
+Análise realizada em **01/10/2026** para acompanhamento técnico, com base no [PDF enviado](documentos/nt-2026-010-v1.00-danfe-rtc.pdf) e no [tópico do Projeto ACBr](https://www.projetoacbr.com.br/forum/topic/95131-publicado-leiaute-do-danfe-com-os-campos-da-reforma-tribut%C3%A1ria/).
 
 ## Cadastro e cronograma
 
@@ -12,7 +12,7 @@ Análise realizada em **01/10/2026** para a IFSOFT Sistemas, com base no [PDF en
 | Publicação anunciada pelo ACBr | 01/10/2026 |
 | Produção | 01/12/2026 |
 | Testes/homologação | Sem data informada; o cronograma traz um traço |
-| Prioridade | Urgente, por decisão da IFSOFT |
+| Prioridade | Urgente, por definição manual |
 | NT vigente no cadastro | Sim, como versão de referência; não indica produção já implantada |
 
 O cronograma consta na página 3. O escopo da página 4 é o DANFE da **NF-e modelo 55**; esta análise não estende a mudança à NFC-e, NFS-e ou MDF-e.
@@ -62,9 +62,9 @@ Quando `gRed` estiver presente, inclusive nas hipóteses de compra governamental
 
 O tópico consultado em 01/10/2026 informa a criação da tarefa **ACBR-9948** para implementar o novo DANFE e indica que as novidades serão divulgadas ali. Essa postagem não comprova que a mudança já foi entregue.
 
-Como encaminhamento para a IFSOFT, acompanhar a tarefa e conferir a versão do componente e dos relatórios utilizados pelo sistema antes de considerar a impressão pronta. Este é um encaminhamento de implementação derivado da leitura das fontes, não um prazo adicional publicado na NT.
+Como encaminhamento técnico, acompanhar a tarefa e conferir a versão do componente e dos relatórios utilizados pelo sistema antes de considerar a impressão pronta. Este é um encaminhamento de implementação derivado da leitura das fontes, não um prazo adicional publicado na NT.
 
-## Verificações recomendadas para a IFSOFT
+## Verificações técnicas recomendadas
 
 Os modelos das páginas 8 e 9 usam valores fictícios. A página 7 define retrato como referência principal e paisagem como alternativa. Não usar os valores ilustrativos como parâmetros de cálculo.
 
