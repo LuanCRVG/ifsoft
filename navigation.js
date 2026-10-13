@@ -1,7 +1,7 @@
 (() => {
   const tabs = Array.from(document.querySelectorAll("#portal-tabs [role='tab']"));
   const panels = tabs.map((tab) => document.getElementById(tab.getAttribute("aria-controls")));
-  const hashes = ["#notas-tecnicas", "#problemas-no-sistema", "#briefing-diario"];
+  const hashes = ["#notas-tecnicas", "#problemas-no-sistema", "#briefing-diario", "#download-de-utilitarios"];
   const heading = document.querySelector("#portal-heading");
   const subheading = document.querySelector("#portal-subheading");
   const footer = document.querySelector("#portal-footer-context");
@@ -9,7 +9,8 @@
   const headings = [
     ["Notas e informes técnicos dos documentos fiscais eletrônicos", "Prazos para implementação nos ambientes de homologação e produção", "Notas e informes técnicos", "Documentos fiscais eletrônicos"],
     ["Ocorrências e pareceres técnicos do sistema", "Registro de problemas, análise técnica e possíveis soluções", "Ocorrências e pareceres técnicos", "Acompanhamento técnico"],
-    ["Notícias de tecnologia e desenvolvimento", "Conteúdo selecionado por Luan Paranhos", "Briefing tecnológico · Notícias e fontes", "Tecnologia e desenvolvimento"]
+    ["Notícias de tecnologia e desenvolvimento", "Conteúdo selecionado por Luan Paranhos", "Briefing tecnológico · Notícias e fontes", "Tecnologia e desenvolvimento"],
+    ["Utilitários para suporte e manutenção", "Programas desenvolvidos por Luan Paranhos", "Download de Utilitários", "Programas e ferramentas"]
   ];
   document.querySelector("#tab-notes-count").textContent = String(notasTecnicas.length);
 

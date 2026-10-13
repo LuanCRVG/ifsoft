@@ -1,6 +1,6 @@
 # LP - Central Técnica
 
-Site estático em HTML, CSS e JavaScript, com as abas **Notas técnicas**, **Problemas no sistema** e **Briefing tecnológico**. Compatível com abertura local e GitHub Pages, sem servidor ou etapa de build.
+Site estático em HTML, CSS e JavaScript, com as abas **Notas técnicas**, **Problemas no sistema**, **Briefing tecnológico** e **Download de Utilitários**. Compatível com abertura local e GitHub Pages, sem servidor ou etapa de build.
 
 A identidade pública é **LP**, iniciais de Luan Paranhos. O endereço do repositório e do GitHub Pages permanece o mesmo. Os identificadores internos `IFSOFT_PROBLEMAS`, `IFSOFT_BRIEFING` e a chave de tema foram preservados por compatibilidade; não são nomes exibidos no site.
 
@@ -185,6 +185,14 @@ O favicon usa um monograma **LP** branco sobre azul, também usado no cabeçalho
 `favicon.svg` é a versão vetorial; `favicon-32.png` e `favicon.ico` são alternativas para outros navegadores. O ICO inclui tamanhos de 16, 32 e 48 pixels. `apple-touch-icon.png` tem 180 pixels e identifica o site quando adicionado à tela inicial de dispositivos Apple.
 
 Publique os quatro arquivos de ícone junto com `index.html`, `nota.html` e `briefing.html`. Os caminhos são relativos para funcionar também no endereço de projeto do GitHub Pages. Ao trocar o desenho no futuro, atualize os arquivos derivados e a versão `?v=...` dos links nas três páginas, pois navegadores podem manter favicons antigos em cache.
+
+## Download de Utilitários
+
+A quarta aba é acessível em `index.html#download-de-utilitarios`. O primeiro programa é **Firebird Care 1.0.4**, para Windows 10/11 x64, desenvolvido por Luan Paranhos. O botão baixa o ZIP completo, sem executar o programa no navegador. O cadastro informa tamanho e SHA-256, traz as orientações do pacote e um aviso para preservar o banco original e trabalhar em uma cópia. Não há upload, cadastro ou edição por visitantes.
+
+Os dados ficam em `utilitarios-data.js`; `utilitarios.js` cria os cartões e `utilitarios.css` define sua apresentação nos temas claro e escuro. Para publicar, inclua esses três arquivos, a pasta `downloads/`, o ícone em `imagens/utilitarios/` e as páginas e estilos alterados. Não basta publicar somente o HTML: o ZIP precisa estar no repositório. Leia [downloads/README.md](downloads/README.md) para atualizar versões e evitar limites de tamanho do GitHub.
+
+As quatro abas usam a mesma navegação por clique, setas, Home e End. No celular, ficam em duas colunas com espaço para o aviso do briefing. A aba inicial e os endereços existentes permanecem iguais.
 
 ## Como publicar no GitHub Pages
 

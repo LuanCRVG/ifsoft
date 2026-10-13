@@ -273,11 +273,12 @@ tbody tr.urgent-row td:first-child { border-left: 3px solid #d54959; padding-lef
   .note-observation { break-inside: avoid; }
 }
 .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
-.portal-tabs { display: flex; align-items: stretch; gap: 8px; border-bottom: 1px solid #d8dce4; margin-bottom: 28px; }
+.portal-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: stretch; gap: 8px; border-bottom: 1px solid #d8dce4; margin-bottom: 28px; }
 .portal-tab { display: flex; align-items: center; gap: 9px; min-height: 51px; max-width: 100%; padding: 12px 17px; border: 0; border-bottom: 3px solid transparent; border-radius: 6px 6px 0 0; background: transparent; color: #50637f; font-size: 14px; font-weight: 600; text-align: left; }
 .portal-tab:hover { color: var(--brand); background: #edf1f8; }
 .portal-tab.is-active { color: var(--brand); border-bottom-color: var(--brand); background: #e6efff; }
-.portal-tab svg { width: 18px; height: 18px; }
+.portal-tab svg { width: 18px; height: 18px; flex-shrink: 0; }
+.portal-tab > span:not(.tab-count) { min-width: 0; overflow-wrap: anywhere; }
 .tab-count { display: inline-grid; place-items: center; min-width: 23px; height: 22px; padding-inline: 5px; border-radius: 4px; background: #e7ebf1; color: #6c7587; font-size: 11px; font-variant-numeric: tabular-nums; }
 .is-active .tab-count { background: #dce9ff; color: #235ab5; }
 .portal-tab.problem-tab > .problem-tab-label { min-width: 0; overflow-wrap: anywhere; }
@@ -530,7 +531,7 @@ body.image-viewer-open { overflow: hidden; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
 @media (max-width: 700px) {
-  .portal-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+  .portal-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 6px; }
   .portal-tab { position: relative; min-width: 0; min-height: 78px; padding: 10px 6px; flex-direction: column; justify-content: center; gap: 6px; font-size: 12px; text-align: center; }
   .portal-tab > span:not(.tab-count) { min-width: 0; overflow-wrap: anywhere; }
   .portal-tab .tab-count, .portal-tab.problem-tab .tab-count { position: absolute; top: 6px; right: 5px; display: inline-grid; min-width: 18px; height: 18px; font-size: 10px; padding-inline: 3px; }
