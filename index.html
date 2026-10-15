@@ -13,7 +13,7 @@
     <meta name="description" content="Notas técnicas dos documentos fiscais eletrônicos e acompanhamento de problemas, pareceres técnicos e soluções do sistema.">
     <link rel="stylesheet" href="styles.css?v=20261013-utilitarios-1">
     <link rel="stylesheet" href="briefing.css?v=20261007-polish-1">
-    <link rel="stylesheet" href="utilitarios.css?v=20261015-schemas-1">
+    <link rel="stylesheet" href="utilitarios.css?v=20261015-schemas-2">
     <link rel="stylesheet" href="theme.css?v=20261007-correcao-2">
     <script src="vendor/lucide.min.js" defer></script>
     <script src="script.js?v=20261009-lp-1" defer></script>
@@ -25,7 +25,7 @@
     <script src="utilitarios-data.js?v=20261013-firebird-care-1" defer></script>
     <script src="utilitarios.js?v=20261013-utilitarios-1" defer></script>
     <script src="schemas-nfse-data.js?v=20261015-schemas-1" defer></script>
-    <script src="schemas-nfse.js?v=20261015-schemas-1" defer></script>
+    <script src="schemas-nfse.js?v=20261015-schemas-2" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -201,7 +201,7 @@
         <noscript><p>O briefing não pôde ser carregado porque o JavaScript está desativado.</p></noscript>
       </section>
       <section id="panel-downloads" class="utilities-panel" role="tabpanel" aria-labelledby="tab-downloads" tabindex="0" hidden>
-        <div class="section-heading"><h2 id="utilities-title">Download de Utilitários</h2><div class="utilities-heading-actions"><span class="section-label" id="utilities-count"></span><button type="button" class="action-button secondary-action" id="schemas-open" title="Ir para os schemas NFS-e por município" hidden><i data-lucide="folder" aria-hidden="true"></i>SchemasNFSe<i data-lucide="chevron-down" aria-hidden="true"></i></button></div></div>
+        <div class="section-heading"><h2 id="utilities-title">Download de Utilitários</h2><div class="utilities-heading-actions"><span class="section-label" id="utilities-count"></span><button type="button" class="action-button secondary-action" id="schemas-open" title="Abrir schemas NFS-e por município" hidden><i data-lucide="folder" aria-hidden="true"></i>Schemas NFS-e<i data-lucide="chevron-down" aria-hidden="true"></i></button></div></div>
         <div class="utilities-layout">
           <div class="utilities-list" id="utilities-list" aria-labelledby="utilities-title"></div>
           <aside class="utilities-caution" aria-labelledby="utilities-caution-title">
@@ -210,8 +210,8 @@
             <p>Confirme a compatibilidade da versão do Firebird antes do procedimento. Uma recuperação não garante a integridade de todos os dados.</p>
           </aside>
         </div>
-        <section class="schemas-section" id="schemas-nfse" aria-labelledby="schemas-title">
-          <div class="section-heading"><div class="heading-with-count"><h3 id="schemas-title"><i data-lucide="folder" aria-hidden="true"></i>SchemasNFSe</h3><span class="count-badge" id="schemas-count">0</span></div></div>
+        <details class="schemas-section" id="schemas-nfse" aria-labelledby="schemas-title">
+          <summary class="schemas-toggle"><span class="schemas-toggle-label"><i data-lucide="folder" aria-hidden="true"></i><span id="schemas-title">Schemas NFS-e</span><span class="count-badge" id="schemas-count">0</span></span><i data-lucide="chevron-down" class="schemas-toggle-icon" aria-hidden="true"></i></summary>
           <div class="schemas-filters" role="search" aria-label="Filtros de schemas NFS-e">
             <label class="field schemas-search"><span>Buscar município</span><div class="search-control"><i data-lucide="search" aria-hidden="true"></i><input id="schemas-search" type="search" placeholder="Nome do município..." autocomplete="off"></div></label>
             <label class="field"><span>UF</span><select id="schemas-uf-filter"><option value="todos">Todas as UFs</option></select></label>
@@ -221,7 +221,7 @@
           <ul class="schemas-list" id="schemas-list" aria-label="Schemas NFS-e por município"></ul>
           <p class="utility-empty" id="schemas-empty" hidden>Nenhum município encontrado.</p>
           <p class="schemas-source-note">Arquivos fornecidos em 15/10/2026. Confirme a versão aplicável com o provedor municipal antes de substituir os schemas.</p>
-        </section>
+        </details>
       </section>
       <noscript><p><a class="action-button primary-action" href="downloads/FirebirdCare-1.0.4-win-x64.zip" download="FirebirdCare-1.0.4-win-x64.zip">Baixar Firebird Care 1.0.4 para Windows x64</a></p></noscript>
     </main>

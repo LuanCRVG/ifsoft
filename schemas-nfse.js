@@ -88,7 +88,9 @@
   });
   shortcut.hidden = records.length === 0;
   shortcut.addEventListener("click", () => {
-    document.getElementById("schemas-nfse").scrollIntoView({ block: "start" });
+    const section = document.getElementById("schemas-nfse");
+    section.open = true;
+    section.scrollIntoView({ block: "start" });
     search.focus({ preventScroll: true });
   });
   render();

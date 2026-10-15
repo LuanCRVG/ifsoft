@@ -21,6 +21,7 @@ O `.gitattributes` desta pasta desativa a conversao de quebras de linha dos XSDs
 
 - `schemas-nfse-data.js` guarda os nomes apresentados no site, UF, pasta original, quantidade de arquivos no pacote, tamanho do ZIP e SHA-256.
 - `schemas-nfse.js` monta a lista, a busca por municipio e o filtro de UF; `utilitarios.css` compartilha o estilo da area de downloads.
+- A secao comeca recolhida em `details/summary`; clicar no titulo expande ou recolhe, sem depender de um script para esse controle. O atalho superior abre a secao antes de levar o foco a busca.
 - O link e relativo: `downloads/SchemasNFSe/<pasta>/SchemasNFSe.zip`. Espacos e acentos das pastas foram preservados e sao resolvidos pelo navegador. O atributo `download` sugere um nome distinto por municipio, como `SchemasNFSe-santo-andre-sp.zip`.
 - Para atualizar um conjunto, confira a pasta correta, preserve a estrutura dos schemas, atualize os metadados do cadastro e altere `schemas-nfse-data.js?v=...` no `index.html` para uma nova versao de cache.
 - Publique o cadastro, o layout alterado e a pasta completa `downloads/SchemasNFSe/`. Nao ha upload nem edicao por visitantes.
@@ -31,3 +32,16 @@ Para conferir tamanho e hash de um pacote no PowerShell:
 (Get-Item -LiteralPath 'downloads/SchemasNFSe/SP/SchemasNFSe.zip').Length
 Get-FileHash -LiteralPath 'downloads/SchemasNFSe/SP/SchemasNFSe.zip' -Algorithm SHA256
 ```
+
+## Manutencao pelo site do GitHub
+
+E possivel enviar e excluir arquivos pela interface do GitHub, mas a listagem deste site e um cadastro fixo, nao uma leitura automatica das pastas.
+
+1. Para atualizar os arquivos baixados de um municipio, prepare o novo ZIP completo e envie-o para a pasta correta com o mesmo nome `SchemasNFSe.zip`. Alterar somente um XSD solto nao refaz o ZIP e nao muda o conteudo do botao de download.
+2. Atualize `quantidadeArquivos`, `tamanhoBytes` e `sha256` desse municipio em `schemas-nfse-data.js`, que tambem pode ser editado pelo GitHub. A logica da pagina nao precisa mudar. Depois renove a versao `schemas-nfse-data.js?v=...` no `index.html`.
+3. Para adicionar um municipio ou renomear sua pasta, ajuste o cadastro para apontar para a pasta existente. Para remover um municipio da lista, remova o objeto correspondente do cadastro; excluir apenas o ZIP deixa o botao publicado apontando para um arquivo ausente.
+4. Depois das alteracoes pelo GitHub, use Fetch origin/Pull no GitHub Desktop antes de continuar editando a copia local, para nao trabalhar com uma versao desatualizada.
+
+Sem uma etapa automatica de geracao do cadastro, apenas colocar ou apagar arquivos na pasta nao atualiza os municipios exibidos. Nenhuma automacao foi adicionada nesta alteracao.
+
+Documentacao: [enviar arquivos pelo GitHub](https://docs.github.com/en/repositories/working-with-files/managing-files/adding-a-file-to-a-repository) e [excluir arquivos pelo GitHub](https://docs.github.com/en/repositories/working-with-files/managing-files/deleting-files-in-a-repository).

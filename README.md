@@ -196,7 +196,7 @@ As quatro abas usam a mesma navegação por clique, setas, Home e End. No celula
 
 ### SchemasNFSe
 
-A área de downloads contém também a seção **SchemasNFSe**, com oito conjuntos separados por município, busca sem distinção de acentos e filtro de UF. O atalho no topo da aba leva diretamente à lista. Cada botão baixa um ZIP identificado pelo município, preservando os arquivos e as estruturas recebidas. Os conjuntos já compactados não foram recompostos; os conjuntos soltos ganharam um ZIP, mantendo também seus arquivos originais.
+A área de downloads contém também a seção **Schemas NFS-e**, recolhida por padrão, com oito conjuntos separados por município, busca sem distinção de acentos e filtro de UF. Clicar no título expande ou recolhe a lista, usando os elementos nativos `details/summary` do HTML, inclusive pelo teclado. O atalho no topo da aba abre a seção e leva à busca. O estado de expansão não é salvo entre carregamentos. Cada botão baixa um ZIP identificado pelo município, preservando os arquivos e as estruturas recebidas. Os conjuntos já compactados não foram recompostos; os conjuntos soltos ganharam um ZIP, mantendo também seus arquivos originais.
 
 As pastas ficam em `downloads/SchemasNFSe/`; os metadados e os nomes exibidos ficam em `schemas-nfse-data.js`. Inclua também `schemas-nfse.js`, o CSS e o HTML atualizados na publicação. A pasta original `SP` é apresentada como **São Paulo · SP**, conforme o namespace dos XSDs enviados, sem renomear a pasta. Consulte [downloads/SchemasNFSe/README.md](downloads/SchemasNFSe/README.md) para atualizar os pacotes. O Firebird Care e os registros das outras abas permanecem independentes desta seção.
 

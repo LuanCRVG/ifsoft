@@ -33,9 +33,17 @@
 .utilities-caution h3 svg { width: 20px; height: 20px; flex-shrink: 0; color: var(--amber); }
 .utilities-caution p { margin: 0 0 12px; color: var(--muted); font-size: 12px; line-height: 1.9; overflow-wrap: anywhere; }
 .utility-empty { color: var(--muted); font-size: 14px; }
-.schemas-section { margin-top: 36px; padding-top: 26px; border-top: 1px solid var(--line); min-width: 0; }
-.schemas-section h3 { display: flex; align-items: center; gap: 8px; margin: 0; color: var(--text); font-size: 18px; line-height: 1.5; }
-.schemas-section h3 svg { width: 21px; height: 21px; color: var(--brand); flex-shrink: 0; }
+.schemas-section { margin-top: 28px; border-block: 1px solid var(--line); min-width: 0; }
+.schemas-toggle { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 66px; padding-block: 16px; color: var(--text); list-style: none; cursor: pointer; }
+.schemas-toggle::-webkit-details-marker { display: none; }
+.schemas-toggle:hover { color: var(--brand); }
+.schemas-toggle:focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; }
+.schemas-toggle-label { display: flex; align-items: center; gap: 10px; min-width: 0; font-size: 17px; font-weight: 650; line-height: 1.5; }
+.schemas-toggle-label > svg { width: 21px; height: 21px; color: var(--brand); flex-shrink: 0; }
+.schemas-toggle-label > span { min-width: 0; overflow-wrap: anywhere; }
+.schemas-toggle-label .count-badge { flex-shrink: 0; }
+.schemas-toggle-icon { width: 18px; height: 18px; flex-shrink: 0; color: var(--muted); transition: transform .16s ease; }
+.schemas-section[open] > .schemas-toggle .schemas-toggle-icon { transform: rotate(180deg); }
 .schemas-filters { display: grid; grid-template-columns: minmax(0, 1fr) 180px 42px; align-items: end; gap: 14px; }
 .schemas-filters .icon-button { width: 42px; height: 42px; }
 .schemas-result { margin: 18px 0 10px; color: var(--muted); font-size: 12px; }
@@ -47,7 +55,7 @@
 .schema-identity .badge { flex-shrink: 0; }
 .schema-metadata { color: var(--muted); font-size: 12px; line-height: 1.7; overflow-wrap: anywhere; }
 .schema-download { min-height: 42px; text-decoration: none; }
-.schemas-source-note { margin: 18px 0 0; color: var(--muted); font-size: 11px; line-height: 1.8; overflow-wrap: anywhere; }
+.schemas-source-note { margin: 18px 0; color: var(--muted); font-size: 11px; line-height: 1.8; overflow-wrap: anywhere; }
 @media (max-width: 700px) {
   .schemas-filters { grid-template-columns: minmax(0, 1fr) 42px; }
   .schemas-search { grid-column: 1 / -1; }
