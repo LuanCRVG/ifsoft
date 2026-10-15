@@ -194,6 +194,12 @@ Os dados ficam em `utilitarios-data.js`; `utilitarios.js` cria os cartões e `ut
 
 As quatro abas usam a mesma navegação por clique, setas, Home e End. No celular, ficam em duas colunas com espaço para o aviso do briefing. A aba inicial e os endereços existentes permanecem iguais.
 
+### SchemasNFSe
+
+A área de downloads contém também a seção **SchemasNFSe**, com oito conjuntos separados por município, busca sem distinção de acentos e filtro de UF. O atalho no topo da aba leva diretamente à lista. Cada botão baixa um ZIP identificado pelo município, preservando os arquivos e as estruturas recebidas. Os conjuntos já compactados não foram recompostos; os conjuntos soltos ganharam um ZIP, mantendo também seus arquivos originais.
+
+As pastas ficam em `downloads/SchemasNFSe/`; os metadados e os nomes exibidos ficam em `schemas-nfse-data.js`. Inclua também `schemas-nfse.js`, o CSS e o HTML atualizados na publicação. A pasta original `SP` é apresentada como **São Paulo · SP**, conforme o namespace dos XSDs enviados, sem renomear a pasta. Consulte [downloads/SchemasNFSe/README.md](downloads/SchemasNFSe/README.md) para atualizar os pacotes. O Firebird Care e os registros das outras abas permanecem independentes desta seção.
+
 ## Como publicar no GitHub Pages
 
 1. Crie um repositório no GitHub.

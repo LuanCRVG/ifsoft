@@ -1,0 +1,4 @@
+# Preserve os bytes dos arquivos enviados ao versionar.
+*.xsd -text
+*.zip -text
+*.bmp -text
