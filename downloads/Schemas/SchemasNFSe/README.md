@@ -5,7 +5,7 @@ Conjuntos fornecidos em 15/10/2026. Os arquivos sao distribuidos para consulta e
 | Municipio | UF | Pasta preservada | Arquivos no ZIP | Pacote |
 | --- | --- | --- | --- | --- |
 | Araruama | RJ | `Araruama_RJ` | 2 | ZIP recebido, sem alteracoes |
-| Duque de Caxias | RJ | `Duque de Caxias_RJ` | 2 | ZIP criado com a subpasta `2.04/` |
+| Duque de Caxias (Padrao Nacional) | RJ | `Duque de Caxias_RJ` | 2 | ZIP recebido, com a subpasta `ISSNet-PadraoNacional/` |
 | Niteroi | RJ | `Niteroi_RJ` | 2 | ZIP criado com os arquivos enviados |
 | Rio de Janeiro (Padrao Nacional) | RJ | `Rio de Janeiro_RJ` | 11 | ZIP criado com os novos XSDs enviados |
 | Santo Andre | SP | `Santo André_SP` | 24 | ZIP recebido, sem alteracoes |
@@ -16,6 +16,8 @@ Conjuntos fornecidos em 15/10/2026. Os arquivos sao distribuidos para consulta e
 A pasta `SP` foi identificada como Sao Paulo pelo namespace `http://www.prefeitura.sp.gov.br/nfe` dos XSDs. O nome fisico da pasta nao foi alterado. As pastas que continham arquivos soltos preservam tambem esses originais. Nenhum XSD, nome de arquivo, referencia interna ou subpasta foi modificado; ZIPs novos foram gerados a partir dos arquivos da origem, sem incluir o proprio ZIP.
 
 Em 15/10/2026, o conjunto de Rio de Janeiro/RJ foi substituido pelos 11 XSDs fornecidos como Padrao Nacional. A subpasta antiga `RJ/`, a imagem `Logo_Prefeitura.bmp` e o ZIP anterior foram removidos. Os novos XSDs ficam diretamente na pasta municipal e na raiz do novo `SchemasNFSe.zip` (64.463 bytes; SHA-256 `78BBEE57DE5E5E19AD688DA1C36336A42047566599E5776B1D87CF6A1A94C877`). A identificacao do padrao segue o cadastro solicitado, sem certificar vigencia ou compatibilidade.
+
+Tambem em 15/10/2026, o conjunto de Duque de Caxias/RJ foi substituido pelo ZIP ISSNet-PadraoNacional enviado pela equipe. A antiga subpasta `2.04/` foi removida. Os dois XSDs novos ficam em `ISSNet-PadraoNacional/`, preservando os nomes, bytes e a estrutura do pacote. O `SchemasNFSe.zip` e uma copia exata do ZIP recebido, sem recompressao (32.080 bytes). O cadastro identifica o municipio como Padrao Nacional, conforme solicitado; confirme o leiaute aplicavel antes de usar os arquivos no sistema.
 
 O `.gitattributes` da pasta principal `Schemas/` desativa a conversao de quebras de linha dos XSDs, ZIPs e BMPs pelo Git. A regra e restrita aos conjuntos publicados ali e preserva seus bytes tambem no versionamento.
 

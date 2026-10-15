@@ -7,8 +7,9 @@ window.LP_SCHEMAS_NFSE = [
   },
   {
     id: "duque-de-caxias-rj", municipio: "Duque de Caxias", uf: "RJ", pasta: "Duque de Caxias_RJ",
-    quantidadeArquivos: 2, tamanhoBytes: 7591,
-    sha256: "A57E8530C10640D788B390DEA95BBB197C8828A24DAC439035BA61D491122159"
+    padrao: "Padrão Nacional",
+    quantidadeArquivos: 2, tamanhoBytes: 32080,
+    sha256: "2E7E40B2F402B619FAB1202DE2F3CBD9390AA21C078E59D257D6FADFFAE3CD83"
   },
   {
     id: "niteroi-rj", municipio: "Niterói", uf: "RJ", pasta: "Niteroi_RJ",
