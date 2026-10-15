@@ -7,7 +7,6 @@
   const count = document.getElementById("schemas-count");
   const summary = document.getElementById("schemas-result-summary");
   const empty = document.getElementById("schemas-empty");
-  const shortcut = document.getElementById("schemas-open");
   const create = (tag, className = "", text = "") => {
     const node = document.createElement(tag);
     node.className = className;
@@ -34,14 +33,14 @@
     || new Set(data.map((item) => item.id)).size !== data.length
     || new Set(data.map((item) => item.pasta)).size !== data.length) {
     list.replaceChildren();
-    count.textContent = "0";
+    count.textContent = "0 municípios";
     summary.textContent = "Não foi possível carregar os schemas NFS-e.";
     empty.hidden = true;
     search.disabled = state.disabled = clear.disabled = true;
     return;
   }
   const records = data.slice().sort((a, b) => a.municipio.localeCompare(b.municipio, "pt-BR") || a.uf.localeCompare(b.uf));
-  count.textContent = String(records.length);
+  count.textContent = `${records.length} ${records.length === 1 ? "município" : "municípios"}`;
   state.replaceChildren();
   const allStates = create("option", "", "Todas as UFs");
   allStates.value = "todos";
@@ -85,13 +84,6 @@
     search.value = "";
     state.value = "todos";
     render();
-  });
-  shortcut.hidden = records.length === 0;
-  shortcut.addEventListener("click", () => {
-    const section = document.getElementById("schemas-nfse");
-    section.open = true;
-    section.scrollIntoView({ block: "start" });
-    search.focus({ preventScroll: true });
   });
   render();
 })();

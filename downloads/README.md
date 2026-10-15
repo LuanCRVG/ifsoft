@@ -2,6 +2,8 @@
 
 Esta pasta contem os pacotes publicados no site. Os visitantes podem somente baixa-los; nao existe envio ou edicao pela pagina.
 
+Na interface, os programas ficam na pasta expansivel Utilitarios, antes de Schemas NFS-e. As duas pastas comecam recolhidas e recebem destaque visual e contadores. Esta organizacao e apenas visual: os caminhos fisicos dos ZIPs foram preservados.
+
 ## Firebird Care 1.0.4
 
 - Arquivo: `FirebirdCare-1.0.4-win-x64.zip`.
