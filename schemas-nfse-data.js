@@ -17,8 +17,9 @@ window.LP_SCHEMAS_NFSE = [
   },
   {
     id: "rio-de-janeiro-rj", municipio: "Rio de Janeiro", uf: "RJ", pasta: "Rio de Janeiro_RJ",
-    quantidadeArquivos: 3, tamanhoBytes: 39437,
-    sha256: "13503849D5647D75C97A9E36A30B833235621543F953299BA270548C5AD885C8"
+    padrao: "Padrão Nacional",
+    quantidadeArquivos: 11, tamanhoBytes: 64463,
+    sha256: "78BBEE57DE5E5E19AD688DA1C36336A42047566599E5776B1D87CF6A1A94C877"
   },
   {
     id: "santo-andre-sp", municipio: "Santo André", uf: "SP", pasta: "Santo André_SP",

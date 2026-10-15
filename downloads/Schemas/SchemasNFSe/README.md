@@ -7,7 +7,7 @@ Conjuntos fornecidos em 15/10/2026. Os arquivos sao distribuidos para consulta e
 | Araruama | RJ | `Araruama_RJ` | 2 | ZIP recebido, sem alteracoes |
 | Duque de Caxias | RJ | `Duque de Caxias_RJ` | 2 | ZIP criado com a subpasta `2.04/` |
 | Niteroi | RJ | `Niteroi_RJ` | 2 | ZIP criado com os arquivos enviados |
-| Rio de Janeiro | RJ | `Rio de Janeiro_RJ` | 3 | ZIP criado com `RJ/` e `Logo_Prefeitura.bmp` |
+| Rio de Janeiro (Padrao Nacional) | RJ | `Rio de Janeiro_RJ` | 11 | ZIP criado com os novos XSDs enviados |
 | Santo Andre | SP | `Santo André_SP` | 24 | ZIP recebido, sem alteracoes |
 | Sao Caetano do Sul | SP | `Sao Caetano do Sul_SP` | 23 | ZIP recebido, sem alteracoes |
 | Sao Paulo | SP | `SP` | 17 | ZIP criado com os arquivos enviados |
@@ -15,11 +15,14 @@ Conjuntos fornecidos em 15/10/2026. Os arquivos sao distribuidos para consulta e
 
 A pasta `SP` foi identificada como Sao Paulo pelo namespace `http://www.prefeitura.sp.gov.br/nfe` dos XSDs. O nome fisico da pasta nao foi alterado. As pastas que continham arquivos soltos preservam tambem esses originais. Nenhum XSD, nome de arquivo, referencia interna ou subpasta foi modificado; ZIPs novos foram gerados a partir dos arquivos da origem, sem incluir o proprio ZIP.
 
+Em 15/10/2026, o conjunto de Rio de Janeiro/RJ foi substituido pelos 11 XSDs fornecidos como Padrao Nacional. A subpasta antiga `RJ/`, a imagem `Logo_Prefeitura.bmp` e o ZIP anterior foram removidos. Os novos XSDs ficam diretamente na pasta municipal e na raiz do novo `SchemasNFSe.zip` (64.463 bytes; SHA-256 `78BBEE57DE5E5E19AD688DA1C36336A42047566599E5776B1D87CF6A1A94C877`). A identificacao do padrao segue o cadastro solicitado, sem certificar vigencia ou compatibilidade.
+
 O `.gitattributes` da pasta principal `Schemas/` desativa a conversao de quebras de linha dos XSDs, ZIPs e BMPs pelo Git. A regra e restrita aos conjuntos publicados ali e preserva seus bytes tambem no versionamento.
 
 ## Cadastro e publicacao
 
 - `schemas-nfse-data.js` guarda os nomes apresentados no site, UF, pasta original, quantidade de arquivos no pacote, tamanho do ZIP e SHA-256.
+- O campo opcional `padrao`, como `padrao: "Padrão Nacional"`, aparece entre parenteses ao lado do municipio e participa da busca. Ele nao altera a UF, o nome da pasta ou o endereco de download.
 - `schemas-nfse.js` monta a lista, a busca por municipio e o filtro de UF; `utilitarios.css` compartilha o estilo da area de downloads.
 - A pasta Schemas NFS-e fica dentro de Schemas, junto de Schemas MDF-e. Todas comecam recolhidas em `details/summary`; clicar no cabecalho expande ou recolhe, sem depender de um script para esse controle. Cada pasta tem seu proprio cabecalho com icone, contador e seta.
 - O link e relativo: `downloads/Schemas/SchemasNFSe/<pasta>/SchemasNFSe.zip`. Espacos e acentos das pastas foram preservados e sao resolvidos pelo navegador. O atributo `download` sugere um nome distinto por municipio, como `SchemasNFSe-santo-andre-sp.zip`.

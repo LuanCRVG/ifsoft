@@ -23,6 +23,7 @@
   const valid = (item) => item && typeof item === "object"
     && typeof item.id === "string" && /^[a-z0-9-]+$/.test(item.id)
     && typeof item.municipio === "string" && item.municipio.trim().length > 0 && item.municipio.length <= 120
+    && (item.padrao === undefined || (typeof item.padrao === "string" && item.padrao.length <= 120))
     && typeof item.uf === "string" && /^[A-Z]{2}$/.test(item.uf)
     && typeof item.pasta === "string" && /^[\p{L}\p{N} _-]+$/u.test(item.pasta) && item.pasta.trim().length > 0
     && Number.isSafeInteger(item.quantidadeArquivos) && item.quantidadeArquivos > 0
@@ -55,7 +56,7 @@
   function render() {
     const query = normalize(search.value);
     const filtered = records.filter((item) => (state.value === "todos" || item.uf === state.value)
-      && normalize(`${item.municipio} ${item.uf} ${item.pasta}`).includes(query));
+      && normalize(`${item.municipio} ${item.uf} ${item.pasta} ${item.padrao || ""}`).includes(query));
     list.replaceChildren();
     summary.textContent = `${filtered.length} de ${records.length} ${records.length === 1 ? "município" : "municípios"}`;
     empty.hidden = filtered.length !== 0;
@@ -64,14 +65,15 @@
       const row = create("li", "schema-row");
       row.id = `schema-${item.id}`;
       const identity = create("div", "schema-identity");
-      identity.append(icon("folder"), create("h4", "", item.municipio), create("span", "badge badge-neutral", item.uf));
+      const label = `${item.municipio}${item.padrao ? ` (${item.padrao})` : ""}`;
+      identity.append(icon("folder"), create("h4", "", label), create("span", "badge badge-neutral", item.uf));
       const size = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 }).format(item.tamanhoBytes / 1024) + " KiB";
       const quantity = `${item.quantidadeArquivos} ${item.quantidadeArquivos === 1 ? "arquivo" : "arquivos"}`;
       const metadata = create("span", "schema-metadata", `${quantity} · ${size}`);
       const link = create("a", "action-button secondary-action schema-download");
       link.href = `downloads/Schemas/SchemasNFSe/${item.pasta}/SchemasNFSe.zip`;
       link.setAttribute("download", `SchemasNFSe-${item.id}.zip`);
-      link.setAttribute("aria-label", `Baixar schemas de ${item.municipio}, ${item.uf}, ${quantity}, ${size}`);
+      link.setAttribute("aria-label", `Baixar schemas de ${label}, ${item.uf}, ${quantity}, ${size}`);
       link.append(icon("download"), create("span", "", "Baixar ZIP"));
       row.append(identity, metadata, link);
       list.appendChild(row);
