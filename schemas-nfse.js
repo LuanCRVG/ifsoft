@@ -69,7 +69,7 @@
       const quantity = `${item.quantidadeArquivos} ${item.quantidadeArquivos === 1 ? "arquivo" : "arquivos"}`;
       const metadata = create("span", "schema-metadata", `${quantity} · ${size}`);
       const link = create("a", "action-button secondary-action schema-download");
-      link.href = `downloads/SchemasNFSe/${item.pasta}/SchemasNFSe.zip`;
+      link.href = `downloads/Schemas/SchemasNFSe/${item.pasta}/SchemasNFSe.zip`;
       link.setAttribute("download", `SchemasNFSe-${item.id}.zip`);
       link.setAttribute("aria-label", `Baixar schemas de ${item.municipio}, ${item.uf}, ${quantity}, ${size}`);
       link.append(icon("download"), create("span", "", "Baixar ZIP"));

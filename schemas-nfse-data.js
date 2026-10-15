@@ -1,4 +1,4 @@
-// Mantenha os arquivos de cada municipio em downloads/SchemasNFSe/<pasta>/.
+// Mantenha os arquivos de cada municipio em downloads/Schemas/SchemasNFSe/<pasta>/.
 window.LP_SCHEMAS_NFSE = [
   {
     id: "araruama-rj", municipio: "Araruama", uf: "RJ", pasta: "Araruama_RJ",

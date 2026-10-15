@@ -190,7 +190,7 @@ Publique os quatro arquivos de ícone junto com `index.html`, `nota.html` e `bri
 
 A quarta aba é acessível em `index.html#download-de-utilitarios`. O primeiro programa é **Firebird Care 1.0.4**, para Windows 10/11 x64, desenvolvido por Luan Paranhos. O botão baixa o ZIP completo, sem executar o programa no navegador. O cadastro informa tamanho e SHA-256, traz as orientações do pacote e um aviso para preservar o banco original e trabalhar em uma cópia. Não há upload, cadastro ou edição por visitantes.
 
-A apresentação usa duas pastas empilhadas, **Utilitários** e **Schemas NFS-e**, ambas recolhidas ao carregar a página. Utilitários contém o Firebird Care e seu aviso de cuidados com o banco; Schemas NFS-e contém os pacotes municipais. Os cabeçalhos recebem ícones de pasta, contadores, cores distintas e setas de expansão, com adaptação ao celular e aos dois temas. Cada pasta abre e fecha de forma independente pelos controles nativos `details/summary`, sem salvar o estado entre carregamentos. Os endereços dos arquivos não mudaram.
+A apresentação usa duas pastas principais empilhadas, **Utilitários** e **Schemas**, ambas recolhidas ao carregar a página. Utilitários contém o Firebird Care e seu aviso de cuidados com o banco. Schemas contém **Schemas NFS-e** e **Schemas MDF-e**, também recolhidas. Os cabeçalhos recebem ícones de pasta, contadores, cores distintas e setas de expansão, com adaptação ao celular e aos dois temas. Cada pasta abre e fecha de forma independente pelos controles nativos `details/summary`, sem salvar o estado entre carregamentos. O endereço do Firebird Care não mudou; os schemas agora ficam em `downloads/Schemas/`.
 
 Os dados ficam em `utilitarios-data.js`; `utilitarios.js` cria os cartões e `utilitarios.css` define sua apresentação nos temas claro e escuro. Para publicar, inclua esses três arquivos, a pasta `downloads/`, o ícone em `imagens/utilitarios/` e as páginas e estilos alterados. Não basta publicar somente o HTML: o ZIP precisa estar no repositório. Leia [downloads/README.md](downloads/README.md) para atualizar versões e evitar limites de tamanho do GitHub.
 
@@ -198,9 +198,15 @@ As quatro abas usam a mesma navegação por clique, setas, Home e End. No celula
 
 ### SchemasNFSe
 
-A pasta **Schemas NFS-e** contém oito conjuntos separados por município, busca sem distinção de acentos e filtro de UF. Clicar no cabeçalho expande ou recolhe a lista, usando os elementos nativos `details/summary` do HTML, inclusive pelo teclado. Os dois cabeçalhos de pasta substituem o antigo atalho superior. O estado de expansão não é salvo entre carregamentos. Cada botão baixa um ZIP identificado pelo município, preservando os arquivos e as estruturas recebidas. Os conjuntos já compactados não foram recompostos; os conjuntos soltos ganharam um ZIP, mantendo também seus arquivos originais.
+A pasta **Schemas NFS-e**, dentro de **Schemas**, contém oito conjuntos separados por município, busca sem distinção de acentos e filtro de UF. Clicar no cabeçalho expande ou recolhe a lista, usando os elementos nativos `details/summary` do HTML, inclusive pelo teclado. O estado de expansão não é salvo entre carregamentos. Cada botão baixa um ZIP identificado pelo município, preservando os arquivos e as estruturas recebidas. Os conjuntos já compactados não foram recompostos; os conjuntos soltos ganharam um ZIP, mantendo também seus arquivos originais.
 
-As pastas ficam em `downloads/SchemasNFSe/`; os metadados e os nomes exibidos ficam em `schemas-nfse-data.js`. Inclua também `schemas-nfse.js`, o CSS e o HTML atualizados na publicação. A pasta original `SP` é apresentada como **São Paulo · SP**, conforme o namespace dos XSDs enviados, sem renomear a pasta. Consulte [downloads/SchemasNFSe/README.md](downloads/SchemasNFSe/README.md) para atualizar os pacotes. O Firebird Care e os registros das outras abas permanecem independentes desta seção.
+As pastas ficam em `downloads/Schemas/SchemasNFSe/`; os metadados e os nomes exibidos ficam em `schemas-nfse-data.js`. Inclua também `schemas-nfse.js`, o CSS e o HTML atualizados na publicação. A pasta original `SP` é apresentada como **São Paulo · SP**, conforme o namespace dos XSDs enviados, sem renomear a pasta. Consulte [downloads/Schemas/SchemasNFSe/README.md](downloads/Schemas/SchemasNFSe/README.md) para atualizar os pacotes. O Firebird Care e os registros das outras abas permanecem independentes desta seção.
+
+### SchemasMDFe
+
+A pasta **Schemas MDF-e**, também dentro de **Schemas**, oferece o ZIP completo dos 88 XSDs fornecidos em 15/10/2026. Os arquivos soltos e o ZIP ficam em `downloads/Schemas/SchemasMDFe/`, com nomes e bytes preservados. O pacote reúne diferentes versões; confirme o leiaute aplicável antes de substituir schemas no sistema.
+
+Os metadados ficam em `schemas-mdfe-data.js` e a lista é montada por `schemas-mdfe.js`. Ao atualizar o pacote, atualize também a quantidade, o tamanho, o SHA-256 e a versão de cache do cadastro em `index.html`. Consulte [downloads/Schemas/SchemasMDFe/README.md](downloads/Schemas/SchemasMDFe/README.md). Para publicar esta reorganização, inclua a pasta `downloads/Schemas/`, os novos scripts e os arquivos alterados; a pasta antiga `downloads/SchemasNFSe/` foi movida, não duplicada.
 
 ## Como publicar no GitHub Pages
 

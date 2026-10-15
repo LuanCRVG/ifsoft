@@ -13,7 +13,7 @@
     <meta name="description" content="Notas técnicas dos documentos fiscais eletrônicos e acompanhamento de problemas, pareceres técnicos e soluções do sistema.">
     <link rel="stylesheet" href="styles.css?v=20261013-utilitarios-1">
     <link rel="stylesheet" href="briefing.css?v=20261007-polish-1">
-    <link rel="stylesheet" href="utilitarios.css?v=20261015-folders-1">
+    <link rel="stylesheet" href="utilitarios.css?v=20261015-schemas-2">
     <link rel="stylesheet" href="theme.css?v=20261007-correcao-2">
     <script src="vendor/lucide.min.js" defer></script>
     <script src="script.js?v=20261009-lp-1" defer></script>
@@ -24,8 +24,10 @@
     <script src="briefing.js?v=20261009-lp-1" defer></script>
     <script src="utilitarios-data.js?v=20261013-firebird-care-1" defer></script>
     <script src="utilitarios.js?v=20261013-utilitarios-1" defer></script>
-    <script src="schemas-nfse-data.js?v=20261015-schemas-1" defer></script>
-    <script src="schemas-nfse.js?v=20261015-folders-1" defer></script>
+    <script src="schemas-nfse-data.js?v=20261015-schemas-2" defer></script>
+    <script src="schemas-nfse.js?v=20261015-schemas-2" defer></script>
+    <script src="schemas-mdfe-data.js?v=20261015-schemas-1" defer></script>
+    <script src="schemas-mdfe.js?v=20261015-schemas-1" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -216,7 +218,10 @@
               </div>
             </div>
           </details>
-          <details class="download-folder download-folder-schemas" id="schemas-nfse" aria-labelledby="schemas-title">
+          <details class="download-folder download-folder-schemas" id="schemas-folder" aria-labelledby="schemas-folder-title">
+            <summary class="download-folder-toggle"><span class="download-folder-symbol" aria-hidden="true"><i data-lucide="folders"></i></span><span class="download-folder-heading"><span class="download-folder-title" id="schemas-folder-title">Schemas</span><span class="download-folder-description">NFS-e e MDF-e</span></span><span class="download-folder-count">2 categorias</span><i data-lucide="chevron-down" class="download-folder-chevron" aria-hidden="true"></i></summary>
+            <div class="download-folder-content schema-folders">
+          <details class="download-folder download-folder-nested" id="schemas-nfse" aria-labelledby="schemas-title">
             <summary class="download-folder-toggle"><span class="download-folder-symbol" aria-hidden="true"><i data-lucide="folder"></i></span><span class="download-folder-heading"><span class="download-folder-title" id="schemas-title">Schemas NFS-e</span><span class="download-folder-description">Arquivos por município</span></span><span class="download-folder-count" id="schemas-count">0 municípios</span><i data-lucide="chevron-down" class="download-folder-chevron" aria-hidden="true"></i></summary>
             <div class="download-folder-content">
               <div class="schemas-filters" role="search" aria-label="Filtros de schemas NFS-e">
@@ -228,6 +233,16 @@
               <ul class="schemas-list" id="schemas-list" aria-label="Schemas NFS-e por município"></ul>
               <p class="utility-empty" id="schemas-empty" hidden>Nenhum município encontrado.</p>
               <p class="schemas-source-note">Arquivos fornecidos em 15/10/2026. Confirme a versão aplicável com o provedor municipal antes de substituir os schemas.</p>
+            </div>
+          </details>
+          <details class="download-folder download-folder-nested" id="schemas-mdfe" aria-labelledby="schemas-mdfe-title">
+            <summary class="download-folder-toggle"><span class="download-folder-symbol" aria-hidden="true"><i data-lucide="folder"></i></span><span class="download-folder-heading"><span class="download-folder-title" id="schemas-mdfe-title">Schemas MDF-e</span><span class="download-folder-description">Conjunto de arquivos XSD</span></span><span class="download-folder-count" id="schemas-mdfe-count">0 arquivos</span><i data-lucide="chevron-down" class="download-folder-chevron" aria-hidden="true"></i></summary>
+            <div class="download-folder-content">
+              <ul class="schemas-list" id="schemas-mdfe-list" aria-label="Pacote de schemas MDF-e"></ul>
+              <p class="utility-empty" id="schemas-mdfe-error" role="status" hidden>Não foi possível carregar os schemas MDF-e.</p>
+              <p class="schemas-source-note">Arquivos fornecidos em 15/10/2026. O ZIP contém o conjunto enviado, com diferentes versões de XSD. Confirme o leiaute aplicável antes de substituir os schemas.</p>
+            </div>
+          </details>
             </div>
           </details>
         </div>
