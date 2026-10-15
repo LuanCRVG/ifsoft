@@ -2,7 +2,7 @@
 
 Esta pasta contem os pacotes publicados no site. Os visitantes podem somente baixa-los; nao existe envio ou edicao pela pagina.
 
-Na interface, os programas ficam na pasta expansivel Utilitarios, antes de Schemas. Dentro de Schemas ficam Schemas NFS-e e Schemas MDF-e. Todas comecam recolhidas e recebem icones, contadores e setas. Os arquivos ficam em `downloads/Schemas/SchemasNFSe/` (por municipio) e `downloads/Schemas/SchemasMDFe/`. Consulte [Schemas/README.md](Schemas/README.md) para manter os pacotes. O endereco do Firebird Care nao mudou.
+Na interface, os programas ficam na pasta expansivel Utilitarios, antes de Schemas. Dentro de Schemas ficam Schemas NFS-e, Schemas MDF-e e Schemas NF-e. Todas comecam recolhidas e recebem icones, contadores e setas. Os arquivos ficam em `downloads/Schemas/SchemasNFSe/` (por municipio), `downloads/Schemas/SchemasMDFe/` e `downloads/Schemas/SchemasNFe/` (Normal e Padrao Nacional separados). Consulte [Schemas/README.md](Schemas/README.md) para manter os pacotes. O endereco do Firebird Care nao mudou.
 
 ## Firebird Care 1.0.4
 

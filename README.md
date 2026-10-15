@@ -190,7 +190,7 @@ Publique os quatro arquivos de ícone junto com `index.html`, `nota.html` e `bri
 
 A quarta aba é acessível em `index.html#download-de-utilitarios`. O primeiro programa é **Firebird Care 1.0.4**, para Windows 10/11 x64, desenvolvido por Luan Paranhos. O botão baixa o ZIP completo, sem executar o programa no navegador. O cadastro informa tamanho e SHA-256, traz as orientações do pacote e um aviso para preservar o banco original e trabalhar em uma cópia. Não há upload, cadastro ou edição por visitantes.
 
-A apresentação usa duas pastas principais empilhadas, **Utilitários** e **Schemas**, ambas recolhidas ao carregar a página. Utilitários contém o Firebird Care e seu aviso de cuidados com o banco. Schemas contém **Schemas NFS-e** e **Schemas MDF-e**, também recolhidas. Os cabeçalhos recebem ícones de pasta, contadores, cores distintas e setas de expansão, com adaptação ao celular e aos dois temas. Cada pasta abre e fecha de forma independente pelos controles nativos `details/summary`, sem salvar o estado entre carregamentos. O endereço do Firebird Care não mudou; os schemas agora ficam em `downloads/Schemas/`.
+A apresentação usa duas pastas principais empilhadas, **Utilitários** e **Schemas**, ambas recolhidas ao carregar a página. Utilitários contém o Firebird Care e seu aviso de cuidados com o banco. Schemas contém **Schemas NFS-e**, **Schemas MDF-e** e **Schemas NF-e**, também recolhidas. Os cabeçalhos recebem ícones de pasta, contadores, cores distintas e setas de expansão, com adaptação ao celular e aos dois temas. Cada pasta abre e fecha de forma independente pelos controles nativos `details/summary`, sem salvar o estado entre carregamentos. O endereço do Firebird Care não mudou; os schemas agora ficam em `downloads/Schemas/`.
 
 Os dados ficam em `utilitarios-data.js`; `utilitarios.js` cria os cartões e `utilitarios.css` define sua apresentação nos temas claro e escuro. Para publicar, inclua esses três arquivos, a pasta `downloads/`, o ícone em `imagens/utilitarios/` e as páginas e estilos alterados. Não basta publicar somente o HTML: o ZIP precisa estar no repositório. Leia [downloads/README.md](downloads/README.md) para atualizar versões e evitar limites de tamanho do GitHub.
 
@@ -207,6 +207,12 @@ As pastas ficam em `downloads/Schemas/SchemasNFSe/`; os metadados e os nomes exi
 A pasta **Schemas MDF-e**, também dentro de **Schemas**, oferece o ZIP completo dos 88 XSDs fornecidos em 15/10/2026. Os arquivos soltos e o ZIP ficam em `downloads/Schemas/SchemasMDFe/`, com nomes e bytes preservados. O pacote reúne diferentes versões; confirme o leiaute aplicável antes de substituir schemas no sistema.
 
 Os metadados ficam em `schemas-mdfe-data.js` e a lista é montada por `schemas-mdfe.js`. Ao atualizar o pacote, atualize também a quantidade, o tamanho, o SHA-256 e a versão de cache do cadastro em `index.html`. Consulte [downloads/Schemas/SchemasMDFe/README.md](downloads/Schemas/SchemasMDFe/README.md). Para publicar esta reorganização, inclua a pasta `downloads/Schemas/`, os novos scripts e os arquivos alterados; a pasta antiga `downloads/SchemasNFSe/` foi movida, não duplicada.
+
+### SchemasNFe
+
+A pasta **Schemas NF-e** oferece dois ZIPs independentes: **Normal (sem Reforma Tributária)**, com 158 XSDs, e **Padrão Nacional**, com 200 XSDs. Os nomes seguem a identificação fornecida pela equipe, sem certificar vigência ou compatibilidade. Os arquivos ficam em `downloads/Schemas/SchemasNFe/Normal/` e `downloads/Schemas/SchemasNFe/PadraoNacional/`, sem misturar conjuntos. As cópias idênticas do segundo envio não foram duplicadas; o RAR original foi preservado em `Originais/`, separado dos downloads ZIP.
+
+O cadastro fica em `schemas-nfe-data.js`; `schemas-nfe.js` monta a lista com os estilos já existentes. Para atualizar, altere o conjunto correto, recrie seu ZIP e revise os metadados e a versão de cache em `index.html`. Consulte [downloads/Schemas/SchemasNFe/README.md](downloads/Schemas/SchemasNFe/README.md). Publique os novos scripts, o HTML e a pasta completa de NF-e. Os downloads de NFS-e, MDF-e e Firebird Care permanecem independentes.
 
 ## Como publicar no GitHub Pages
 
