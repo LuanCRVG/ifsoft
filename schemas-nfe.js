@@ -50,6 +50,7 @@
     link.setAttribute("aria-label", `Baixar schemas NF-e, ${item.nome}, ${quantity}, ${size}`);
     link.append(icon("download"), create("span", "", "Baixar ZIP"));
     row.append(identity, metadata, link);
+    if (window.LP_SCHEMA_DATES) row.appendChild(window.LP_SCHEMA_DATES.create(item.dataAtualizacao));
     list.appendChild(row);
   });
   if (window.lucide) window.lucide.createIcons();
