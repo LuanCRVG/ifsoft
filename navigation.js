@@ -1,5 +1,7 @@
 (() => {
   const tabs = Array.from(document.querySelectorAll("#portal-tabs [role='tab']"));
+  const tabList = document.querySelector("#portal-tabs");
+  const problemTab = document.querySelector("#tab-problems");
   const panels = tabs.map((tab) => document.getElementById(tab.getAttribute("aria-controls")));
   const hashes = ["#notas-tecnicas", "#problemas-no-sistema", "#briefing-diario", "#download-de-utilitarios"];
   const heading = document.querySelector("#portal-heading");
@@ -17,11 +19,13 @@
   function activate(index) {
     tabs.forEach((tab, tabIndex) => {
       const selected = tabIndex === index;
+      tab.hidden = tab === problemTab && !selected;
       tab.setAttribute("aria-selected", String(selected));
       tab.tabIndex = selected ? 0 : -1;
       tab.classList.toggle("is-active", selected);
       panels[tabIndex].hidden = !selected;
     });
+    tabList.classList.toggle("has-problems-tab", !problemTab.hidden);
     const [title, description, context, label] = headings[index];
     heading.textContent = title;
     subheading.textContent = description;
@@ -35,16 +39,24 @@
       if (window.location.hash !== hashes[index]) window.location.hash = hashes[index];
     });
     tab.addEventListener("keydown", (event) => {
+      const visibleTabs = tabs.filter((item) => !item.hidden);
+      const visibleIndex = visibleTabs.indexOf(tab);
       let next;
-      if (event.key === "ArrowRight") next = (index + 1) % tabs.length;
-      if (event.key === "ArrowLeft") next = (index + tabs.length - 1) % tabs.length;
+      if (event.key === "ArrowRight") next = (visibleIndex + 1) % visibleTabs.length;
+      if (event.key === "ArrowLeft") next = (visibleIndex + visibleTabs.length - 1) % visibleTabs.length;
       if (event.key === "Home") next = 0;
-      if (event.key === "End") next = tabs.length - 1;
+      if (event.key === "End") next = visibleTabs.length - 1;
       if (next === undefined) return;
       event.preventDefault();
-      tabs[next].click();
-      tabs[next].focus();
+      visibleTabs[next].click();
+      visibleTabs[next].focus();
     });
+  });
+  document.querySelector("#footer-problems-link")?.addEventListener("click", (event) => {
+    if (event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    problemTab.click();
+    problemTab.focus();
   });
   const activeIndex = () => Math.max(0, hashes.indexOf(window.location.hash));
   window.addEventListener("hashchange", () => activate(activeIndex()));

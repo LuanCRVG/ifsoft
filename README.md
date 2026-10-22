@@ -1,6 +1,6 @@
 # LP - Central Técnica
 
-Site estático em HTML, CSS e JavaScript, com as abas **Notas técnicas**, **Problemas no sistema**, **Briefing tecnológico** e **Download de Utilitários**. Compatível com abertura local e GitHub Pages, sem servidor ou etapa de build.
+Site estático em HTML, CSS e JavaScript, com as abas **Notas técnicas**, **Briefing tecnológico** e **Download de Utilitários**, além de **Problemas no sistema** por acesso direto. Compatível com abertura local e GitHub Pages, sem servidor ou etapa de build.
 
 A identidade pública é **LP**, iniciais de Luan Paranhos. O endereço do repositório e do GitHub Pages permanece o mesmo. Os identificadores internos `IFSOFT_PROBLEMAS`, `IFSOFT_BRIEFING` e a chave de tema foram preservados por compatibilidade; não são nomes exibidos no site.
 
@@ -87,7 +87,11 @@ Os indicadores contam todos os registros cadastrados; o número de resultados in
 
 ## Problemas no sistema
 
-A aba **Problemas no sistema** tem um sino e recebe destaque âmbar quando existe pelo menos uma ocorrência não resolvida. Enquanto a aba estiver fora de foco, o sino faz um breve movimento a cada 4,8 segundos; ao selecionar a aba, a animação deixa de ser aplicada. Se todos os problemas estiverem resolvidos, não há alerta. A preferência de movimento reduzido do navegador desativa a animação, mantendo o destaque estático. O contador continua mostrando o total de ocorrências e fica visível também no celular; o tooltip informa quantas estão em aberto. Esse aviso não altera a prioridade dos problemas nem marca ocorrências normais como urgentes.
+A aba **Problemas no sistema** fica oculta na navegação normal, sem sino ou contador visível para quem abre as outras áreas. Para consultar os registros, abra `https://luancrvg.github.io/ifsoft/index.html#problemas-no-sistema` ou, localmente, `index.html#problemas-no-sistema`. Guarde esse endereço nos favoritos. A aba aparece somente enquanto essa seção está aberta; ao mudar para outra aba, ela volta a ficar oculta. A navegação por teclado também ignora a aba quando oculta.
+
+O rodapé da página principal também oferece um link pequeno **Problemas no sistema**, sem animação ou destaque de alerta. Ao clicar, a seção é aberta e o foco vai para sua aba. O link respeita a abertura em nova aba pelo navegador e funciona com caminhos locais e do GitHub Pages.
+
+Isso é apenas uma organização visual, não uma proteção de acesso: quem usar o link do rodapé ou conhecer o endereço poderá consultar a seção, e os arquivos continuam públicos. Não há autenticação, senha ou garantia de acesso exclusivo. Todos os registros, filtros, imagens e estados visuais dos problemas foram preservados.
 
 A aba pública é **somente para consulta**. Visitantes podem visualizar os detalhes, buscar, filtrar e ordenar as ocorrências. Não há formulário de cadastro, edição, exclusão, importação, resolução ou reabertura no site. A área continua sem ocorrências fictícias.
 

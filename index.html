@@ -10,8 +10,8 @@
     <link rel="icon" href="favicon.svg?v=20261009-lp-1" type="image/svg+xml" sizes="any">
     <link rel="apple-touch-icon" href="apple-touch-icon.png?v=20261009-lp-1" sizes="180x180">
     <title>LP | Central Técnica</title>
-    <meta name="description" content="Notas técnicas dos documentos fiscais eletrônicos e acompanhamento de problemas, pareceres técnicos e soluções do sistema.">
-    <link rel="stylesheet" href="styles.css?v=20261013-utilitarios-1">
+    <meta name="description" content="Notas técnicas dos documentos fiscais eletrônicos, notícias de tecnologia e utilitários para suporte e manutenção.">
+    <link rel="stylesheet" href="styles.css?v=20261022-problemas-rodape-1">
     <link rel="stylesheet" href="briefing.css?v=20261007-polish-1">
     <link rel="stylesheet" href="utilitarios.css?v=20261022-schema-dates-1">
     <link rel="stylesheet" href="theme.css?v=20261007-correcao-2">
@@ -19,7 +19,7 @@
     <script src="script.js?v=20261009-lp-1" defer></script>
     <script src="problemas-data.js?v=20261009-resolvido-003-1" defer></script>
     <script src="briefing-data.js?v=20261008-firebird-2" defer></script>
-    <script src="navigation.js?v=20261013-utilitarios-1" defer></script>
+    <script src="navigation.js?v=20261022-problemas-rodape-1" defer></script>
     <script src="problemas.js?v=20261009-lp-1" defer></script>
     <script src="briefing.js?v=20261009-lp-1" defer></script>
     <script src="utilitarios-data.js?v=20261022-if-fix-1" defer></script>
@@ -55,7 +55,7 @@
     <main class="page-shell">
       <nav class="portal-tabs" id="portal-tabs" role="tablist" aria-label="Central técnica">
         <button type="button" role="tab" id="tab-notes" class="portal-tab is-active" aria-selected="true" aria-controls="panel-notes" tabindex="0"><i data-lucide="file-text" aria-hidden="true"></i><span>Notas técnicas</span><span class="tab-count" id="tab-notes-count">0</span></button>
-        <button type="button" role="tab" id="tab-problems" class="portal-tab problem-tab" aria-selected="false" aria-controls="panel-problems" tabindex="-1"><span class="problem-tab-bell" aria-hidden="true"><i data-lucide="bell-ring"></i></span><span class="problem-tab-label">Problemas no sistema</span><span class="tab-count" id="tab-problems-count">0</span></button>
+        <button type="button" role="tab" id="tab-problems" class="portal-tab problem-tab" aria-selected="false" aria-controls="panel-problems" tabindex="-1" hidden><span class="problem-tab-bell" aria-hidden="true"><i data-lucide="bell-ring"></i></span><span class="problem-tab-label">Problemas no sistema</span><span class="tab-count" id="tab-problems-count">0</span></button>
         <button type="button" role="tab" id="tab-briefing" class="portal-tab briefing-tab" aria-selected="false" aria-controls="panel-briefing" tabindex="-1"><span class="briefing-tab-hint" aria-hidden="true">Confira<i data-lucide="arrow-down"></i></span><i data-lucide="coffee" aria-hidden="true"></i><span>Briefing tecnológico</span></button>
         <button type="button" role="tab" id="tab-downloads" class="portal-tab" aria-selected="false" aria-controls="panel-downloads" tabindex="-1"><i data-lucide="download" aria-hidden="true"></i><span>Download de Utilitários</span></button>
       </nav>
@@ -277,6 +277,6 @@
       <div class="problem-image-dialog-caption"><p id="problem-image-caption"></p><span id="problem-image-counter" aria-live="polite"></span></div>
     </dialog>
 
-    <footer class="site-footer"><span>LP <strong>Central técnica</strong></span><span id="portal-footer-context">Notas e informes técnicos</span></footer>
+    <footer class="site-footer"><span>LP <strong>Central técnica</strong></span><span id="portal-footer-context">Notas e informes técnicos</span><a class="footer-problems-link" id="footer-problems-link" href="#problemas-no-sistema">Problemas no sistema</a></footer>
   </body>
 </html>
