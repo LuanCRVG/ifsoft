@@ -24,8 +24,8 @@ window.LP_SCHEMAS_NFSE = [
   },
   {
     id: "santo-andre-sp", municipio: "Santo André", uf: "SP", pasta: "Santo André_SP",
-    quantidadeArquivos: 24, tamanhoBytes: 34916,
-    sha256: "A0A0AE3320C55C53491C0D2DE1D07962C3D1F686716B030B9B41F79DF449B951"
+    quantidadeArquivos: 24, tamanhoBytes: 46771,
+    sha256: "6E617EF8294AD4592CAD751C60BD626D3A4A3AA180DD63B31B6A966855F5F75B"
   },
   {
     id: "sao-caetano-do-sul-sp", municipio: "São Caetano do Sul", uf: "SP", pasta: "Sao Caetano do Sul_SP",

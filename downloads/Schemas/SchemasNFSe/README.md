@@ -1,6 +1,6 @@
 # SchemasNFSe por municipio
 
-Conjuntos fornecidos em 15/10/2026. Os arquivos sao distribuidos para consulta e download, sem certificacao de vigencia ou compatibilidade com provedores municipais.
+Conjuntos inicialmente fornecidos em 15/10/2026, com atualizacoes por municipio descritas abaixo. Os arquivos sao distribuidos para consulta e download, sem certificacao de vigencia ou compatibilidade com provedores municipais.
 
 | Municipio | UF | Pasta preservada | Arquivos no ZIP | Pacote |
 | --- | --- | --- | --- | --- |
@@ -8,7 +8,7 @@ Conjuntos fornecidos em 15/10/2026. Os arquivos sao distribuidos para consulta e
 | Duque de Caxias (Padrao Nacional) | RJ | `Duque de Caxias_RJ` | 2 | ZIP recebido, com a subpasta `ISSNet-PadraoNacional/` |
 | Niteroi | RJ | `Niteroi_RJ` | 2 | ZIP criado com os arquivos enviados |
 | Rio de Janeiro (Padrao Nacional) | RJ | `Rio de Janeiro_RJ` | 11 | ZIP criado com os novos XSDs enviados |
-| Santo Andre | SP | `Santo André_SP` | 24 | ZIP recebido, sem alteracoes |
+| Santo Andre | SP | `Santo André_SP` | 24 | ZIP criado a partir do RAR atualizado em 21/10/2026 |
 | Sao Caetano do Sul | SP | `Sao Caetano do Sul_SP` | 23 | ZIP recebido, sem alteracoes |
 | Sao Paulo | SP | `SP` | 17 | ZIP criado com os arquivos enviados |
 | Saquarema | RJ | `Saquarema_RJ` | 2 | ZIP recebido, sem alteracoes |
@@ -18,6 +18,8 @@ A pasta `SP` foi identificada como Sao Paulo pelo namespace `http://www.prefeitu
 Em 15/10/2026, o conjunto de Rio de Janeiro/RJ foi substituido pelos 11 XSDs fornecidos como Padrao Nacional. A subpasta antiga `RJ/`, a imagem `Logo_Prefeitura.bmp` e o ZIP anterior foram removidos. Os novos XSDs ficam diretamente na pasta municipal e na raiz do novo `SchemasNFSe.zip` (64.463 bytes; SHA-256 `78BBEE57DE5E5E19AD688DA1C36336A42047566599E5776B1D87CF6A1A94C877`). A identificacao do padrao segue o cadastro solicitado, sem certificar vigencia ou compatibilidade.
 
 Tambem em 15/10/2026, o conjunto de Duque de Caxias/RJ foi substituido pelo ZIP ISSNet-PadraoNacional enviado pela equipe. A antiga subpasta `2.04/` foi removida. Os dois XSDs novos ficam em `ISSNet-PadraoNacional/`, preservando os nomes, bytes e a estrutura do pacote. O `SchemasNFSe.zip` e uma copia exata do ZIP recebido, sem recompressao (32.080 bytes). O cadastro identifica o municipio como Padrao Nacional, conforme solicitado; confirme o leiaute aplicavel antes de usar os arquivos no sistema.
+
+Em 21/10/2026, Santo Andre/SP recebeu o conjunto do arquivo `Schemas.rar` enviado pela equipe. O ZIP anterior foi substituido por um novo `SchemasNFSe.zip`, com os mesmos 24 XSDs do RAR, preservando os nomes, bytes e a subpasta `Schemas_XSD-Servicos_Prestados/` (46.771 bytes; SHA-256 `6E617EF8294AD4592CAD751C60BD626D3A4A3AA180DD63B31B6A966855F5F75B`). Os XSDs extraidos e uma copia intacta do RAR original ficam na pasta municipal. O RAR nao integra o ZIP de download. A identificacao do municipio e dos demais conjuntos nao foi alterada.
 
 O `.gitattributes` da pasta principal `Schemas/` desativa a conversao de quebras de linha dos XSDs, ZIPs e BMPs pelo Git. A regra e restrita aos conjuntos publicados ali e preserva seus bytes tambem no versionamento.
 
