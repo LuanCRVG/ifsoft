@@ -17,7 +17,7 @@
   const valid = (item) => item && typeof item === "object"
     && ["nome", "versao", "autor", "plataforma", "descricao"].every((key) => typeof item[key] === "string" && item[key].trim())
     && typeof item.id === "string" && /^[a-z0-9-]+$/.test(item.id)
-    && /^downloads\/[a-zA-Z0-9._-]+\.zip$/.test(item.arquivo)
+    && /^downloads\/[a-zA-Z0-9._-]+\.(zip|rar)$/.test(item.arquivo)
     && /^imagens\/utilitarios\/[a-zA-Z0-9._-]+\.png$/.test(item.icone)
     && Number.isSafeInteger(item.tamanhoBytes) && item.tamanhoBytes > 0
     && /^[a-fA-F0-9]{64}$/.test(item.sha256)
@@ -52,7 +52,7 @@
     card.append(header, create("p", "utility-description", item.descricao));
     const metadata = create("dl", "utility-metadata");
     const size = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 }).format(item.tamanhoBytes / 1048576) + " MiB";
-    [["Versão", item.versao], ["Plataforma", item.plataforma], ["Tamanho do ZIP", size]].forEach(([label, value]) => {
+    [["Versão", item.versao], ["Plataforma", item.plataforma], ["Tamanho do pacote", size]].forEach(([label, value]) => {
       const field = create("div");
       field.append(create("dt", "", label), create("dd", "", value));
       metadata.appendChild(field);

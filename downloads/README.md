@@ -13,12 +13,24 @@ Na interface, os programas ficam na pasta expansivel Utilitarios, antes de Schem
 - A plataforma e as orientacoes de extracao foram obtidas do `LEIA-ME.txt` contido no pacote. A inclusao nao certifica o funcionamento ou a seguranca do programa.
 - `imagens/utilitarios/firebird-care.png` e o icone incorporado ao executavel, extraido sem executar o aplicativo.
 
-## Nova versao
+## IF Fix 0.6
 
-1. Acrescente o novo ZIP com um nome que inclua a versao, sem sobrescrever o pacote anterior.
+- Arquivo: `IF-Fix-0.6-win.rar`, exibido depois do Firebird Care no site.
+- Tamanho: 96.192.558 bytes (91,7 MiB).
+- SHA-256 do RAR: `B83ED937445085A99B85CD45A1CA5652C5DDD443573D7602C30E2130042E6280`.
+- Conteudo: `IF-Fix.exe`, `LEIA-ME.txt`, `SHA256SUMS.txt` e `VALIDACAO.txt`, fornecidos na entrega 0.6.
+- O executavel original tem 121.627.136 bytes e SHA-256 `8D8EBDEDD035A0604B75F9EC340C911ED0EDFBA478DD018BBC7810B645FACC80`. O EXE e o ZIP da entrega original ultrapassam 100 MiB; por isso, foi criado um RAR menor, sem alterar os arquivos internos. Nao envie o EXE ou o ZIP original para este repositorio. O RAR precisa ser incluido no commit pelo GitHub Desktop/Git, nao pelo envio de arquivos no navegador.
+- Windows 10/11 x86/x64 e .NET Framework 4.8 ou superior, conforme as orientacoes do pacote. O programa pode oferecer a instalacao do .NET quando ausente, com autorizacao e internet. Os instaladores Visual C++ e as DLLs fornecidas ja estao incorporados.
+- As correcoes exigem privilegios administrativos e podem encerrar aplicativos, substituir DLLs e alterar configuracoes de rede. Leia os avisos do pacote, preserve backups e homologue as operacoes em computador de teste. A fbclient precisa corresponder a arquitetura do aplicativo, nao apenas a do Windows.
+- O executavel nao possui assinatura Authenticode empresarial. A inclusao no site nao certifica seguranca ou funcionamento. O programa nao foi executado durante a inclusao; os arquivos do RAR foram comparados com a entrega original.
+- `imagens/utilitarios/if-fix.png` foi convertido do icone original `IF-Fix.ico` do projeto, sem executar o aplicativo.
+
+## Como atualizar um utilitario
+
+1. Acrescente o novo pacote ZIP ou RAR com um nome que inclua a versao, sem sobrescrever o pacote anterior. Confirme que o arquivo cabe no limite do repositorio; nao divida um executavel para torna-lo publicavel sem ajustar o fluxo de download.
 2. Atualize o registro correspondente em `utilitarios-data.js`: versao, arquivo, tamanho em bytes, hash SHA-256 e orientacoes.
-3. Altere `utilitarios-data.js?v=...` no `index.html` para uma nova versao de cache. Ao trocar o nome do ZIP, atualize tambem o link alternativo dentro de `<noscript>` no mesmo HTML, que atende navegadores sem JavaScript.
-4. Publique os arquivos pelo GitHub Desktop ou Git, incluindo o ZIP. O download usa um caminho relativo, compativel com HTML local e GitHub Pages.
+3. Altere `utilitarios-data.js?v=...` no `index.html` para uma nova versao de cache. Ao trocar o nome do pacote, atualize tambem o link alternativo correspondente dentro de `<noscript>` no mesmo HTML, que atende navegadores sem JavaScript.
+4. Publique os arquivos pelo GitHub Desktop ou Git, incluindo o pacote. O download usa um caminho relativo, compativel com HTML local e GitHub Pages. A ordem dos objetos em `utilitarios-data.js` determina a ordem dos cartoes.
 
 Para calcular o tamanho e o hash no PowerShell:
 
