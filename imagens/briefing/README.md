@@ -20,3 +20,9 @@ Prompt utilizado:
 ```text
 Use case: stylized-concept. Asset type: original editorial raster cover for a Portuguese technology news story about the Firebird 6 database roadmap. Create a polished, clear digital illustration in a landscape 3:2 composition. Subject: a prominent database cylinder composed of orderly storage layers, with a few connected structured data tables and a subtle development path of small rectangular milestones. This is conceptual editorial artwork, not a screenshot of software. Use a bright off-white background, cobalt blue and teal database elements, restrained coral accents and graphite typography. Keep all meaningful elements comfortably inside the canvas with generous margins. Text verbatim: "Firebird 6" and "ROADMAP", in a simple, highly readable sans-serif typeface. The database should be the dominant recognizable subject. Avoid the official Firebird logo, any imitation of its phoenix emblem, animals, wings, flames, vendor marks, fake software interfaces, performance claims, release dates, extra words, purple neon, dark atmospheric backgrounds, decorative glowing orbs and watermarks. Make it sharp, sophisticated and appropriate for a technical team's daily news briefing. Opaque background.
 ```
+
+## DANFE com Reforma Tributária
+
+`danfe-reforma-tributaria.png` é a capa da notícia de 23/10/2026. É uma cópia integral da captura fornecida por Luan Paranhos, com 927 x 1183 pixels, sem recorte ou recompressão. O modelo contém dados de exemplo, não uma nota emitida. A imagem não comprova que a implementação já está disponível em todas as soluções ACBr; não há atribuição de autoria confirmada.
+
+O mesmo arquivo aparece na leitura completa, com legenda, texto alternativo e ampliação. Não há cópias duplicadas nas seções da notícia.

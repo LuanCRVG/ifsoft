@@ -96,6 +96,12 @@ A captura enviada serve como referência de conteúdo, não como capa. A notíci
 
 A edição de 07/10/2026 e suas imagens permanecem intactas no arquivo. Para estudar o cadastro de uma nova edição, compare os dois objetos em `briefing-data.js`: cada um tem sua data, destaque e lista de notícias. O campo `capa` contém o caminho relativo, texto alternativo, legenda e dimensões; trocar esses dados não exige alterar o layout.
 
+## Edição de 23/10/2026
+
+O destaque é `acbr-danfe-reforma-tributaria`, publicado por Luan Paranhos. A data original do anúncio é **22/10/2026**, confirmada nos metadados públicos da fonte; a publicação no briefing é **23/10/2026**. O link do Projeto ACBr fica em **Fontes e leitura completa**, sem sugestões de adoção ou pareceres extras. As edições anteriores foram preservadas.
+
+A capa `imagens/briefing/danfe-reforma-tributaria.png` é a captura fornecida para esta notícia, com 927 x 1183 pixels e dados de exemplo. Foi copiada integralmente, sem recorte ou recompressão. A legenda não atribui autoria nem apresenta a imagem como comprovação de disponibilidade em todos os produtos. A capa também aparece na leitura completa, com ampliação pelo visualizador existente; não é duplicada nas seções.
+
 ## Entregar a próxima edição ao Codex
 
 Envie a data da edição, a notícia de destaque e, para cada notícia: título, categorias, data original, resumo, texto da notícia, nome do publicador e fontes. O conteúdo não deve receber sugestões ou pareceres extras. `publicadoPor` identifica quem publicou no site, não a autoria do artigo original nem das imagens. Anexe imagens, indique a capa e envie legendas ou contexto confirmado. Texto normal é suficiente: o Codex organiza os dados.

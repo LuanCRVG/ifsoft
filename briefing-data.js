@@ -1,6 +1,56 @@
 // Notícias selecionadas manualmente. Mantenha as edições anteriores nesta lista.
 window.IFSOFT_BRIEFING = [
   {
+    "data": "2026-10-23",
+    "destaque": "acbr-danfe-reforma-tributaria",
+    "noticias": [
+      {
+        "id": "acbr-danfe-reforma-tributaria",
+        "titulo": "ACBr implementa o novo DANFE com informações da Reforma Tributária",
+        "categorias": ["ACBr", "NF-e", "Reforma Tributária"],
+        "dataOriginal": "2026-10-22",
+        "dataPublicacao": "2026-10-23",
+        "publicadoPor": "Luan Paranhos",
+        "resumo": "O ACBr anunciou a adaptação do DANFE à NT 2026.010. Fast Reports está concluído; Fortes Report e FPDF seguem em ajustes finais e testes, com liberação gradual para as demais soluções.",
+        "creditoEditorial": "Resumo informativo baseado no anúncio do Projeto ACBr de 22/10/2026. A situação apresentada pode mudar após esta edição.",
+        "capa": {
+          "arquivo": "imagens/briefing/danfe-reforma-tributaria.png",
+          "alt": "Modelo do novo DANFE com campos de IBS, CBS e Imposto Seletivo, totais tributários e QR Code.",
+          "legenda": "Imagem fornecida para esta notícia: modelo ilustrativo do novo DANFE, com dados de exemplo. Não representa uma nota fiscal emitida.",
+          "largura": 927,
+          "altura": 1183
+        },
+        "secoes": [
+          {
+            "titulo": "Situação dos motores de impressão",
+            "paragrafos": [
+              "Fast Reports: modelos DANFePaisagem_RTC.fr3 e DANFeRetrato_RTC.fr3 concluídos na revisão Rev-48780.",
+              "Fortes Report e FPDF: novos componentes específicos para o DANFE RTC em ajustes finais e testes."
+            ],
+            "imagens": []
+          },
+          {
+            "titulo": "Disponibilidade nas soluções ACBr",
+            "paragrafos": [
+              "A implementação chega primeiro aos componentes nativos para Delphi e Lazarus. O ACBr divulgará no tópico as versões do ACBrMonitorPLUS, da ACBrLibNFe e da ACBr API que incluírem os novos impressos."
+            ],
+            "imagens": []
+          },
+          {
+            "titulo": "Prazo informado no anúncio",
+            "paragrafos": [
+              "A publicação reafirma 01/12/2026 para implantação do novo leiaute em produção. Essa data não indica que todos os motores e produtos já estejam disponíveis."
+            ],
+            "imagens": []
+          }
+        ],
+        "fontes": [
+          { "titulo": "Projeto ACBr: implementação do DANFE com a Reforma Tributária", "url": "https://www.projetoacbr.com.br/forum/topic/95527-danfe-com-as-informa%C3%A7%C3%B5es-da-reforma-tribut%C3%A1ria-sendo-implementado-nas-solu%C3%A7%C3%B5es-acbr/" }
+        ]
+      }
+    ]
+  },
+  {
     "data": "2026-10-08",
     "destaque": "firebird-6-roadmap",
     "noticias": [
