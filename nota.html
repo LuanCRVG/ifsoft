@@ -12,10 +12,13 @@
     <title>Nota técnica | LP</title>
     <meta name="description" content="Observações completas e prazos das notas técnicas dos documentos fiscais eletrônicos na central técnica LP.">
     <link rel="stylesheet" href="styles.css?v=20261013-utilitarios-1">
+    <link rel="stylesheet" href="prioridades.css?v=20261026-prioridades-1">
     <link rel="stylesheet" href="theme.css?v=20261007-correcao-2">
     <script src="vendor/lucide.min.js" defer></script>
-    <script src="script.js?v=20261009-lp-1" defer></script>
-    <script src="nota.js?v=20261009-lp-1" defer></script>
+    <script src="script.js?v=20261026-prioridades-1" defer></script>
+    <script src="prioridades-data.js?v=20261026-prioridades-2" defer></script>
+    <script src="prioridades.js?v=20261026-prioridades-1" defer></script>
+    <script src="nota.js?v=20261026-prioridades-1" defer></script>
   </head>
   <body>
     <header class="site-header note-detail-header">
@@ -33,6 +36,24 @@
 
     <main class="page-shell note-detail-shell">
       <nav aria-label="Navegação da nota"><a class="note-back" href="index.html#notas-tecnicas"><i data-lucide="arrow-left" aria-hidden="true"></i><span>Voltar às notas técnicas</span></a></nav>
+
+      <article id="priority-detail" class="priority-guide" aria-labelledby="priority-detail-title" hidden>
+        <header class="note-detail-heading">
+          <p>Orientação do emissor</p>
+          <h1 id="priority-detail-title"></h1>
+          <p class="note-summary" id="priority-detail-summary"></p>
+          <div class="priority-guide-state" id="priority-detail-status"></div>
+        </header>
+        <section class="priority-guide-section" aria-labelledby="priority-who-title"><h2 id="priority-who-title">Quem é afetado</h2><p id="priority-detail-who"></p></section>
+        <section class="priority-guide-section" aria-labelledby="priority-actions-title"><h2 id="priority-actions-title">O que precisamos fazer</h2><ol id="priority-detail-actions"></ol></section>
+        <section class="priority-guide-section" aria-labelledby="priority-dates-title"><h2 id="priority-dates-title">Prazo oficial</h2><div id="priority-detail-dates"></div><p class="priority-guide-notice" id="priority-detail-date-note"></p></section>
+        <section class="priority-guide-section" aria-labelledby="priority-detail-extra-title"><h2 id="priority-detail-extra-title"></h2><p id="priority-detail-extra-text"></p></section>
+        <section class="priority-guide-section" aria-labelledby="priority-done-title"><h2 id="priority-done-title">Quando considerar concluído</h2><p id="priority-detail-done"></p></section>
+        <section class="priority-guide-section" id="priority-detail-related" aria-labelledby="priority-related-title"><h2 id="priority-related-title">Notas relacionadas</h2><ul id="priority-detail-notes"></ul></section>
+        <section class="priority-guide-section" aria-labelledby="priority-sources-title"><h2 id="priority-sources-title">Fontes e leitura completa</h2><ul id="priority-detail-sources"></ul></section>
+        <p class="priority-guide-reviewed" id="priority-detail-reviewed"></p>
+        <a class="note-back" href="index.html#notas-tecnicas"><i data-lucide="arrow-left" aria-hidden="true"></i><span>Voltar às prioridades e notas técnicas</span></a>
+      </article>
 
       <article id="note-detail" aria-labelledby="note-detail-title" hidden>
         <header class="note-detail-heading">

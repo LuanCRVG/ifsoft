@@ -37,7 +37,7 @@ const notasTecnicas = [
     documento: ["NF-e", "NFC-e"],
     uf: "Todos",
     observacoes: [
-      "Adequar o XML e a valorização de NF-e/NFC-e aos novos campos de valor líquido. Alterações gerais: homologação em 05/10/2026 e produção em 03/11/2026.",
+      "Cronograma atualizado: as alterações gerais foram adiadas para homologação em 26/10/2026 e produção em 16/11/2026, conforme aviso oficial ENCAT/SVRS. Os prazos específicos e as regras futuras permanecem separados. Aviso: https://dfe-portal.svrs.rs.gov.br/DFE/Avisos/3008 .",
       "Novos campos: vUnComLiq (I11b), vProdLiq (I11c), vICMSPrevisto no grupo ICMSPrevistoPagtoAntecip (NB01/NB02) e vProdLiqTot (W01a). Preservar a precisão de até 10 casas decimais do valor unitário líquido.",
       "Validações: em nota normal, vProdLiq deve corresponder a vUnComLiq × qCom, com tolerância de ±0,01 (I11c-20/1279). Se um item informar vProdLiq, informar vProdLiqTot e conferir a soma dos itens (W01a-10/1282 e W01a-20/1283).",
       "Obrigatoriedade futura: a sequência dos valores líquidos e a regra I11c-10 (rejeição 1278, ausência de vProdLiq) estão sinalizadas como implementação futura. Distinguir essa obrigatoriedade das validações dos campos já informados.",
@@ -52,9 +52,9 @@ const notasTecnicas = [
     linkAcbr: "https://www.projetoacbr.com.br/forum/topic/95140-publicada-nota-t%C3%A9cnica-criando-novos-campos-de-valoriza%C3%A7%C3%A3o-para-maior-transpar%C3%AAncia-na-nota-fiscal/",
     vigente: true,
     urgente: false,
-    dataAnalise: "2026-10-01",
-    prazoHomologacao: "2026-10-05",
-    prazoProducao: "2026-11-03"
+    dataAnalise: "2026-10-26",
+    prazoHomologacao: "2026-10-26",
+    prazoProducao: "2026-11-16"
   },
   {
     id: "nt-conjunta-2025-001-v1-00",
@@ -88,12 +88,12 @@ const notasTecnicas = [
   {
     id: "nt-se-cgnfse-009-v1-01",
     descricao: "NT SE/CGNFS-e 009 v1.01 - NFS-e Padrão Nacional / RTC",
-    resumo: "Atualização do leiaute da NFS-e nacional para a RTC; cronograma de implantação ainda não informado.",
+    resumo: "Primeira etapa em testes desde 20/10 e produção em 01/12. Preparar a atualização preservando o leiaute atual de produção até 30/11.",
     tipo: "Nota técnica · NFS-e padrão nacional",
     documento: "NFS-e",
     uf: "Todos",
     observacoes: [
-      "Cronograma ainda não publicado: a NT não informa datas de homologação ou produção. Os prazos serão divulgados no portal da NFS-e. Cadastro sem urgência, conforme definição manual.",
+      "Cronograma atualizado: a primeira etapa da NT 009 está em testes desde 20/10/2026, com produção em 01/12/2026. Até 30/11, a produção permanece no leiaute da NT 004 v2.0. Notas de ajuste e eventos RTC terão calendário próprio. As demais observações descrevem a NT completa, não comprovam que todos os campos já estejam nesta etapa. Fonte: https://www.gov.br/nfse/pt-br/noticias/cgnfs-e-informa-disponibilizadas-no-ambiente-de-testes-o-release-1-das-evolucoes-da-nota-tecnica-009 .",
       "Escopo: atualização do leiaute da NFS-e de padrão nacional e da DPS para a Reforma Tributária do Consumo. A identificação segue a capa e o conteúdo da NT 009 v1.01; não confundir com a NT 010 da NFS-e Via.",
       "CST/cClassTrib: os campos passam para IBSCBS/valores/trib, antes de gIBSCBS. O detalhamento tributário, inclusive vBC na NFS-e, depende do indicador ind_gIBSCBS da tabela CST/cClassTrib. Não preencher esses dados quando o indicador não exigir; a NT destaca CST 400, 410 e 820.",
       "Estrutura do XML: indDest e o grupo dest passam para a raiz infDPS, após toma. Revisar a ordem dos elementos e os mapeamentos de emissão e leitura; indFinal é reinserido para identificar uso ou consumo pessoal.",
@@ -114,9 +114,9 @@ const notasTecnicas = [
     linkAcbr: "https://www.projetoacbr.com.br/forum/topic/95165-publicada-nota-t%C3%A9cnica-atualizando-o-leiaute-da-nfs-e-no-padr%C3%A3o-nacional/",
     vigente: true,
     urgente: false,
-    dataAnalise: "2026-10-05",
-    prazoHomologacao: "",
-    prazoProducao: ""
+    dataAnalise: "2026-10-26",
+    prazoHomologacao: "2026-10-20",
+    prazoProducao: "2026-12-01"
   }
 ];
 

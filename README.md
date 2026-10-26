@@ -14,22 +14,37 @@ Para publicar o briefing, envie também `briefing.html`, `briefing.js`, `briefin
 
 Na listagem de notas, cada registro mostra apenas uma **observação resumida**. Clicar em qualquer área da linha da tabela ou do card no celular abre `nota.html?id=...`, com todas as observações organizadas por assunto, sumário, prazos e links do PDF e do ACBr. O título continua sendo um link com a indicação **Leia aqui**, acessível pelo teclado. Os links **Abrir NT** e **ACBr** mantêm seus destinos próprios; selecionar texto não abre a nota. Não há mais botão de expandir/recolher observações na tabela ou nos cards de celular. O link **Voltar às notas técnicas** retorna à lista.
 
-A lista atual contém quatro notas reais, analisadas em **01, 02 e 05/10/2026**:
+A lista contém quatro notas reais. Em **26/10/2026**, os prazos da NT 2026.008 e da NFS-e NT 009 foram atualizados conforme os comunicados oficiais.
 
 | Nota técnica | Documentos | Homologação | Produção | Prioridade |
 | --- | --- | --- | --- | --- |
 | NT 2026.010 v1.00 - DANFE Reforma Tributária | NF-e, modelo 55 | Não informada | 01/12/2026 | Urgente por marcação da equipe |
-| NT 2026.008 v1.00 - Valor Líquido do Produto | NF-e/NFC-e, modelos 55/65 | 05/10/2026 | 03/11/2026 | Automática, pelos próximos 30 dias de produção |
+| NT 2026.008 v1.00 - Valor Líquido do Produto | NF-e/NFC-e, modelos 55/65 | 26/10/2026 | 16/11/2026 | Automática, pelos próximos 30 dias de produção |
 | NT Conjunta 2025.001 v1.00 - CNPJ Alfanumérico | NF-e, NFC-e e MDF-e | 06/04/2026 | 06/07/2026 | Urgente manual, prazo já vencido |
-| NT SE/CGNFS-e 009 v1.01 - NFS-e Padrão Nacional / RTC | NFS-e | Aguardando cronograma | Aguardando cronograma | Não urgente, sem prazo de produção |
+| NT SE/CGNFS-e 009 v1.01 - NFS-e Padrão Nacional / RTC | NFS-e | 20/10/2026, primeira etapa | 01/12/2026, primeira etapa | Automática, sem urgência manual |
 
-A NT SE/CGNFS-e 009 v1.01 não informa datas de homologação ou produção. Os dois campos ficam vazios, e o site exibe **Sem data**; o cronograma será publicado no portal da NFS-e. A data específica de **01/01/2027** para o fim do domínio Desconhecido em campos de comércio exterior compartilhados pelos municípios ao ADN não foi usada como prazo geral da NT. A nota está com `urgente: false` e não gera urgência automática enquanto não houver prazo de produção.
+A primeira etapa da NFS-e NT 009 está em testes desde **20/10/2026**, com produção em **01/12/2026**. Até 30/11, a produção usa o leiaute anterior. Notas de ajuste e eventos RTC terão calendário próprio. A nota mantém `urgente: false`, com urgência automática nos 30 dias anteriores à produção; o conteúdo completo da NT não deve ser confundido com tudo já disponível nesta etapa.
 
-Na NT 2026.008, **NB01-30** tem prazo específico: homologação em **01/02/2027** e produção em **01/03/2027**. Esse prazo está nas observações; o prazo principal do registro mantém a entrega geral de novembro. Pela regra automática, a nota entra em Urgentes em **04/10/2026**, sem marcação manual.
+Na NT 2026.008, **NB01-30** tem prazo específico: homologação em **01/02/2027** e produção em **01/03/2027**. O prazo principal do registro é **16/11/2026**, conforme o adiamento oficial; a urgência automática começa em **17/10/2026**. Datas específicas e regras futuras permanecem nas observações.
 
 O cadastro do CNPJ alfanumérico preserva as datas do cronograma do PDF enviado. O complemento específico de schemas da NF-e/NFC-e, **NT 2026.004 v1.01**, informa homologação em **15/06/2026**; conferir os pacotes e comunicados aplicáveis antes de testar. A implantação dos sistemas da Receita Federal em **27/07/2026** e o primeiro CNPJ alfanumérico em **31/07/2026** são marcos distintos. A NFS-e não está no escopo da NT conjunta e exige conferência do padrão/provedor utilizado.
 
 Os PDFs enviados estão em `documentos/`. Todas as quatro notas oferecem também o tópico do ACBr, incluindo a nota de CNPJ alfanumérico; os links aparecem na listagem e na página de detalhes. Os pontos de implementação, mapeamentos e dependências estão em [ANALISE-NT-2026-010.md](ANALISE-NT-2026-010.md), [ANALISE-NT-2026-008.md](ANALISE-NT-2026-008.md), [ANALISE-NT-2025-001.md](ANALISE-NT-2025-001.md) e [ANALISE-NT-009-NFSE.md](ANALISE-NT-009-NFSE.md).
+
+## Prioridades do emissor
+
+O início da aba Notas técnicas mostra somente três assuntos: **IBS/CBS nas NFS-e do Rio**, **Novo leiaute da NFS-e** e **Mudanças da NF-e**. Eles não aumentam o total de notas. O botão **Ver orientação** (ou clique no cartão) abre a mesma página `nota.html`, com o parâmetro `?prioridade=...`; os links anteriores `?id=...` continuam funcionando.
+
+Para atualizar um texto ou andamento, abra **`prioridades-data.js`**, encontre o `id` do assunto (`rio-ibscbs`, `nfse-leiaute` ou `nfe-leiaute`) e edite o campo necessário. Exemplo:
+
+```js
+status: "verificar", // A verificar
+// Troque por "adequacao" para Em adequação, ou "concluido" para Concluído.
+```
+
+Os três começam em **A verificar**. Esse andamento é manual: datas não concluem tarefas e o visitante não pode editar nada no site. `prazos` contém os marcos oficiais da orientação; `datasCard` contém os prazos resumidos no cartão. `revisadoEm` registra a revisão do conteúdo, não a conclusão do trabalho. As datas das notas continuam em `script.js` e devem ser mantidas coerentes quando houver novo comunicado oficial.
+
+A apresentação fica em `prioridades.css` e `prioridades.js`. Publique esses arquivos e `prioridades-data.js`, junto dos HTML atualizados, `nota.js` e `script.js`. Não é necessário servidor, build, API ou login; os caminhos funcionam localmente e no GitHub Pages. As imagens da prévia não são usadas como fundo ou substitutas dos componentes reais.
 
 ## Tema claro ou escuro
 

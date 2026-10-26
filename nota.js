@@ -1,4 +1,6 @@
 (() => {
+  // As orientações usam esta mesma página e são renderizadas por prioridades.js.
+  if (new URLSearchParams(window.location.search).has("prioridade")) return;
   const query = (id) => document.getElementById(id);
   const id = new URLSearchParams(window.location.search).get("id");
   const note = notasTecnicas.find((item) => getNoteId(item) === id);
