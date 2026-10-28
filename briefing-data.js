@@ -1,6 +1,65 @@
 // Notícias selecionadas manualmente. Mantenha as edições anteriores nesta lista.
 window.IFSOFT_BRIEFING = [
   {
+    "data": "2026-10-28",
+    "destaque": "imposto-seletivo-regras-xml-danfe",
+    "noticias": [
+      {
+        "id": "imposto-seletivo-regras-xml-danfe",
+        "titulo": "'Imposto do pecado': governo deve enviar regras ao Congresso nesta semana, diz Durigan",
+        "categorias": ["Reforma Tributária", "Imposto Seletivo", "NF-e"],
+        "dataOriginal": "2026-10-27",
+        "dataPublicacao": "2026-10-28",
+        "publicadoPor": "Luan Paranhos",
+        "resumo": "Durigan anunciou a previsão de envio das regras do Imposto Seletivo ao Congresso. O leiaute da NF-e/NFC-e já prevê os campos do tributo, e o novo DANFE terá sua representação. Entenda o que vai no XML e o que aparece na impressão.",
+        "creditoEditorial": "Resumo informativo da notícia do G1, com confirmação da declaração pela Agência Brasil e complemento técnico baseado nas NTs 2025.002 v1.52 e 2026.010 v1.00. Consulta em 28/10/2026. Publicação no briefing por Luan Paranhos; a autoria das fontes permanece com seus autores.",
+        "capa": null,
+        "secoes": [
+          {
+            "titulo": "O que foi anunciado",
+            "paragrafos": [
+              "Em 27/10, o ministro da Fazenda, Dario Durigan, informou que o governo pretende encaminhar ao Congresso, provavelmente nesta semana, as regras do Imposto Seletivo, conhecido como 'imposto do pecado'. A Agência Brasil registra a previsão de uma medida provisória com as alíquotas.",
+              "O tributo alcança bens e atividades prejudiciais à saúde ou ao meio ambiente, nas hipóteses legais, como cigarros e bebidas alcoólicas. A notícia trata da expectativa de regulamentação para a cobrança em 2027; o anúncio não equivale a uma alíquota já aprovada nem confirma, por si só, a data efetiva de exigência."
+            ],
+            "imagens": []
+          },
+          {
+            "titulo": "Como o Imposto Seletivo será informado no XML",
+            "paragrafos": [
+              "A NT 2025.002 v1.52 prevê, para NF-e e NFC-e (modelos 55 e 65), o grupo det/imposto/IS em cada item. CSTIS e cClassTribIS identificam a situação e a classificação tributária do IS. Havendo apuração, são previstos vBCIS (base de cálculo), pIS (alíquota percentual) e vIS (valor do imposto).",
+              "Quando aplicável, o leiaute também prevê adRemIS (alíquota específica), uTrib (unidade) e qTrib (quantidade tributável). O total fica em total/ISTot/vIS, correspondente à soma do IS dos itens.",
+              "O emissor alimenta esses dados conforme o enquadramento fiscal do produto e da operação, as tabelas e as alíquotas legalmente aplicáveis. A existência do grupo no XML não significa incidência em toda venda."
+            ],
+            "imagens": []
+          },
+          {
+            "titulo": "Como aparecerá no DANFE",
+            "paragrafos": [
+              "A NT 2026.010 v1.00, referente ao DANFE da NF-e modelo 55, prevê a base vBCIS, a alíquota pIS e o valor vIS no quadro dos produtos/serviços. Na área de totais, o bloco 'Total do IBS/CBS/IS' apresenta o total do Imposto Seletivo, proveniente de total/ISTot/vIS.",
+              "A impressão e o PDF representam os dados do XML autorizado. O DANFE não cria o imposto nem deve inventar valores quando a informação não existir ou não se aplicar à operação."
+            ],
+            "imagens": []
+          },
+          {
+            "titulo": "Leiaute disponível não significa cobrança imediata",
+            "paragrafos": [
+              "O cronograma da NT 2026.010 informa 01/12/2026 para o novo leiaute do DANFE em produção. Essa é uma data de apresentação do documento, não uma antecipação da cobrança do Imposto Seletivo.",
+              "Na NT 2025.002 v1.52 consultada, as regras UB01-10 a UB11-10 do IS estão identificadas como 'Implementação Futura', e os anexos I e II registram tabelas de NCM e cClassTribIS a publicar. Isso não elimina a necessidade de respeitar o schema e as regras de consistência aplicáveis quando o grupo é enviado.",
+              "Os percentuais, as hipóteses e a vigência efetiva devem seguir a norma publicada e as atualizações oficiais. Não é possível deduzir uma alíquota ou fixar 01/01/2027 como início da exigência apenas a partir deste anúncio."
+            ],
+            "imagens": []
+          }
+        ],
+        "fontes": [
+          { "titulo": "G1: notícia original de 27/10/2026", "url": "https://g1.globo.com/economia/noticia/2026/10/27/ministro-da-fazenda-diz-que-deve-enviar-nesta-semana-projeto-do-imposto-do-pecado.ghtml" },
+          { "titulo": "Agência Brasil: declaração de Durigan sobre a MP do Imposto Seletivo", "url": "https://agenciabrasil.ebc.com.br/economia/noticia/2026-10/governo-enviara-mp-do-imposto-seletivo-e-renova-subvencao-ao-diesel" },
+          { "titulo": "SVRS: NT 2025.002 v1.52 — XML, grupo UB (IS), totalização e anexos", "url": "https://dfe-portal.svrs.rs.gov.br/NFE/DownloadArquivoEstatico/?sistema=NFE&tipoArquivo=3&nomeArquivo=NT_2025.002_v1.52_RTC_NF-e_IBS_CBS_IS.pdf" },
+          { "titulo": "SVRS: NT 2026.010 v1.00 — DANFE, itens 4.1, 4.3 e 4.4", "url": "https://dfe-portal.svrs.rs.gov.br/NFE/DownloadArquivoEstatico/?sistema=NFE&tipoArquivo=3&nomeArquivo=NFe_NT_2026.010_v1_00_DANFE_RTC.pdf" }
+        ]
+      }
+    ]
+  },
+  {
     "data": "2026-10-23",
     "destaque": "acbr-danfe-reforma-tributaria",
     "noticias": [
