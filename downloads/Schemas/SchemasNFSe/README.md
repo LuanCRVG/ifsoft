@@ -1,11 +1,12 @@
-# SchemasNFSe por municipio
+# SchemasNFSe: municipios e Padrao Nacional
 
-Conjuntos municipais inicialmente fornecidos em 15/10/2026. Em 03/11/2026, foram mantidos somente Duque de Caxias e Rio de Janeiro; os seis demais municipios foram removidos do cadastro e dos arquivos publicados, conforme solicitado. A nova pasta nacional fica separada, em `downloads/Schemas/SchemasNFSe (Padrao Nacional)/`.
+Conjuntos municipais inicialmente fornecidos em 15/10/2026. Em 03/11/2026, foram mantidos somente Duque de Caxias e Rio de Janeiro; os seis demais municipios foram removidos do cadastro e dos arquivos publicados, conforme solicitado. O conjunto nacional fica junto dos municipios na mesma lista, com os arquivos em `downloads/Schemas/SchemasNFSe/PadraoNacional/`.
 
 | Municipio | UF | Pasta preservada | Arquivos no ZIP | Pacote |
 | --- | --- | --- | --- | --- |
 | Duque de Caxias (Regime Normal) - Emissor ISSNet | RJ | `Duque de Caxias_RJ` | 2 | ZIP recebido, com a subpasta `ISSNet-PadraoNacional/` |
 | Rio de Janeiro (Padrao Nacional) | RJ | `Rio de Janeiro_RJ` | 11 | ZIP criado com os novos XSDs enviados |
+| SchemasNFSe (Padrao Nacional) | Nacional | `PadraoNacional` | 11 | ZIP criado com os XSDs recebidos em 03/11/2026 |
 
 Os nomes fisicos das duas pastas mantidas, os ZIPs, os XSDs e as referencias internas nao foram modificados nesta reorganizacao. A alteracao de Duque de Caxias afeta o nome exibido e os campos de regime/emissor no cadastro; a subpasta original do pacote permanece com o nome recebido.
 
@@ -20,7 +21,8 @@ O `.gitattributes` da pasta principal `Schemas/` desativa a conversao de quebras
 - `schemas-nfse-data.js` guarda os nomes apresentados no site, UF, pasta original, quantidade de arquivos no pacote, tamanho do ZIP e SHA-256.
 - Os campos opcionais `padrao` e `regime` aparecem entre parenteses ao lado do municipio; `emissor`, como `emissor: "ISSNet"`, aparece em seguida. Todos participam da busca. Eles nao alteram a UF, a pasta ou o endereco de download.
 - `schemas-nfse.js` monta a lista, a busca por municipio e o filtro de UF; `utilitarios.css` compartilha o estilo da area de downloads.
-- A pasta Schemas NFS-e fica dentro de Schemas, junto de SchemasNFSe (Padrao Nacional), Schemas MDF-e e Schemas NF-e. Todas comecam recolhidas em `details/summary`; clicar no cabecalho expande ou recolhe, sem depender de um script para esse controle. Cada pasta tem seu proprio cabecalho com icone, contador e seta.
+- A pasta Schemas NFS-e fica dentro de Schemas, junto de Schemas MDF-e e Schemas NF-e. Ela reune os tres conjuntos na mesma lista, sem pasta expansivel extra para o nacional. Todas comecam recolhidas em `details/summary`; clicar no cabecalho expande ou recolhe. O contador usa conjuntos, pois nem todo pacote representa um municipio.
+- O registro nacional usa `nacional: true`, `nome` e `pasta: "PadraoNacional"`, sem municipio nem UF. Ele participa da busca e permanece disponivel nos filtros de UF por ter abrangencia nacional.
 - O link e relativo: `downloads/Schemas/SchemasNFSe/<pasta>/SchemasNFSe.zip`. Espacos das pastas foram preservados e sao resolvidos pelo navegador. O atributo `download` sugere um nome distinto por municipio, como `SchemasNFSe-duque-de-caxias-rj.zip`.
 - Para atualizar um conjunto, confira a pasta correta, preserve a estrutura dos schemas, atualize os metadados do cadastro e altere `schemas-nfse-data.js?v=...` no `index.html` para uma nova versao de cache.
 - Publique o cadastro, o layout alterado e a pasta completa `downloads/Schemas/`. Nao ha upload nem edicao por visitantes.

@@ -6,9 +6,9 @@ Esta pasta reune os conjuntos publicados na area de downloads:
 Schemas/
   SchemasNFSe/
     <municipio>/SchemasNFSe.zip
-  SchemasNFSe (Padrao Nacional)/
-    <11 arquivos .xsd>
-    SchemasNFSe.zip
+    PadraoNacional/
+      <11 arquivos .xsd>
+      SchemasNFSe.zip
   SchemasMDFe/
     <arquivos .xsd>
     SchemasMDFe.zip
@@ -18,11 +18,11 @@ Schemas/
     Originais/SchemasNFe-PadraoNacional.rar
 ```
 
-No site, Schemas fica depois de Utilitarios. A pasta principal e as quatro subpastas comecam recolhidas e abrem de forma independente, com controles nativos `details/summary`. Schemas NF-e oferece dois downloads separados: Normal (sem Reforma Tributaria) e Padrao Nacional, identificados conforme o envio da equipe. A nova pasta SchemasNFSe (Padrao Nacional) e independente dos conjuntos municipais.
+No site, Schemas fica depois de Utilitarios. A pasta principal e as tres subpastas comecam recolhidas e abrem de forma independente, com controles nativos `details/summary`. Schemas NFS-e reune os conjuntos municipais e o Padrao Nacional na mesma lista. Schemas NF-e oferece dois downloads separados: Normal (sem Reforma Tributaria) e Padrao Nacional, identificados conforme o envio da equipe.
 
 Os nomes das pastas municipais e os bytes dos conjuntos NFS-e foram preservados durante a reorganizacao. O Firebird Care continua no mesmo endereco, fora desta pasta.
 
-Consulte [SchemasNFSe/README.md](SchemasNFSe/README.md), [SchemasNFSe (Padrao Nacional)/README.md](<SchemasNFSe (Padrao Nacional)/README.md>), [SchemasMDFe/README.md](SchemasMDFe/README.md) e [SchemasNFe/README.md](SchemasNFe/README.md) antes de atualizar os pacotes. A listagem e um cadastro fixo: adicionar arquivos nao atualiza automaticamente os botoes do site. Todos os arquivos publicados sao publicos e nao podem ser editados pelos visitantes.
+Consulte [SchemasNFSe/README.md](SchemasNFSe/README.md), [SchemasNFSe/PadraoNacional/README.md](SchemasNFSe/PadraoNacional/README.md), [SchemasMDFe/README.md](SchemasMDFe/README.md) e [SchemasNFe/README.md](SchemasNFe/README.md) antes de atualizar os pacotes. A listagem e um cadastro fixo: adicionar arquivos nao atualiza automaticamente os botoes do site. Todos os arquivos publicados sao publicos e nao podem ser editados pelos visitantes.
 
 O `.gitattributes` desta pasta impede conversao de quebras de linha nos XSDs, ZIPs, RARs e BMPs das tres categorias.
 
@@ -33,7 +33,7 @@ Cada um dos seis pacotes de schemas mostra a data cadastrada e o intervalo em di
 Ao substituir um pacote, atualize tambem o campo `dataAtualizacao`, sempre no formato `AAAA-MM-DD`, no cadastro correspondente:
 
 - NFS-e: objeto do municipio em `schemas-nfse-data.js`.
-- NFS-e nacional: objeto `LP_SCHEMAS_NFSE_NACIONAL` no mesmo `schemas-nfse-data.js`.
+- NFS-e nacional: registro `nfse-nacional` na lista `LP_SCHEMAS_NFSE` do mesmo `schemas-nfse-data.js`.
 - MDF-e: objeto em `schemas-mdfe-data.js`.
 - NF-e: objeto Normal ou Padrao Nacional em `schemas-nfe-data.js`.
 
