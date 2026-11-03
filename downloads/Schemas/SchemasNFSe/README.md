@@ -1,16 +1,13 @@
 # SchemasNFSe: municipios e Padrao Nacional
 
-Conjuntos municipais inicialmente fornecidos em 15/10/2026. Em 03/11/2026, foram mantidos somente Duque de Caxias e Rio de Janeiro; os seis demais municipios foram removidos do cadastro e dos arquivos publicados, conforme solicitado. O conjunto nacional fica junto dos municipios na mesma lista, com os arquivos em `downloads/Schemas/SchemasNFSe/PadraoNacional/`.
+Conjuntos municipais inicialmente fornecidos em 15/10/2026. Em 03/11/2026, foi mantido somente Duque de Caxias; os demais municipios, incluindo Rio de Janeiro, foram removidos do cadastro e dos arquivos publicados, conforme solicitado. O conjunto nacional fica junto de Duque de Caxias na mesma lista, com os arquivos em `downloads/Schemas/SchemasNFSe/PadraoNacional/`.
 
 | Municipio | UF | Pasta preservada | Arquivos no ZIP | Pacote |
 | --- | --- | --- | --- | --- |
 | Duque de Caxias (Regime Normal) - Emissor ISSNet | RJ | `Duque de Caxias_RJ` | 2 | ZIP recebido, com a subpasta `ISSNet-PadraoNacional/` |
-| Rio de Janeiro (Padrao Nacional) | RJ | `Rio de Janeiro_RJ` | 11 | ZIP criado com os novos XSDs enviados |
 | SchemasNFSe (Padrao Nacional) | Nacional | `PadraoNacional` | 11 | ZIP criado com os XSDs recebidos em 03/11/2026 |
 
 Os nomes fisicos das duas pastas mantidas, os ZIPs, os XSDs e as referencias internas nao foram modificados nesta reorganizacao. A alteracao de Duque de Caxias afeta o nome exibido e os campos de regime/emissor no cadastro; a subpasta original do pacote permanece com o nome recebido.
-
-Em 15/10/2026, o conjunto de Rio de Janeiro/RJ foi substituido pelos 11 XSDs fornecidos como Padrao Nacional. A subpasta antiga `RJ/`, a imagem `Logo_Prefeitura.bmp` e o ZIP anterior foram removidos. Os novos XSDs ficam diretamente na pasta municipal e na raiz do novo `SchemasNFSe.zip` (64.463 bytes; SHA-256 `78BBEE57DE5E5E19AD688DA1C36336A42047566599E5776B1D87CF6A1A94C877`). A identificacao do padrao segue o cadastro solicitado, sem certificar vigencia ou compatibilidade.
 
 Tambem em 15/10/2026, o conjunto de Duque de Caxias/RJ foi substituido pelo ZIP ISSNet-PadraoNacional enviado pela equipe. Os dois XSDs ficam em `ISSNet-PadraoNacional/`, preservando nomes, bytes e estrutura. O `SchemasNFSe.zip` e uma copia exata do ZIP recebido, sem recompressao (32.080 bytes). Desde 03/11/2026, o cadastro identifica **Duque de Caxias (Regime Normal) - Emissor ISSNet**, conforme a nova orientacao; o pacote e sua data de atualizacao continuam iguais.
 
@@ -21,7 +18,7 @@ O `.gitattributes` da pasta principal `Schemas/` desativa a conversao de quebras
 - `schemas-nfse-data.js` guarda os nomes apresentados no site, UF, pasta original, quantidade de arquivos no pacote, tamanho do ZIP e SHA-256.
 - Os campos opcionais `padrao` e `regime` aparecem entre parenteses ao lado do municipio; `emissor`, como `emissor: "ISSNet"`, aparece em seguida. Todos participam da busca. Eles nao alteram a UF, a pasta ou o endereco de download.
 - `schemas-nfse.js` monta a lista, a busca por municipio e o filtro de UF; `utilitarios.css` compartilha o estilo da area de downloads.
-- A pasta Schemas NFS-e fica dentro de Schemas, junto de Schemas MDF-e e Schemas NF-e. Ela reune os tres conjuntos na mesma lista, sem pasta expansivel extra para o nacional. Todas comecam recolhidas em `details/summary`; clicar no cabecalho expande ou recolhe. O contador usa conjuntos, pois nem todo pacote representa um municipio.
+- A pasta Schemas NFS-e fica dentro de Schemas, junto de Schemas MDF-e e Schemas NF-e. Ela reune os dois conjuntos na mesma lista, sem pasta expansivel extra para o nacional. Todas comecam recolhidas em `details/summary`; clicar no cabecalho expande ou recolhe. O contador usa conjuntos, pois nem todo pacote representa um municipio.
 - O registro nacional usa `nacional: true`, `nome` e `pasta: "PadraoNacional"`, sem municipio nem UF. Ele participa da busca e permanece disponivel nos filtros de UF por ter abrangencia nacional.
 - O link e relativo: `downloads/Schemas/SchemasNFSe/<pasta>/SchemasNFSe.zip`. Espacos das pastas foram preservados e sao resolvidos pelo navegador. O atributo `download` sugere um nome distinto por municipio, como `SchemasNFSe-duque-de-caxias-rj.zip`.
 - Para atualizar um conjunto, confira a pasta correta, preserve a estrutura dos schemas, atualize os metadados do cadastro e altere `schemas-nfse-data.js?v=...` no `index.html` para uma nova versao de cache.

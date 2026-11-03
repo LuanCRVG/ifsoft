@@ -8,13 +8,6 @@ window.LP_SCHEMAS_NFSE = [
     sha256: "2E7E40B2F402B619FAB1202DE2F3CBD9390AA21C078E59D257D6FADFFAE3CD83"
   },
   {
-    id: "rio-de-janeiro-rj", municipio: "Rio de Janeiro", uf: "RJ", pasta: "Rio de Janeiro_RJ",
-    dataAtualizacao: "2026-10-15",
-    padrao: "Padrão Nacional",
-    quantidadeArquivos: 11, tamanhoBytes: 64463,
-    sha256: "78BBEE57DE5E5E19AD688DA1C36336A42047566599E5776B1D87CF6A1A94C877"
-  },
-  {
     id: "nfse-nacional", nome: "SchemasNFSe (Padrão Nacional)", nacional: true, pasta: "PadraoNacional",
     dataAtualizacao: "2026-11-03",
     quantidadeArquivos: 11, tamanhoBytes: 63414,

@@ -219,7 +219,7 @@ As quatro abas usam a mesma navegação por clique, setas, Home e End. No celula
 
 ### SchemasNFSe
 
-A pasta **Schemas NFS-e**, dentro de **Schemas**, contém três conjuntos na mesma lista: **Duque de Caxias (Regime Normal) → Emissor ISSNet**, **Rio de Janeiro (Padrão Nacional)** e **SchemasNFSe (Padrão Nacional)**. A busca inclui nome, padrão, regime e emissor, sem distinguir acentos. O conjunto nacional não recebe UF e continua disponível ao filtrar uma UF, pois não pertence a um único município. Em 03/11/2026, Araruama, Niterói, Santo André, São Caetano do Sul, São Paulo e Saquarema foram removidos do cadastro e das pastas de download, conforme solicitado. Os pacotes de Duque de Caxias e Rio de Janeiro não foram modificados.
+A pasta **Schemas NFS-e**, dentro de **Schemas**, contém dois conjuntos na mesma lista: **Duque de Caxias (Regime Normal) → Emissor ISSNet** e **SchemasNFSe (Padrão Nacional)**. A busca inclui nome, padrão, regime e emissor, sem distinguir acentos. O conjunto nacional não recebe UF e continua disponível ao filtrar uma UF, pois não pertence a um único município. Em 03/11/2026, os conjuntos municipais de Araruama, Niterói, Rio de Janeiro, Santo André, São Caetano do Sul, São Paulo e Saquarema foram removidos do cadastro e das pastas de download, conforme solicitado. Os pacotes de Duque de Caxias e do Padrão Nacional foram preservados.
 
 As pastas municipais ficam em `downloads/Schemas/SchemasNFSe/`; os metadados e os nomes exibidos ficam em `schemas-nfse-data.js`. `padrao`, `regime` e `emissor` são campos opcionais para identificar cada conjunto. Consulte [downloads/Schemas/SchemasNFSe/README.md](downloads/Schemas/SchemasNFSe/README.md) para atualizar os pacotes.
 

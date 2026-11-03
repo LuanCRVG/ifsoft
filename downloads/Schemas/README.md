@@ -28,7 +28,7 @@ O `.gitattributes` desta pasta impede conversao de quebras de linha nos XSDs, ZI
 
 ## Data da ultima atualizacao
 
-Cada um dos seis pacotes de schemas mostra a data cadastrada e o intervalo em dias abaixo de seu download. O conjunto NFS-e nacional recebido em 03/11/2026 usa `2026-11-03`; Duque de Caxias, Rio de Janeiro, MDF-e e os dois conjuntos NF-e mantem `2026-10-15`. Estas datas indicam a atualizacao do pacote no site, nao a vigencia de uma norma ou a versao oficial de um leiaute.
+Cada um dos cinco pacotes de schemas mostra a data cadastrada e o intervalo em dias abaixo de seu download. O conjunto NFS-e nacional recebido em 03/11/2026 usa `2026-11-03`; Duque de Caxias, MDF-e e os dois conjuntos NF-e mantem `2026-10-15`. Estas datas indicam a atualizacao do pacote no site, nao a vigencia de uma norma ou a versao oficial de um leiaute.
 
 Ao substituir um pacote, atualize tambem o campo `dataAtualizacao`, sempre no formato `AAAA-MM-DD`, no cadastro correspondente:
 
