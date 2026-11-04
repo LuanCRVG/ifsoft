@@ -1,17 +1,14 @@
 # Verificação da entrega
 
-Conferência realizada em04/11/2026.
+Conferência realizada em04/11/2026, com dados exclusivamente fictícios.
 
-- 39 testes automatizados com node:test, todos aprovados.
-- Modelo fixo conferido no navegador: 13800 /0 /00592448 /6 resulta em13800005924486. O dígito da agência fica fora da composição.
-- Seletor de perfil removido; conjunto Safra único, com regras condicionais por título.
-- Testes de títulos sem juros/multa/baixa e títulos mistos; multa com percentual diferente de2%; baixa com prazo diferente de30 dias; combinação05/16 sem exigir01.
-- Exemplo sintético processado no navegador: 3 títulos, R$600,00, duas divergências intencionais. As comparações com conta cadastrada podem acrescentar divergências se o cadastro não corresponder ao exemplo.
-- Clique na ocorrência de Instrução1 destacou as posições157–158 no registro original.
-- Arquivo local selecionado pelo leitor de arquivos; PDF e JSON baixados e reabertos para conferir conteúdo.
-- Interface verificada em desktop e viewport390×844; temas claro/escuro, navegação, limpeza da sessão e bloqueio de banco não implementado.
-- Nenhum erro ou aviso de execução no console na conferência final da interface.
+- 43 testes automatizados aprovados com node:test, incluindo interpretação da conta completa, preservação dos zeros, bloqueio de composição incompleta, padrões exclusivos do Safra, carteira1 no banco/01 no ERP e regressões do validador.
+- No navegador, informar agência12345 e conta001234567 gerou automaticamente conta ERP00123456, DV7 e cedente12345001234567, sem clicar em conferir.
+- O DV da agência inicia em0 e é editável; não integra a identificação. A observação explica sua necessidade no ERP, sem certificá-lo como DV oficial.
+- Conta incompleta removeu a identificação calculada e bloqueou o botão de copiar o cedente.
+- O botão de exemplo preencheu somente os dados fictícios fornecidos. A cópia do cadastro incluiu banco422, agência12345, DV da agência0, conta00123456, DV7, cedente12345001234567, carteira01 e layoutCNAB400.
+- A cópia exclusiva do código retornou12345001234567.
+- O parser, o motor, o módulo de validação Safra400, os relatórios e o registro de bancos mantiveram os mesmos hashes de código. Somente dados sintéticos de teste/remessa foram atualizados para o exemplo fictício.
+- Abertura por arquivo local continua usando os pacotes JavaScript já incluídos. A execução do worker sem importações externas é testada automaticamente. A ferramenta de navegador não permite inspeção automatizada de navegação file://.
 
-Estas verificações usam dados de teste e não constituem homologação do aplicativo pelo banco. Os limites e referências das regras permanecem em regras-safra.md.
-
-A geração e a execução do worker empacotado também são verificadas automaticamente, sem importações externas. O empacotamento permite que o arquivo local carregue scripts clássicos; a inspeção automatizada de navegação file:// não está disponível nesta ferramenta de navegador.
+Essas verificações não constituem homologação do aplicativo pelo banco nem confirmam titularidade ou validade matemática de DV. O escopo técnico continua em regras-safra.md.

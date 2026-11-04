@@ -12,7 +12,12 @@ let result=null,bytes=null,fileName='',configuration=null,filter='issues',pageIn
 const mobileQuery=window.matchMedia('(max-width:650px)');
 function setMenu(open){$('sidebar').classList.toggle('open',open);$('sidebar').inert=mobileQuery.matches&&!open;$('menuToggle').setAttribute('aria-expanded',String(open));}
 mobileQuery.addEventListener('change',()=>setMenu(false));
-let composeIdentification=(await getBank('422').loadConfiguration()).composeIdentification;
+const safraConfiguration=await getBank('422').loadConfiguration();
+const composeIdentification=safraConfiguration.composeIdentification;
+function applyConfigurationDefaults(bankCode){
+  const defaults=bankCode==='422'?safraConfiguration.defaults:{};
+  for(const name of ['agencyDv','wallet']){$(name).defaultValue=defaults[name]??'';$(name).value=defaults[name]??'';}
+}
 try {document.documentElement.dataset.theme=localStorage.getItem('cnab-theme')||'light';}catch{}
 $('referenceDate').value=localToday();$('todayLabel').textContent=localToday();
 $('bankSelect').innerHTML=banks.map(b=>'<option value="'+b.code+'">'+b.code+' · '+b.name+(b.implemented?'':' · Em breve')+'</option>').join('');
@@ -78,20 +83,29 @@ function updateConfigLabel(){
   $('expectedLabel').textContent=configuration?'Identificação: '+configuration.identification:'Conta ainda não configurada';
 }
 function bankChanged(){
+  applyConfigurationDefaults($('bankSelect').value);
+  $('configurationResult').innerHTML='<div class="identification-value">————— ———————— —</div><p>Preencha os campos e confira a composição.</p>';
   activeWorker?.terminate();activeWorker=null;
   const bank=getBank($('bankSelect').value);const enabled=bank.implemented;
-  runId++;bytes=null;result=null;fileName='';configuration=null;$('results').hidden=true;$('configContent').hidden=!enabled;$('configUnavailable').hidden=enabled;$('bankAvailability').textContent=enabled?'Disponível':'Em breve';$('bankAvailability').className='badge '+(enabled?'success':'neutral');$('layoutSelect').disabled=!enabled;for(const id of ['referenceDate','sendDate'])$(id).disabled=!enabled;$('selectedLayoutLabel').textContent=enabled?'CNAB 400':'Em breve';document.querySelector('.validator-context .bank-logo').textContent=bank.short[0];$('selectedBankLabel').textContent=bank.name+' · '+bank.code;$('chooseFile').disabled=!enabled;$('fileInput').value='';$('copyConfig').disabled=true;setBusy(false);updateConfigLabel();renderDashboard();renderReports();status(enabled?'':'Este banco ainda não possui regras de configuração ou validação.','warning');
+  runId++;bytes=null;result=null;fileName='';configuration=null;$('results').hidden=true;$('configContent').hidden=!enabled;$('configUnavailable').hidden=enabled;$('bankAvailability').textContent=enabled?'Disponível':'Em breve';$('bankAvailability').className='badge '+(enabled?'success':'neutral');$('layoutSelect').disabled=!enabled;for(const id of ['referenceDate','sendDate'])$(id).disabled=!enabled;$('selectedLayoutLabel').textContent=enabled?'CNAB 400':'Em breve';document.querySelector('.validator-context .bank-logo').textContent=bank.short[0];$('selectedBankLabel').textContent=bank.name+' · '+bank.code;$('chooseFile').disabled=!enabled;$('fileInput').value='';$('copyConfig').disabled=true;$('copyBeneficiary').disabled=true;setBusy(false);updateConfigLabel();if(enabled)updateBeneficiary(false);renderDashboard();renderReports();status(enabled?'':'Este banco ainda não possui regras de configuração ou validação.','warning');
 }
-function updateBeneficiary(){
-  const values=Object.fromEntries(new FormData($('configForm')));const composed=composeIdentification(values);$('beneficiary').value=composed.valid?composed.identification:'';
+function updateBeneficiary(showIssues=false){
+  if($('bankSelect').value!=='422')return;
+  const composed=composeIdentification(Object.fromEntries(new FormData($('configForm'))));
+  $('account').value=composed.account;$('accountDv').value=composed.accountDv;$('beneficiary').value=composed.identification;
+  configuration=composed.identificationValid?composed:null;updateConfigLabel();$('copyConfig').disabled=!composed.valid;$('copyBeneficiary').disabled=!composed.identificationValid;
+  const row=(name,value)=>'<dt>'+escape(name)+'</dt><dd>'+escape(value||'—')+'</dd>';
+  const issues=showIssues?[...composed.issues,...composed.warnings]:[];
+  const messages=issues.length?'<ul>'+issues.map(s=>'<li>'+escape(s)+'</li>').join('')+'</ul>':'';
+  if(!composed.identificationValid){$('configurationResult').innerHTML='<p>Informe a agência com 5 dígitos e a conta completa com 9 dígitos. A identificação será calculada automaticamente.</p><p>Agência: '+$('agency').value.length+'/5 posições · Conta com DV: '+$('accountWithDv').value.length+'/9 posições.</p>'+messages;return;}
+  $('configurationResult').innerHTML='<h3>COMO CADASTRAR NO SEU ERP</h3><dl class="erp-fields">'+row('Banco','422 - Banco Safra')+row('Agência',composed.agency)+row('Dígito da agência',composed.agencyDv)+row('Conta corrente',composed.account)+row('Dígito da conta',composed.accountDv)+row('Código do cedente',composed.identification)+row('Carteira',composed.walletERP||'Mapeamento pendente')+row('Layout','CNAB 400')+'</dl><p>Carteira recebida: '+escape(composed.wallet)+'. '+(composed.walletERP?'No cadastro deste ERP: '+escape(composed.walletERP)+'. Essa apresentação não muda a quantidade de posições da carteira no arquivo CNAB.':'Confirme o preenchimento exigido pelo ERP para esta carteira.')+'</p>'+messages+'<h3>Identificação na remessa CNAB 400</h3><div class="identification-value">'+escape(composed.identification)+'</div><div class="composition-parts"><div><code>'+escape(composed.agency)+'</code>Agência completa · 5</div><div><code>'+escape(composed.accountWithDv)+'</code>Conta com DV · 9</div></div><p class="composition-formula">'+escape(composed.agency)+' + '+escape(composed.accountWithDv)+' = '+escape(composed.identification)+'</p><p>Composição estrutural de 14 posições conferida. O dígito da agência ('+escape(composed.agencyDv||'não informado')+') fica somente no cadastro do ERP.</p><p>Header: posições 027–040. Detalhe tipo 1: posições 018–031.</p>';
 }
-function checkConfiguration(event){
-  event.preventDefault();const values=Object.fromEntries(new FormData($('configForm')));const composed=composeIdentification(values);
-  configuration=composed.valid?{...values,...composed}:null;updateConfigLabel();$('copyConfig').disabled=!composed.valid;$('beneficiary').value=composed.valid?composed.identification:'';
-  $('configurationResult').innerHTML=composed.valid?'<div class="identification-value">'+escape(composed.identification)+'</div><div class="composition-parts"><div><code>'+escape(composed.agency)+'</code>Agência · 5 dígitos</div><div><code>'+escape(composed.account)+'</code>Conta · 8 dígitos</div><div><code>'+escape(composed.accountDv)+'</code>Dígito · 1</div></div><p>Código do cedente de 14 posições conferido.</p><p>Dígito da agência: '+escape(composed.agencyDv)+'. Este campo é exigido no cadastro do nosso ERP e não é acrescentado à composição.</p>':'<strong>Revise o preenchimento</strong><ul>'+composed.issues.map(n=>'<li>'+escape(n)+'</li>').join('')+'</ul>';
-  if(result)status('A configuração foi alterada. Use Conferir novamente para atualizar a comparação.','warning');
+function checkConfiguration(event){event.preventDefault();updateBeneficiary(true);}
+function useConfigurationExample(){
+  const example=safraConfiguration.emailExample;$('agency').value=example.agency;$('accountWithDv').value=example.accountWithDv;applyConfigurationDefaults('422');$('wallet').value=example.wallet;updateBeneficiary(true);toast('Dados fictícios de demonstração preenchidos.');if(result)status('A configuração foi alterada. Use Conferir novamente para atualizar a comparação.','warning');
 }
-async function copyConfiguration(){if(!configuration)return;const text='Agência (5): '+configuration.agency+'\nDígito da agência (1): '+configuration.agencyDv+'\nConta corrente (8): '+configuration.account+'\nDígito da conta (1): '+configuration.accountDv+'\nCódigo do cedente (14): '+configuration.identification;try{await navigator.clipboard.writeText(text);toast('Valores copiados.');}catch{toast('Cópia indisponível neste navegador. Selecione os valores na tela.');}}
+async function copyConfiguration(){if(!configuration?.valid)return;const c=configuration;const text='COMO CADASTRAR NO SEU ERP (INTEGRAÇÃO SAFRA)\nBanco: 422 - Banco Safra\nAgência: '+c.agency+'\nDígito da agência: '+c.agencyDv+'\nConta corrente: '+c.account+'\nDígito da conta: '+c.accountDv+'\nCódigo do cedente: '+c.identification+'\nCarteira: '+c.walletERP+'\nLayout: CNAB 400\n\nIDENTIFICAÇÃO NA REMESSA\n'+c.agency+' + '+c.accountWithDv+' = '+c.identification+'\nO dígito da agência não integra as 14 posições.';try{await navigator.clipboard.writeText(text);toast('Cadastro copiado.');}catch{toast('Cópia indisponível. Selecione os valores na tela.');}}
+async function copyBeneficiary(){if(!configuration?.identificationValid)return;try{await navigator.clipboard.writeText(configuration.identification);toast('Código do cedente copiado.');}catch{toast('Cópia indisponível. Selecione o código na tela.');}}
 function drawRecord(record,start=1,end=1){
   if(!record)return;start=Math.min(Math.max(1,Math.trunc(Number(start))||1),Math.max(record.length,1));end=Math.min(Math.max(start,Math.trunc(Number(end))||start),Math.max(record.length,1));
   $('rangeStart').value=start;$('rangeEnd').value=end;$('rangeStart').max=Math.max(1,record.length);$('rangeEnd').max=Math.max(1,record.length);
@@ -116,7 +130,7 @@ function clearSession(){
   activeWorker?.terminate();activeWorker=null;
   runId++;bytes=null;result=null;fileName='';configuration=null;filter='issues';pageIndex=0;
   if($('viewer').open)$('viewer').close();
-  $('configForm').reset();$('bankSelect').value='422';$('layoutSelect').value='400';$('configContent').hidden=false;$('configUnavailable').hidden=true;$('bankAvailability').textContent='Disponível';$('bankAvailability').className='badge success';$('layoutSelect').disabled=false;for(const id of ['referenceDate','sendDate'])$(id).disabled=false;$('selectedLayoutLabel').textContent='CNAB 400';document.querySelector('.validator-context .bank-logo').textContent='S';$('selectedBankLabel').textContent='Banco Safra · 422';
+  $('configForm').reset();$('bankSelect').value='422';applyConfigurationDefaults('422');$('layoutSelect').value='400';$('configContent').hidden=false;$('configUnavailable').hidden=true;$('bankAvailability').textContent='Disponível';$('bankAvailability').className='badge success';$('layoutSelect').disabled=false;for(const id of ['referenceDate','sendDate'])$(id).disabled=false;$('selectedLayoutLabel').textContent='CNAB 400';document.querySelector('.validator-context .bank-logo').textContent='S';$('selectedBankLabel').textContent='Banco Safra · 422';
   $('configurationResult').innerHTML='<div class="identification-value">————— ———————— —</div><p>Preencha os campos e confira a composição.</p>';$('copyConfig').disabled=true;
   $('fileInput').value='';$('referenceDate').value=localToday();$('sendDate').value='';$('searchOccurrences').value='';
   for(const id of ['resultFileName','resultMeta','resultMetrics','occurrenceRows','recordSelect','recordText','viewerDetails','selectedValues','rulerHundreds','rulerTens','rulerOnes'])$(id).replaceChildren();
@@ -129,6 +143,7 @@ document.addEventListener('click',async event=>{
   const inspect=event.target.closest('[data-inspect]');if(inspect){openViewer(result?.checks.find(c=>c.id===Number(inspect.dataset.inspect)));return;}
   const action=event.target.closest('[data-action]');if(!action)return;
   if(action.dataset.action==='demo'){await demo();return;}
+  if(action.dataset.action==='config-example'){useConfigurationExample();return;}
   if(!result)return;
   const base=result.fileName.replace(/\.[^.]+$/,'').replace(/[^a-zA-Z0-9_-]/g,'_').slice(0,80)||'remessa';
   if(action.dataset.action==='json')download(reportJSON(result),base+'_diagnostico.json','application/json');
@@ -140,8 +155,8 @@ $('dropzone').addEventListener('dragover',e=>{e.preventDefault();$('dropzone').c
 $('dropzone').addEventListener('dragleave',()=>$('dropzone').classList.remove('drag-over'));
 $('dropzone').addEventListener('drop',e=>{e.preventDefault();$('dropzone').classList.remove('drag-over');if(e.dataTransfer.files.length!==1){status('Selecione um arquivo por análise.','warning');return;}readFile(e.dataTransfer.files[0]);});
 $('rerun').addEventListener('click',analyze);$('bankSelect').addEventListener('change',bankChanged);$('configForm').addEventListener('submit',checkConfiguration);
-$('configForm').addEventListener('input',()=>{updateBeneficiary();configuration=null;$('copyConfig').disabled=true;updateConfigLabel();$('configurationResult').innerHTML='<p>Campos alterados. Confira a composição para usá-la na análise.</p>';if(result)status('Campos bancários alterados. Confira a composição e execute a análise novamente.','warning');});
-$('copyConfig').addEventListener('click',copyConfiguration);
+$('configForm').addEventListener('input',()=>{updateBeneficiary(true);if(result)status('Dados bancários alterados. Use Conferir novamente para atualizar a comparação.','warning');});
+$('copyConfig').addEventListener('click',copyConfiguration);$('copyBeneficiary').addEventListener('click',copyBeneficiary);
 for(const id of ['referenceDate','sendDate'])$(id).addEventListener('change',()=>{if(result)status('Opções alteradas. Use Conferir novamente para atualizar o diagnóstico.','warning');});
 $('clearSession').addEventListener('click',clearSession);$('searchOccurrences').addEventListener('input',()=>{pageIndex=0;renderOccurrences();});
 $('previousOccurrences').addEventListener('click',()=>{pageIndex--;renderOccurrences();});$('nextOccurrences').addEventListener('click',()=>{pageIndex++;renderOccurrences();});
@@ -153,4 +168,4 @@ $('menuToggle').addEventListener('click',()=>setMenu(!$('sidebar').classList.con
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&mobileQuery.matches&&$('sidebar').classList.contains('open')){setMenu(false);$('menuToggle').focus();}});
 document.querySelector('.skip').addEventListener('click',e=>{e.preventDefault();$('main').focus();});
 window.addEventListener('hashchange',()=>navigate(location.hash.slice(1)));
-renderBanks();renderDashboard();renderReports();navigate(location.hash.slice(1)||'dashboard');
+applyConfigurationDefaults($('bankSelect').value);updateBeneficiary(false);renderBanks();renderDashboard();renderReports();navigate(location.hash.slice(1)||'dashboard');

@@ -28,29 +28,33 @@ A prévia opcional fica em http://127.0.0.1:4173. Depois de modificar qualquer f
 
 Não é necessário instalar pacotes com npm install. Caminhos relativos permitem publicar em https://usuario.github.io/repositorio/ sem alterações. Alternativa: publique uma pasta estática com index.html, favicon.svg, css/, js/, docs/ e .nojekyll. Não há processo de build obrigatório.
 
-## Uso
+## Uso e configuração Safra
 
-1. Em Configuração Bancária, selecione Safra, informe agência (5), dígito da agência (1), conta (8) e dígito da conta (1), todos como texto, e clique em Conferir composição. O código do cedente é calculado como agência + conta + dígito da conta, sem acrescentar o dígito da agência. A conta só é usada como identificação esperada depois dessa conferência. Dados não são persistidos.
-2. Em Validador de Remessa, escolha a data de conferência e, opcionalmente, a data pretendida de envio.
-3. O Safra CNAB400 usa um conjunto único de regras. Juros, multa e baixa são identificados e conferidos por título; não há seletor de perfil nem exigência global de multa ou baixa.
-4. Selecione ou arraste um .rem, .txt ou .ret de até 5 MiB. A extensão não determina a direção: o Header é inspecionado.
-5. Filtre erros/avisos e clique no ícone de código para destacar o intervalo exato no registro original. Os controles do visualizador também permitem escolher qualquer linha e posição.
-6. Em Relatórios, baixe PDF ou JSON. O PDF é um download real, paginado, sem biblioteca remota ou diálogo de impressão. O JSON inclui todas as conferências e exclui os registros brutos completos.
-7. Limpar sessão descarta arquivo, dados de conta, resultados e conteúdo do visualizador. Downloads que você já salvou permanecem no seu dispositivo.
+1. Selecione Banco Safra em Configuração Bancária.
+2. Informe a agência completa com5 posições e a conta completa com9 posições, exatamente como recebidas do banco. Preserve zeros à esquerda.
+3. A aplicação separa automaticamente a conta em8 dígitos + DV de1. O dígito da agência inicia em0, editável, conforme a necessidade observada no nosso ERP com ACBrBoleto; não é um DV oficial confirmado pelo banco.
+4. O código do cedente é atualizado automaticamente: agência5 + conta com DV9. O quadro COMO CADASTRAR NO SEU ERP mostra banco, agência, dígitos, conta, cedente, carteira e layout. Há cópia do cadastro e cópia exclusiva do cedente.
+5. A carteira recebida1 é apresentada como01 no cadastro deste ERP. A regra não altera a quantidade de posições ou as regras do arquivo CNAB. Outras carteiras ficam com conversão pendente até existir referência para o ERP; não se presume um mapeamento.
+6. Se os tamanhos estiverem incompletos, a identificação não é exibida como calculada. A separação não valida matematicamente o DV e não comprova conta ou titularidade.
+7. No Validador de Remessa, selecione conferência/envio e carregue .rem/.txt/.ret de até5MiB. O conjunto Safra é único e condicional aos campos de cada título. As funções de análise, visualizador e relatórios permanecem independentes da configuração.
+8. Limpar sessão descarta dados e resultados, restaurando somente os padrões do módulo Safra (DV da agência0 e carteira1). Nada bancário é persistido automaticamente.
 
-O exemplo da interface é explicitamente sintético e é processado pelo mesmo motor dos arquivos carregados. Contém três títulos e duas divergências intencionais; as quantidades na tela são resultados reais. Os samples/ têm geração em 15/01/2030: para reproduzir, escolha 2030-01-15 como referência. A demonstração da interface usa a data de referência selecionada.
+## Exemplo exclusivamente fictício de e-mail
 
-## Modelo de configuração da nossa integração Safra CNAB400
+| Informação recebida | Valor fictício |
+| --- | --- |
+| Shortname | NOME DA EMPRESA |
+| Agência | 12345 - Barra |
+| Conta | 001234567 |
+| Tipo de impressão | EMISSÃO EMPRESA |
+| Praça de atendimento | 100% SAFRA |
+| Padrão do arquivo | 400 |
+| Produto | COBRANÇA |
+| Carteira | 1 |
 
-| Campo | Exemplo | Tamanho |
-| --- | --- | --- |
-| Agência | 13800 | 5 |
-| Dígito da agência | 0 | 1 |
-| Conta corrente | 00592448 | 8 |
-| Dígito da conta | 6 | 1 |
-| Código do cedente, calculado | 13800005924486 | 14 |
+No ERP: banco422 - Banco Safra; agência12345; dígito da agência0; conta00123456; dígito da conta7; cedente12345001234567; carteira01; layoutCNAB400. Na remessa, 12345+001234567=12345001234567. O dígito da agência não é concatenado. A identificação ocupa Header027–040 e detalhe tipo1 018–031.
 
-O dígito da agência é obrigatório no cadastro do nosso ERP, mas não participa da composição. Este modelo descreve a nossa integração homologada e não impõe a mesma forma de cadastro a outros sistemas ERP.
+O botão Usar exemplo fictício preenche somente esses dados de demonstração. A demonstração de remessa usa o mesmo identificador fictício e contém divergências intencionais, analisadas pelo motor real. Datas fixas dos arquivos samples/: geração15/01/2030; use2030-01-15 para reproduzir a conferência. A demonstração da interface usa a referência selecionada.
 
 ## Regras e referências
 

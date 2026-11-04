@@ -4,7 +4,7 @@
 - js/app.js: estado temporário, navegação por hash, leitura local, filtros e visualizador. Só o tema vai para localStorage.
 - js/cnab-parser.js: Uint8Array, delimitadores e fatias posicionais; funções monetárias e datas puras.
 - js/bank-registry.js: registro de bancos e importações dinâmicas independentes.
-- js/banks/safra-config.js: composição da identificação, sem conversões numéricas e sem preenchimento automático.
+- js/banks/safra-config.js: interpretação dos dados de e-mail Safra, separação textual da conta9 em8+1, identificação5+9, padrões do ERP e mapeamento da carteira1 para01, sem conversões numéricas.
 - js/validation-worker.js: executa o motor em Web Worker para manter a interface disponível. Limpar sessão termina o worker ativo.
 - js/validation-engine.js: carrega somente o módulo do banco/layout selecionado e consolida a saída padronizada.
 - js/validators/safra400.js: regras do Safra, fontes e escopo. Não é compartilhado com outros bancos.

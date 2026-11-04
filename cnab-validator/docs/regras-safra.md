@@ -48,7 +48,7 @@ A confirmação posterior do usuário sobre05/16 e juros sem01 fundamenta essas 
 
 ## Diferenças entre referências
 
-- O manual público §4.1 p5 define agência5 sem DV + conta9 com DV. O formulário usa o modelo fixo da integração homologada do solicitante: agência5, DV da agência1 separado, conta8 e DV da conta1. O código do cedente é agência5 + conta8 + DV da conta1; o DV da agência fica somente no cadastro. Exemplo solicitado: 13800 / 0 / 00592448 / 6 → 13800005924486. Isso verifica composição, sem calcular ou certificar DV, e não define o cadastro de todos os ERPs.
+- O manual público §4.1 p5 define agência5 sem DV + conta9 com DV. O módulo recebe agência5 e conta completa9 como no e-mail fictício. Separa conta8+DV1 automaticamente e utiliza o DV da agência0 apenas no cadastro do ERP. Exemplo fictício:12345 +001234567 =12345001234567; no ERP, conta00123456 e DV7. Isso verifica formato, sem calcular ou certificar DV, e não define o cadastro de todos os ERPs.
 - O guia fornecido p6 reserva72–101 e p8 reserva382–388. O manual de2026 e o ACBr usam86–91 para juros e382–384 para baixa. O prazo e sua instrução são conferidos quando configurados no título.
 - A nota pública §6.2.7 menciona16 na primeira instrução, enquanto a tabela de instruções permite16 nas duas. A homologação confirmada usa05/16. O guia local p12 mostra16/01 para juros+multa e p10 mostra16/10 para protesto+juros+multa. São cenários diferentes.
 - A tabela de2026 prevê6 posições para data de juros; sua nota §6.2.9 cita DDMMAAAA. Essa divergência impede afirmar validação definitiva desse campo; datas suspeitas geram aviso.
@@ -66,3 +66,13 @@ O gerador fornecido emite os campos de multa para ocorrência01, PercentualMulta
 Erro é uma divergência com uma regra aplicável. Aviso sinaliza dúvida, escopo parcial, conflito documental, suspeita ou condição contratual. Informação representa uma verificação atendida. Uma conferência corresponde a um item do array checks; as contagens são derivadas desse array. O aplicativo nunca mostra dados simulados como se fossem análise real.
 
 Não são cobertos todos os campos do manual, dados cadastrais, códigos de ocorrência, produtos, instruções alternativas, duplicidade de nosso número, regras específicas de modalidade/carteira ou condições de aceite. Novos controles precisam de evidência primária e testes. Todo relatório declara esse escopo parcial.
+
+## Interpretação do e-mail para o ERP Safra
+
+Os únicos dados de exemplo são fictícios: NOME DA EMPRESA; agência12345 - Barra; conta001234567; EMISSÃO EMPRESA;100% SAFRA; padrão400; produtoCOBRANÇA; carteira1. Nenhuma conta real de cliente é incluída.
+
+O usuário informa somente a agência completa de5 posições e a conta completa de9 posições. O módulo separa001234567 em conta00123456 e DV7. Essa separação é estrutural e não valida matematicamente o dígito. A identificação calculada é12345001234567, atualizada sem preenchimento manual, usada no Header027–040 e detalhe018–031.
+
+O ERP desta integração precisou de0 no campo do dígito da agência para gerar a remessa; o Safra não o confirmou como DV oficial. O padrão0 é editável e fica restrito ao módulo. O banco já informou5 posições de agência: não concatenar esse campo novamente.
+
+A carteira1 recebida permanece1 no contexto do banco e é apresentada como01 no cadastro deste ERP. A configuração não altera posições nem regras do arquivo CNAB. Mapeamentos de outras carteiras para esse ERP permanecem pendentes até haver documentação, sem conversão inventada. Os padrões e a interpretação são exportados somente por js/banks/safra-config.js. Os demais bancos não recebem essas regras.

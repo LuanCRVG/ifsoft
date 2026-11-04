@@ -254,7 +254,7 @@ Não é necessário instalar pacotes ou executar um build. Todos os recursos usa
 
 A aba **CNAB Validator** abre a ferramenta integrada em um quadro próprio, sem misturar estilos ou dados com as notas técnicas. **Abrir em tela inteira** disponibiliza a mesma aplicação em uma nova aba. O endereço direto do painel é `index.html#cnab-validator`, e a ferramenta independente fica em `cnab-validator/index.html`.
 
-O módulo Safra CNAB400 usa o cadastro fixo da integração homologada: agência5, dígito da agência1 separado, conta8 e dígito da conta1. O código do cedente é agência+conta+dígito da conta, sem acrescentar o dígito da agência. As regras são únicas e condicionais por título: não se exige multa, juros ou baixa em todos os boletos.
+No módulo Safra CNAB400, o técnico informa a agência completa de5 posições e a conta completa de9 posições recebidas por e-mail. A conta é separada automaticamente em8+DV, preservando zeros, e o cedente é calculado em tempo real como agência5+contaComDV9. O DV da agência0 é padrão editável do nosso ERP, sem confirmação de DV oficial pelo banco, e não é concatenado. A carteira1 recebida é mostrada como01 somente no cadastro do ERP. O exemplo é exclusivamente fictício: NOME DA EMPRESA, agência12345 - Barra, conta001234567 e cedente12345001234567. As regras do validador da remessa não são modificadas por essa configuração.
 
 Arquivos bancários permanecem na memória do navegador; não são enviados, gravados no repositório ou persistidos automaticamente. Estão disponíveis visualizador de posições, relatórios PDF/JSON, limpeza da sessão e exemplos explicitamente sintéticos. Outros bancos e CNAB240 permanecem indisponíveis. As referências e os limites da conferência estão em `cnab-validator/docs/regras-safra.md`.
 
