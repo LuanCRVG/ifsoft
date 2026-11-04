@@ -16,13 +16,14 @@
     <link rel="stylesheet" href="utilitarios.css?v=20261022-schema-dates-1">
     <link rel="stylesheet" href="prioridades.css?v=20261026-prioridades-1">
     <link rel="stylesheet" href="theme.css?v=20261007-correcao-2">
+    <link rel="stylesheet" href="cnab-portal.css?v=20261104-cnab-1">
     <script src="vendor/lucide.min.js" defer></script>
     <script src="script.js?v=20261026-prioridades-1" defer></script>
     <script src="prioridades-data.js?v=20261026-prioridades-2" defer></script>
     <script src="prioridades.js?v=20261026-prioridades-1" defer></script>
     <script src="problemas-data.js?v=20261009-resolvido-003-1" defer></script>
     <script src="briefing-data.js?v=20261028-imposto-seletivo-1" defer></script>
-    <script src="navigation.js?v=20261022-problemas-rodape-1" defer></script>
+    <script src="navigation.js?v=20261104-cnab-1" defer></script>
     <script src="problemas.js?v=20261009-lp-1" defer></script>
     <script src="briefing.js?v=20261009-lp-1" defer></script>
     <script src="utilitarios-data.js?v=20261023-if-fix-09-1" defer></script>
@@ -61,6 +62,7 @@
         <button type="button" role="tab" id="tab-problems" class="portal-tab problem-tab" aria-selected="false" aria-controls="panel-problems" tabindex="-1" hidden><span class="problem-tab-bell" aria-hidden="true"><i data-lucide="bell-ring"></i></span><span class="problem-tab-label">Problemas no sistema</span><span class="tab-count" id="tab-problems-count">0</span></button>
         <button type="button" role="tab" id="tab-briefing" class="portal-tab briefing-tab" aria-selected="false" aria-controls="panel-briefing" tabindex="-1"><span class="briefing-tab-hint" aria-hidden="true">Confira<i data-lucide="arrow-down"></i></span><i data-lucide="coffee" aria-hidden="true"></i><span>Briefing tecnológico</span></button>
         <button type="button" role="tab" id="tab-downloads" class="portal-tab" aria-selected="false" aria-controls="panel-downloads" tabindex="-1"><i data-lucide="download" aria-hidden="true"></i><span>Download de Utilitários</span></button>
+        <button type="button" role="tab" id="tab-cnab" class="portal-tab" aria-selected="false" aria-controls="panel-cnab" tabindex="-1"><i data-lucide="file-check-2" aria-hidden="true"></i><span>CNAB Validator</span></button>
       </nav>
 
       <aside class="briefing-invitation" id="briefing-invitation" aria-labelledby="briefing-invitation-title" hidden>
@@ -267,6 +269,11 @@
         </div>
       </section>
       <noscript><p><a class="action-button primary-action" href="downloads/FirebirdCare-1.0.4-win-x64.zip" download="FirebirdCare-1.0.4-win-x64.zip">Baixar Firebird Care 1.0.4 para Windows x64</a></p><p><a class="action-button primary-action" href="downloads/IF-Fix-0.9-win.rar" download="IF-Fix-0.9-win.rar">Baixar IF Fix 0.9 para Windows (RAR)</a></p></noscript>
+      <section id="panel-cnab" class="cnab-panel" role="tabpanel" aria-labelledby="tab-cnab" tabindex="0" hidden>
+        <div class="cnab-portal-heading"><div><h2>CNAB Validator</h2><p>Configuração bancária e conferência de remessas Safra CNAB 400, com leitura local dos arquivos.</p></div><a class="action-button primary-action" href="cnab-validator/index.html" target="_blank" rel="noopener noreferrer"><span>Abrir em tela inteira</span><i data-lucide="external-link" aria-hidden="true"></i></a></div>
+        <p class="cnab-privacy"><i data-lucide="shield-check" aria-hidden="true"></i>Os arquivos bancários são analisados somente no navegador. Nenhum dado da remessa é enviado para o site.</p>
+        <iframe id="cnab-frame" class="cnab-frame" data-src="cnab-validator/index.html" title="CNAB Validator: configuração bancária e validação de remessas Safra" loading="lazy"></iframe>
+      </section>
     </main>
 
     <dialog class="problem-image-dialog" id="problem-image-viewer" aria-labelledby="problem-image-title" aria-describedby="problem-image-caption">

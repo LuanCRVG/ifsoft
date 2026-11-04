@@ -1,6 +1,6 @@
 # LP - Central Técnica
 
-Site estático em HTML, CSS e JavaScript, com as abas **Notas técnicas**, **Briefing tecnológico** e **Download de Utilitários**, além de **Problemas no sistema** por acesso direto. Compatível com abertura local e GitHub Pages, sem servidor ou etapa de build.
+Site estático em HTML, CSS e JavaScript, com as abas **Notas técnicas**, **Briefing tecnológico**, **Download de Utilitários** e **CNAB Validator**, além de **Problemas no sistema** por acesso direto. Compatível com abertura local e GitHub Pages, sem servidor ou etapa de build.
 
 A identidade pública é **LP**, iniciais de Luan Paranhos. O endereço do repositório e do GitHub Pages permanece o mesmo. Os identificadores internos `IFSOFT_PROBLEMAS`, `IFSOFT_BRIEFING` e a chave de tema foram preservados por compatibilidade; não são nomes exibidos no site.
 
@@ -249,3 +249,13 @@ O cadastro fica em `schemas-nfe-data.js`; `schemas-nfe.js` monta a lista com os 
 Se preferir publicar dentro de uma pasta `docs`, coloque estes arquivos em `docs/` e selecione essa pasta nas configurações do GitHub Pages.
 
 Não é necessário instalar pacotes ou executar um build. Todos os recursos usam caminhos relativos e funcionam tanto abrindo `index.html` diretamente quanto no GitHub Pages.
+
+## CNAB Validator
+
+A aba **CNAB Validator** abre a ferramenta integrada em um quadro próprio, sem misturar estilos ou dados com as notas técnicas. **Abrir em tela inteira** disponibiliza a mesma aplicação em uma nova aba. O endereço direto do painel é `index.html#cnab-validator`, e a ferramenta independente fica em `cnab-validator/index.html`.
+
+O módulo Safra CNAB400 usa o cadastro fixo da integração homologada: agência5, dígito da agência1 separado, conta8 e dígito da conta1. O código do cedente é agência+conta+dígito da conta, sem acrescentar o dígito da agência. As regras são únicas e condicionais por título: não se exige multa, juros ou baixa em todos os boletos.
+
+Arquivos bancários permanecem na memória do navegador; não são enviados, gravados no repositório ou persistidos automaticamente. Estão disponíveis visualizador de posições, relatórios PDF/JSON, limpeza da sessão e exemplos explicitamente sintéticos. Outros bancos e CNAB240 permanecem indisponíveis. As referências e os limites da conferência estão em `cnab-validator/docs/regras-safra.md`.
+
+Para publicar, envie `index.html`, `navigation.js`, `cnab-portal.css` e toda a pasta `cnab-validator/`. Os pacotes JavaScript prontos estão incluídos; o site continua abrindo diretamente pelo arquivo e no GitHub Pages, sem instalação. Para desenvolver o módulo, execute `npm run build` e `npm test` dentro de `cnab-validator/` antes de publicar mudanças. O empacotador usa apenas Node e preserva os fontes ES Modules.
