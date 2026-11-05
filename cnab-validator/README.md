@@ -100,3 +100,8 @@ Os testes usam node:test e dados sintéticos. Confira [docs/arquitetura.md](docs
 O módulo Safra apresenta dois cadastros separados: **Cadastro do banco no Sistema** (422, BANCO SAFRA, Layout da Remessa C400, carteira 01, aceite Não e mensagem PAGÁVEL EM QUALQUER BANCO DO SISTEMA DE COMPENSAÇÃO) e **Cadastro da conta corrente** (agência, DV da agência, conta, DV da conta e cedente). Cada cadastro pode ser copiado separadamente. A identificação CNAB permanece agência (5) + conta (8) + DV da conta (1). Essas orientações são específicas desta integração, sem alterar as regras de validação.
 
 Última análise dos parâmetros de cadastro Safra: **04/11/2026**. Essa data é histórica e fixa: não é recalculada ao abrir a página nem confundida com a data de conferência de uma remessa. Ela também acompanha as cópias de ambos os cadastros.
+
+
+## Logos para o Sistema
+
+O Dashboard oferece o download de `downloads/Logos.rar`. Extraia o arquivo e deixe a pasta **Logos** na pasta onde o **Sistema está instalado**. O arquivo mantém as subpastas Colorido e PretoBranco. O cadastro do Banco Safra exibe que a instalação da logo é obrigatória nesta integração. Essa orientação não altera a validação de arquivos CNAB.
