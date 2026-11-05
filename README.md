@@ -233,7 +233,7 @@ Os metadados ficam em `schemas-mdfe-data.js` e a lista é montada por `schemas-m
 
 ### SchemasNFe
 
-A pasta **Schemas NF-e** oferece dois ZIPs independentes: **Normal (sem Reforma Tributária)**, com 158 XSDs, e **Padrão Nacional**, com 200 XSDs. Os nomes seguem a identificação fornecida pela equipe, sem certificar vigência ou compatibilidade. Os arquivos ficam em `downloads/Schemas/SchemasNFe/Normal/` e `downloads/Schemas/SchemasNFe/PadraoNacional/`, sem misturar conjuntos. As cópias idênticas do segundo envio não foram duplicadas; o RAR original foi preservado em `Originais/`, separado dos downloads ZIP.
+A pasta **Schemas NF-e** oferece dois ZIPs independentes: **Normal (sem Reforma Tributária)**, com 158 XSDs, e **Padrão Nacional (Com Reforma Tributária)**, com 200 XSDs. Os nomes seguem a identificação fornecida pela equipe, sem certificar vigência ou compatibilidade. Os arquivos ficam em `downloads/Schemas/SchemasNFe/Normal/` e `downloads/Schemas/SchemasNFe/PadraoNacional/`, sem misturar conjuntos. As cópias idênticas do segundo envio não foram duplicadas; o RAR original foi preservado em `Originais/`, separado dos downloads ZIP.
 
 O cadastro fica em `schemas-nfe-data.js`; `schemas-nfe.js` monta a lista com os estilos já existentes. Para atualizar, altere o conjunto correto, recrie seu ZIP e revise os metadados e a versão de cache em `index.html`. Consulte [downloads/Schemas/SchemasNFe/README.md](downloads/Schemas/SchemasNFe/README.md). Publique os novos scripts, o HTML e a pasta completa de NF-e. Os downloads de NFS-e, MDF-e e Firebird Care permanecem independentes.
 

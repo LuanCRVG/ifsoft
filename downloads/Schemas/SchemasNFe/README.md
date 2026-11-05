@@ -5,7 +5,7 @@ Conjuntos recebidos em 15/10/2026, mantidos separados, sem misturar arquivos de 
 | Conjunto no site | Subpasta | XSDs no ZIP | Tamanho do ZIP |
 | --- | --- | --- | --- |
 | Normal (sem Reforma Tributaria) | `Normal/` | 158 | 208.897 bytes |
-| Padrao Nacional | `PadraoNacional/` | 200 | 256.069 bytes |
+| Padrao Nacional (Com Reforma Tributaria) | `PadraoNacional/` | 200 | 256.069 bytes |
 
 Cada subpasta contem os XSDs originais e seu proprio `SchemasNFe.zip`. Cada ZIP contem somente os XSDs daquele conjunto, diretamente na raiz, com nomes e bytes preservados. O atributo de download sugere nomes diferentes: `SchemasNFe-normal.zip` e `SchemasNFe-padrao-nacional.zip`.
 

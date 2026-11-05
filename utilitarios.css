@@ -66,6 +66,7 @@
 .schema-updated { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; overflow-wrap: anywhere; }
 .schema-updated time { color: var(--text); font-weight: 600; white-space: nowrap; }
 .schema-age { white-space: nowrap; }
+.schema-note { grid-column: 1 / -1; margin: 8px 0 0; padding: 12px 14px; border-left: 3px solid var(--amber); background: var(--amber-soft); color: var(--text); font-size: 12px; line-height: 1.8; overflow-wrap: anywhere; }
 .schemas-source-note { margin: 18px 0; color: var(--muted); font-size: 11px; line-height: 1.8; overflow-wrap: anywhere; }
 @media (max-width: 700px) {
   .download-folder-toggle { grid-template-columns: 40px minmax(0, 1fr) 18px; gap: 6px 12px; padding: 16px 12px; }

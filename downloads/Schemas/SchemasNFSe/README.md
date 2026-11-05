@@ -17,6 +17,7 @@ O `.gitattributes` da pasta principal `Schemas/` desativa a conversao de quebras
 
 - `schemas-nfse-data.js` guarda os nomes apresentados no site, UF, pasta original, quantidade de arquivos no pacote, tamanho do ZIP e SHA-256.
 - Os campos opcionais `padrao` e `regime` aparecem entre parenteses ao lado do municipio; `emissor`, como `emissor: "ISSNet"`, aparece em seguida. Todos participam da busca. Eles nao alteram a UF, a pasta ou o endereco de download.
+- O campo opcional `observacao` aparece por inteiro em destaque abaixo do conjunto, sem precisar expandir texto. Em Duque de Caxias, informa que O.S a partir de **4.2.17.2** ou SAC a partir de **5.3.18.6** devem usar o conjunto **SchemasNFSe (Padrao Nacional)** listado abaixo. A observacao nao altera o pacote nem sua data de atualizacao.
 - `schemas-nfse.js` monta a lista, a busca por municipio e o filtro de UF; `utilitarios.css` compartilha o estilo da area de downloads.
 - A pasta Schemas NFS-e fica dentro de Schemas, junto de Schemas MDF-e e Schemas NF-e. Ela reune os dois conjuntos na mesma lista, sem pasta expansivel extra para o nacional. Todas comecam recolhidas em `details/summary`; clicar no cabecalho expande ou recolhe. O contador usa conjuntos, pois nem todo pacote representa um municipio.
 - O registro nacional usa `nacional: true`, `nome` e `pasta: "PadraoNacional"`, sem municipio nem UF. Ele participa da busca e permanece disponivel nos filtros de UF por ter abrangencia nacional.

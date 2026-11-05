@@ -28,6 +28,7 @@
     && (item.padrao === undefined || (typeof item.padrao === "string" && item.padrao.length <= 120))
     && (item.regime === undefined || (typeof item.regime === "string" && item.regime.length <= 120))
     && (item.emissor === undefined || (typeof item.emissor === "string" && item.emissor.length <= 120))
+    && (item.observacao === undefined || (typeof item.observacao === "string" && item.observacao.length <= 1000))
     && (item.nacional === true ? item.uf === undefined : typeof item.uf === "string" && /^[A-Z]{2}$/.test(item.uf))
     && typeof item.pasta === "string" && /^[\p{L}\p{N} _-]+$/u.test(item.pasta) && item.pasta.trim().length > 0
     && Number.isSafeInteger(item.quantidadeArquivos) && item.quantidadeArquivos > 0
@@ -82,6 +83,11 @@
       link.append(icon("download"), create("span", "", "Baixar ZIP"));
       row.append(identity, metadata, link);
       if (window.LP_SCHEMA_DATES) row.appendChild(window.LP_SCHEMA_DATES.create(item.dataAtualizacao));
+      if (item.observacao) {
+        const note = create("p", "schema-note");
+        note.append(create("strong", "", "Observação: "), document.createTextNode(item.observacao));
+        row.appendChild(note);
+      }
       list.appendChild(row);
     });
     if (window.lucide) window.lucide.createIcons();
