@@ -1,6 +1,6 @@
 # NT Conjunta 2025.001 v1.00 - CNPJ Alfanumérico
 
-Análise realizada em **02/10/2026**, a partir do PDF enviado, versão de **25/04/2025**, e das fontes oficiais indicadas abaixo. O registro é urgente por definição manual. Esta análise identifica pontos de implementação; não certifica que o ERP ou seus componentes já estejam adequados.
+Análise realizada em **02/10/2026**, a partir do PDF enviado, versão de **25/04/2025**, e das fontes oficiais indicadas abaixo. O registro é urgente por definição manual. Esta análise identifica pontos de implementação; não certifica que o Sistema ou seus componentes já estejam adequados.
 
 ## Cadastro e cronograma
 
@@ -50,7 +50,7 @@ Essas divergências são alertas de leitura da versão enviada, não autorizaç�
 - Impressão e PDF com chave alfanumérica, validando a leitura exata dos 44 caracteres por scanner e as margens de silêncio.
 - Integrações legadas, banco, arquivos e APIs que ainda usam tipos numéricos ou filtros que descartam letras.
 
-São testes de compatibilidade a executar no ERP e nos componentes utilizados; o cadastro no site não realiza esses testes fiscais.
+São testes de compatibilidade a executar no Sistema e nos componentes utilizados; o cadastro no site não realiza esses testes fiscais.
 
 ## Fontes
 

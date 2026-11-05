@@ -15,7 +15,7 @@ export function validate(ctx) {
   const at=(r,start,end,expected='',reference=MANUAL)=>({line:r.line,recordType:r.text[0]||'Vazio',start,end,found:field(r,start,end),expected,reference});
   if(!records.length) {issue('error','empty','Arquivo vazio','Não há registros para analisar.');return analysis;}
   if(parsed.bom || parsed.utf8Multibyte) {
-    issue('error','encoding','Codificação','Detectado BOM ou conteúdo UTF-8 multibyte. A análise posicional foi interrompida: o manual exige ANSI. Exporte novamente no ERP; o aplicativo não converte o arquivo.',{reference:MANUAL+' §4.2'});return analysis;
+    issue('error','encoding','Codificação','Detectado BOM ou conteúdo UTF-8 multibyte. A análise posicional foi interrompida: o manual exige ANSI. Exporte novamente no Sistema; o aplicativo não converte o arquivo.',{reference:MANUAL+' §4.2'});return analysis;
   }
   test(!parsed.endings.includes('CR'),'line-endings','Delimitadores','CRLF e LF são aceitos; CR isolado exige conferência.',{found:parsed.endings.join(', ')||'Sem delimitador final',expected:'CRLF ou LF'},'warning');
   if(records[0].length===240) {issue('warning','unsupported-layout','Layout','Registro de 240 posições identificado. CNAB 240 ainda não é suportado. Nenhuma regra posicional 400 foi aplicada.');return analysis;}
@@ -54,7 +54,7 @@ export function validate(ctx) {
   const company=field(header,27,40);
   test(digits(company)&&company.length===14,'header-company','Identificação da empresa','A identificação deve ter 14 posições numéricas, agência (5) + conta com DV (9).',at(header,27,40,'14 dígitos',MANUAL+' §6.1.1'));
   if(ctx.expectedIdentification) test(company===ctx.expectedIdentification,'header-config','Empresa × configuração','A identificação do Header deve corresponder à composição informada na configuração.',at(header,27,40,ctx.expectedIdentification));
-  else issue('warning','config-pending','Configuração não informada','A comparação Header × detalhe será executada. Informe e confira a conta para comparar com o cadastro do ERP.');
+  else issue('warning','config-pending','Configuração não informada','A comparação Header × detalhe será executada. Informe e confira a conta para comparar com o cadastro do Sistema.');
   issue('info','safra-rules','Regras Safra CNAB 400','Conjunto único ativo. Juros diários são monetários; multa e baixa são conferidas conforme os campos de cada título. A combinação de baixa e multa usa 05/16, sem exigir 01 para juros.',{reference:HOMOLOG});
   for(const r of details) {
     if(r.length!==400) {invalidAmounts++;continue;}

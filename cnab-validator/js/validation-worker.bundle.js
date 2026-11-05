@@ -42,10 +42,11 @@ function money(cents) {
 
 Object.assign(exports,{MAX_BYTES,parseCNAB,field,digits,date6,nextDay,isoTo6,validISO,localToday,money});return exports;};
 factories["js/banks/safra-config.js"]=async function(exports,load){
-/** Interpretação do e-mail Safra para o cadastro desta integração ERP. */
+/** Interpretação do e-mail Safra para o cadastro desta integração Sistema. */
+const bankRegistration=Object.freeze({reviewedOn:'04/11/2026',code:'422',name:'BANCO SAFRA',remittanceLayout:'C400',acceptance:'Não',paymentLocation:'PAGÁVEL EM QUALQUER BANCO DO SISTEMA DE COMPENSAÇÃO'});
 const defaults=Object.freeze({agencyDv:'0',wallet:'1'});
 const emailExample=Object.freeze({shortname:'NOME DA EMPRESA',agency:'12345',agencyLabel:'12345 - Barra',accountWithDv:'001234567',printing:'EMISSÃO EMPRESA',serviceArea:'100% SAFRA',layout:'400',product:'COBRANÇA',wallet:'1'});
-const agencyDvExplanation='Na homologação do nosso ERP com ACBrBoleto, o campo de dígito da agência vazio impediu gerar a remessa; preencher 0 permitiu a geração. Esse zero é um padrão do cadastro desta integração e não foi confirmado pelo Safra como DV oficial da agência.';
+const agencyDvExplanation='Na homologação do nosso Sistema com ACBrBoleto, o campo de dígito da agência vazio impediu gerar a remessa; preencher 0 permitiu a geração. Esse zero é um padrão do cadastro desta integração e não foi confirmado pelo Safra como DV oficial da agência.';
 const walletMapping=Object.freeze({'1':'01'});
 function composeIdentification(config={}) {
   const issues=[],warnings=[];
@@ -56,16 +57,16 @@ function composeIdentification(config={}) {
   const agencyValid=/^\d{5}$/.test(agency), accountValid=/^\d{9}$/.test(accountWithDv);
   if(!agencyValid)issues.push('Agência: informe exatamente 5 dígitos, preservando os zeros à esquerda.');
   if(!accountValid)issues.push('Conta completa recebida do banco: informe exatamente 9 dígitos, incluindo o DV e preservando os zeros à esquerda.');
-  if(!/^\d$/.test(agencyDv))issues.push('Dígito da agência no ERP: informe 1 dígito. Nesta integração, o padrão é 0; esse campo não integra a identificação da remessa.');
+  if(!/^\d$/.test(agencyDv))issues.push('Dígito da agência no Sistema: informe 1 dígito. Nesta integração, o padrão é 0; esse campo não integra a identificação da remessa.');
   const walletERP=walletMapping[wallet]??null;
   if(!/^\d$/.test(wallet))issues.push('Carteira informada pelo banco: informe 1 dígito. O exemplo de homologação utiliza 1.');
-  else if(!walletERP)warnings.push('O mapeamento da carteira '+wallet+' para o cadastro deste ERP não está documentado neste módulo. Confirme-o antes de copiar o cadastro.');
+  else if(!walletERP)warnings.push('O mapeamento da carteira '+wallet+' para o cadastro deste Sistema não está documentado neste módulo. Confirme-o antes de copiar o cadastro.');
   const identificationValid=agencyValid&&accountValid;
   const identification=identificationValid?agency+accountWithDv:'';
   return {valid:issues.length===0&&walletERP!==null,identificationValid,agency,agencyDv,accountWithDv,account:accountValid?accountWithDv.slice(0,8):'',accountDv:accountValid?accountWithDv.slice(8):'',identification,beneficiary:identification,wallet,walletERP,bank:'422',bankName:'Banco Safra',layout:'400',issues,warnings,notes:[agencyDvExplanation,'A separação da conta e a composição de 14 posições são estruturais: não calculam o DV, não consultam o banco e não confirmam titularidade.']};
 }
 
-Object.assign(exports,{defaults,emailExample,agencyDvExplanation,composeIdentification});return exports;};
+Object.assign(exports,{bankRegistration,defaults,emailExample,agencyDvExplanation,composeIdentification});return exports;};
 factories["js/bank-registry.js"]=async function(exports,load){
 const registry = new Map([
   ['422',{code:'422',name:'Banco Safra',short:'Safra',implemented:true,layouts:['400'],load:()=>load("js/validators/safra400.js"),loadConfiguration:()=>load("js/banks/safra-config.js")}],
@@ -99,7 +100,7 @@ function validate(ctx) {
   const at=(r,start,end,expected='',reference=MANUAL)=>({line:r.line,recordType:r.text[0]||'Vazio',start,end,found:field(r,start,end),expected,reference});
   if(!records.length) {issue('error','empty','Arquivo vazio','Não há registros para analisar.');return analysis;}
   if(parsed.bom || parsed.utf8Multibyte) {
-    issue('error','encoding','Codificação','Detectado BOM ou conteúdo UTF-8 multibyte. A análise posicional foi interrompida: o manual exige ANSI. Exporte novamente no ERP; o aplicativo não converte o arquivo.',{reference:MANUAL+' §4.2'});return analysis;
+    issue('error','encoding','Codificação','Detectado BOM ou conteúdo UTF-8 multibyte. A análise posicional foi interrompida: o manual exige ANSI. Exporte novamente no Sistema; o aplicativo não converte o arquivo.',{reference:MANUAL+' §4.2'});return analysis;
   }
   test(!parsed.endings.includes('CR'),'line-endings','Delimitadores','CRLF e LF são aceitos; CR isolado exige conferência.',{found:parsed.endings.join(', ')||'Sem delimitador final',expected:'CRLF ou LF'},'warning');
   if(records[0].length===240) {issue('warning','unsupported-layout','Layout','Registro de 240 posições identificado. CNAB 240 ainda não é suportado. Nenhuma regra posicional 400 foi aplicada.');return analysis;}
@@ -138,7 +139,7 @@ function validate(ctx) {
   const company=field(header,27,40);
   test(digits(company)&&company.length===14,'header-company','Identificação da empresa','A identificação deve ter 14 posições numéricas, agência (5) + conta com DV (9).',at(header,27,40,'14 dígitos',MANUAL+' §6.1.1'));
   if(ctx.expectedIdentification) test(company===ctx.expectedIdentification,'header-config','Empresa × configuração','A identificação do Header deve corresponder à composição informada na configuração.',at(header,27,40,ctx.expectedIdentification));
-  else issue('warning','config-pending','Configuração não informada','A comparação Header × detalhe será executada. Informe e confira a conta para comparar com o cadastro do ERP.');
+  else issue('warning','config-pending','Configuração não informada','A comparação Header × detalhe será executada. Informe e confira a conta para comparar com o cadastro do Sistema.');
   issue('info','safra-rules','Regras Safra CNAB 400','Conjunto único ativo. Juros diários são monetários; multa e baixa são conferidas conforme os campos de cada título. A combinação de baixa e multa usa 05/16, sem exigir 01 para juros.',{reference:HOMOLOG});
   for(const r of details) {
     if(r.length!==400) {invalidAmounts++;continue;}
@@ -338,6 +339,8 @@ function applyConfigurationDefaults(bankCode){
   for(const name of ['agencyDv','wallet']){$(name).defaultValue=defaults[name]??'';$(name).value=defaults[name]??'';}
 }
 try {document.documentElement.dataset.theme=localStorage.getItem('cnab-theme')||'light';}catch{}
+const portalUrl=document.body.dataset.portalUrl;
+if(portalUrl){$('portalReturn').href=portalUrl;$('portalReturn').hidden=false;$('workspaceLabel').hidden=true;}
 $('referenceDate').value=localToday();$('todayLabel').textContent=localToday();
 $('bankSelect').innerHTML=banks.map(b=>'<option value="'+b.code+'">'+b.code+' · '+b.name+(b.implemented?'':' · Em breve')+'</option>').join('');
 function toast(text){$('toast').textContent=text;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4500);}
@@ -411,19 +414,21 @@ function bankChanged(){
 function updateBeneficiary(showIssues=false){
   if($('bankSelect').value!=='422')return;
   const composed=composeIdentification(Object.fromEntries(new FormData($('configForm'))));
+  $('bankWallet').textContent=composed.walletERP||'Mapeamento pendente';$('copyBankConfig').disabled=!composed.walletERP;
   $('account').value=composed.account;$('accountDv').value=composed.accountDv;$('beneficiary').value=composed.identification;
   configuration=composed.identificationValid?composed:null;updateConfigLabel();$('copyConfig').disabled=!composed.valid;$('copyBeneficiary').disabled=!composed.identificationValid;
   const row=(name,value)=>'<dt>'+escape(name)+'</dt><dd>'+escape(value||'—')+'</dd>';
   const issues=showIssues?[...composed.issues,...composed.warnings]:[];
   const messages=issues.length?'<ul>'+issues.map(s=>'<li>'+escape(s)+'</li>').join('')+'</ul>':'';
   if(!composed.identificationValid){$('configurationResult').innerHTML='<p>Informe a agência com 5 dígitos e a conta completa com 9 dígitos. A identificação será calculada automaticamente.</p><p>Agência: '+$('agency').value.length+'/5 posições · Conta com DV: '+$('accountWithDv').value.length+'/9 posições.</p>'+messages;return;}
-  $('configurationResult').innerHTML='<h3>COMO CADASTRAR NO SEU ERP</h3><dl class="erp-fields">'+row('Banco','422 - Banco Safra')+row('Agência',composed.agency)+row('Dígito da agência',composed.agencyDv)+row('Conta corrente',composed.account)+row('Dígito da conta',composed.accountDv)+row('Código do cedente',composed.identification)+row('Carteira',composed.walletERP||'Mapeamento pendente')+row('Layout','CNAB 400')+'</dl><p>Carteira recebida: '+escape(composed.wallet)+'. '+(composed.walletERP?'No cadastro deste ERP: '+escape(composed.walletERP)+'. Essa apresentação não muda a quantidade de posições da carteira no arquivo CNAB.':'Confirme o preenchimento exigido pelo ERP para esta carteira.')+'</p>'+messages+'<h3>Identificação na remessa CNAB 400</h3><div class="identification-value">'+escape(composed.identification)+'</div><div class="composition-parts"><div><code>'+escape(composed.agency)+'</code>Agência completa · 5</div><div><code>'+escape(composed.accountWithDv)+'</code>Conta com DV · 9</div></div><p class="composition-formula">'+escape(composed.agency)+' + '+escape(composed.accountWithDv)+' = '+escape(composed.identification)+'</p><p>Composição estrutural de 14 posições conferida. O dígito da agência ('+escape(composed.agencyDv||'não informado')+') fica somente no cadastro do ERP.</p><p>Header: posições 027–040. Detalhe tipo 1: posições 018–031.</p>';
+  $('configurationResult').innerHTML='<h3>CADASTRO DA CONTA CORRENTE</h3><dl class="erp-fields">'+row('Agência',composed.agency)+row('Dígito da agência',composed.agencyDv)+row('Conta corrente',composed.account)+row('Dígito da conta',composed.accountDv)+row('Código do cedente',composed.identification)+'</dl>'+messages+'<h3>Identificação na remessa CNAB 400</h3><div class="identification-value">'+escape(composed.identification)+'</div><div class="composition-parts"><div><code>'+escape(composed.agency)+'</code>Agência completa · 5</div><div><code>'+escape(composed.accountWithDv)+'</code>Conta com DV · 9</div></div><p class="composition-formula">'+escape(composed.agency)+' + '+escape(composed.accountWithDv)+' = '+escape(composed.identification)+'</p><p>Composição estrutural de 14 posições conferida. O dígito da agência ('+escape(composed.agencyDv||'não informado')+') fica somente no cadastro do Sistema.</p><p>Header: posições 027–040. Detalhe tipo 1: posições 018–031.</p>';
 }
 function checkConfiguration(event){event.preventDefault();updateBeneficiary(true);}
 function useConfigurationExample(){
   const example=safraConfiguration.emailExample;$('agency').value=example.agency;$('accountWithDv').value=example.accountWithDv;applyConfigurationDefaults('422');$('wallet').value=example.wallet;updateBeneficiary(true);toast('Dados fictícios de demonstração preenchidos.');if(result)status('A configuração foi alterada. Use Conferir novamente para atualizar a comparação.','warning');
 }
-async function copyConfiguration(){if(!configuration?.valid)return;const c=configuration;const text='COMO CADASTRAR NO SEU ERP (INTEGRAÇÃO SAFRA)\nBanco: 422 - Banco Safra\nAgência: '+c.agency+'\nDígito da agência: '+c.agencyDv+'\nConta corrente: '+c.account+'\nDígito da conta: '+c.accountDv+'\nCódigo do cedente: '+c.identification+'\nCarteira: '+c.walletERP+'\nLayout: CNAB 400\n\nIDENTIFICAÇÃO NA REMESSA\n'+c.agency+' + '+c.accountWithDv+' = '+c.identification+'\nO dígito da agência não integra as 14 posições.';try{await navigator.clipboard.writeText(text);toast('Cadastro copiado.');}catch{toast('Cópia indisponível. Selecione os valores na tela.');}}
+async function copyBankConfiguration(){const bank=safraConfiguration.bankRegistration;const c=composeIdentification(Object.fromEntries(new FormData($('configForm'))));if(!c.walletERP)return;const text='CADASTRO DO BANCO NO SISTEMA (INTEGRAÇÃO SAFRA)\nÚltima análise desta configuração: '+bank.reviewedOn+'\nCódigo do banco: '+bank.code+'\nBanco: '+bank.name+'\nLayout da Remessa: '+bank.remittanceLayout+'\nCarteira: '+c.walletERP+'\nAceite: '+bank.acceptance+'\nMensagem para local de pagamento: '+bank.paymentLocation;try{await navigator.clipboard.writeText(text);toast('Cadastro do banco copiado.');}catch{toast('Cópia indisponível. Selecione os valores na tela.');}}
+async function copyConfiguration(){if(!configuration?.valid)return;const c=configuration;const text='CADASTRO DA CONTA CORRENTE NO SISTEMA (INTEGRAÇÃO SAFRA)\nÚltima análise desta configuração: '+safraConfiguration.bankRegistration.reviewedOn+'\nAgência: '+c.agency+'\nDígito da agência: '+c.agencyDv+'\nConta corrente: '+c.account+'\nDígito da conta: '+c.accountDv+'\nCódigo do cedente: '+c.identification+'\n\nIDENTIFICAÇÃO NA REMESSA CNAB 400\n'+c.agency+' + '+c.accountWithDv+' = '+c.identification+'\nO dígito da agência não integra as 14 posições.';try{await navigator.clipboard.writeText(text);toast('Cadastro da conta corrente copiado.');}catch{toast('Cópia indisponível. Selecione os valores na tela.');}}
 async function copyBeneficiary(){if(!configuration?.identificationValid)return;try{await navigator.clipboard.writeText(configuration.identification);toast('Código do cedente copiado.');}catch{toast('Cópia indisponível. Selecione o código na tela.');}}
 function drawRecord(record,start=1,end=1){
   if(!record)return;start=Math.min(Math.max(1,Math.trunc(Number(start))||1),Math.max(record.length,1));end=Math.min(Math.max(start,Math.trunc(Number(end))||start),Math.max(record.length,1));
@@ -474,8 +479,8 @@ $('dropzone').addEventListener('dragover',e=>{e.preventDefault();$('dropzone').c
 $('dropzone').addEventListener('dragleave',()=>$('dropzone').classList.remove('drag-over'));
 $('dropzone').addEventListener('drop',e=>{e.preventDefault();$('dropzone').classList.remove('drag-over');if(e.dataTransfer.files.length!==1){status('Selecione um arquivo por análise.','warning');return;}readFile(e.dataTransfer.files[0]);});
 $('rerun').addEventListener('click',analyze);$('bankSelect').addEventListener('change',bankChanged);$('configForm').addEventListener('submit',checkConfiguration);
-$('configForm').addEventListener('input',()=>{updateBeneficiary(true);if(result)status('Dados bancários alterados. Use Conferir novamente para atualizar a comparação.','warning');});
-$('copyConfig').addEventListener('click',copyConfiguration);$('copyBeneficiary').addEventListener('click',copyBeneficiary);
+$('configContent').addEventListener('input',()=>{updateBeneficiary(true);if(result)status('Dados bancários alterados. Use Conferir novamente para atualizar a comparação.','warning');});
+$('copyBankConfig').addEventListener('click',copyBankConfiguration);$('copyConfig').addEventListener('click',copyConfiguration);$('copyBeneficiary').addEventListener('click',copyBeneficiary);
 for(const id of ['referenceDate','sendDate'])$(id).addEventListener('change',()=>{if(result)status('Opções alteradas. Use Conferir novamente para atualizar o diagnóstico.','warning');});
 $('clearSession').addEventListener('click',clearSession);$('searchOccurrences').addEventListener('input',()=>{pageIndex=0;renderOccurrences();});
 $('previousOccurrences').addEventListener('click',()=>{pageIndex--;renderOccurrences();});$('nextOccurrences').addEventListener('click',()=>{pageIndex++;renderOccurrences();});

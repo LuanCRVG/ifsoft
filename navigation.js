@@ -1,9 +1,11 @@
 (() => {
+  function openCnabPage(){if(window.location.hash!=="#cnab-validator")return false;window.location.replace("cnab-validator/index.html");return true;}
+  if(openCnabPage())return;
   const tabs = Array.from(document.querySelectorAll("#portal-tabs [role='tab']"));
   const tabList = document.querySelector("#portal-tabs");
   const problemTab = document.querySelector("#tab-problems");
   const panels = tabs.map((tab) => document.getElementById(tab.getAttribute("aria-controls")));
-  const hashes = ["#notas-tecnicas", "#problemas-no-sistema", "#briefing-diario", "#download-de-utilitarios", "#cnab-validator"];
+  const hashes = ["#notas-tecnicas", "#problemas-no-sistema", "#briefing-diario", "#download-de-utilitarios"];
   const heading = document.querySelector("#portal-heading");
   const subheading = document.querySelector("#portal-subheading");
   const footer = document.querySelector("#portal-footer-context");
@@ -12,8 +14,7 @@
     ["Notas e informes técnicos dos documentos fiscais eletrônicos", "Prazos para implementação nos ambientes de homologação e produção", "Notas e informes técnicos", "Documentos fiscais eletrônicos"],
     ["Ocorrências e pareceres técnicos do sistema", "Registro de problemas, análise técnica e possíveis soluções", "Ocorrências e pareceres técnicos", "Acompanhamento técnico"],
     ["Notícias de tecnologia e desenvolvimento", "Conteúdo selecionado por Luan Paranhos", "Briefing tecnológico · Notícias e fontes", "Tecnologia e desenvolvimento"],
-    ["Utilitários para suporte e manutenção", "Programas desenvolvidos por Luan Paranhos", "Download de Utilitários", "Programas e ferramentas"],
-    ["Configuração e validação de remessas bancárias", "Banco Safra · CNAB 400 · Processamento local no navegador", "CNAB Validator", "Ferramentas de cobrança"]
+    ["Utilitários para suporte e manutenção", "Programas desenvolvidos por Luan Paranhos", "Download de Utilitários", "Programas e ferramentas"]
   ];
   document.querySelector("#tab-notes-count").textContent = String(notasTecnicas.length);
 
@@ -26,8 +27,6 @@
       tab.classList.toggle("is-active", selected);
       panels[tabIndex].hidden = !selected;
     });
-    const cnabFrame=document.getElementById("cnab-frame");
-    if(hashes[index]==="#cnab-validator" && cnabFrame && !cnabFrame.getAttribute("src")) cnabFrame.src=cnabFrame.dataset.src;
     tabList.classList.toggle("has-problems-tab", !problemTab.hidden);
     const [title, description, context, label] = headings[index];
     heading.textContent = title;
@@ -62,6 +61,6 @@
     problemTab.focus();
   });
   const activeIndex = () => Math.max(0, hashes.indexOf(window.location.hash));
-  window.addEventListener("hashchange", () => activate(activeIndex()));
+  window.addEventListener("hashchange", () => {if(!openCnabPage())activate(activeIndex());});
   activate(activeIndex());
 })();

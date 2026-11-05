@@ -4,7 +4,7 @@
 - js/app.js: estado temporário, navegação por hash, leitura local, filtros e visualizador. Só o tema vai para localStorage.
 - js/cnab-parser.js: Uint8Array, delimitadores e fatias posicionais; funções monetárias e datas puras.
 - js/bank-registry.js: registro de bancos e importações dinâmicas independentes.
-- js/banks/safra-config.js: interpretação dos dados de e-mail Safra, separação textual da conta9 em8+1, identificação5+9, padrões do ERP e mapeamento da carteira1 para01, sem conversões numéricas.
+- js/banks/safra-config.js: interpretação dos dados de e-mail Safra, separação textual da conta9 em8+1, identificação5+9, padrões do Sistema e mapeamento da carteira1 para01, sem conversões numéricas.
 - js/validation-worker.js: executa o motor em Web Worker para manter a interface disponível. Limpar sessão termina o worker ativo.
 - js/validation-engine.js: carrega somente o módulo do banco/layout selecionado e consolida a saída padronizada.
 - js/validators/safra400.js: regras do Safra, fontes e escopo. Não é compartilhado com outros bancos.
@@ -35,3 +35,10 @@ npm test executa cenários sintéticos. npm run check confere sintaxe e referên
 ## Abertura por arquivo local
 
 O HTML carrega js/app.bundle.js como script clássico. scripts/build.mjs empacota os módulos em fábricas isoladas, com cache de importação, sem dependências externas. O worker é gerado a partir dos mesmos módulos e instanciado por um Blob local, autorizado por worker-src self/blob na CSP. As URLs de Blob são revogadas no resultado, erro ou término do worker. Os fontes ES Modules continuam sendo a referência para manutenção e testes. O empacotador aceita apenas as formas de import/export usadas pelo projeto e recusa módulos fora da lista explícita.
+
+## Navegação da Central Técnica
+
+O menu do site usa um link normal para cnab-validator/index.html, na mesma aba, sem iframe. Na versão integrada, o body contém data-portal-url=../index.html#notas-tecnicas; o aplicativo mostra o link Central Técnica para retorno. O pacote independente omite esse atributo e não exibe um retorno para um site ausente. A URL antiga index.html#cnab-validator redireciona para a página completa.
+
+
+O módulo Safra apresenta dois cadastros separados: **Cadastro do banco no Sistema** (422, BANCO SAFRA, Layout da Remessa C400, carteira 01, aceite Não e mensagem PAGÁVEL EM QUALQUER BANCO DO SISTEMA DE COMPENSAÇÃO) e **Cadastro da conta corrente** (agência, DV da agência, conta, DV da conta e cedente). Cada cadastro pode ser copiado separadamente. A identificação CNAB permanece agência (5) + conta (8) + DV da conta (1). Essas orientações são específicas desta integração, sem alterar as regras de validação.

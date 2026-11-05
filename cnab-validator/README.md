@@ -32,9 +32,9 @@ Não é necessário instalar pacotes com npm install. Caminhos relativos permite
 
 1. Selecione Banco Safra em Configuração Bancária.
 2. Informe a agência completa com5 posições e a conta completa com9 posições, exatamente como recebidas do banco. Preserve zeros à esquerda.
-3. A aplicação separa automaticamente a conta em8 dígitos + DV de1. O dígito da agência inicia em0, editável, conforme a necessidade observada no nosso ERP com ACBrBoleto; não é um DV oficial confirmado pelo banco.
-4. O código do cedente é atualizado automaticamente: agência5 + conta com DV9. O quadro COMO CADASTRAR NO SEU ERP mostra banco, agência, dígitos, conta, cedente, carteira e layout. Há cópia do cadastro e cópia exclusiva do cedente.
-5. A carteira recebida1 é apresentada como01 no cadastro deste ERP. A regra não altera a quantidade de posições ou as regras do arquivo CNAB. Outras carteiras ficam com conversão pendente até existir referência para o ERP; não se presume um mapeamento.
+3. A aplicação separa automaticamente a conta em8 dígitos + DV de1. O dígito da agência inicia em0, editável, conforme a necessidade observada no nosso Sistema com ACBrBoleto; não é um DV oficial confirmado pelo banco.
+4. O código do cedente é atualizado automaticamente: agência5 + conta com DV9. O quadro COMO CADASTRAR NO SEU SISTEMA mostra banco, agência, dígitos, conta, cedente, carteira e layout. Há cópia do cadastro e cópia exclusiva do cedente.
+5. A carteira recebida1 é apresentada como01 no cadastro deste Sistema. A regra não altera a quantidade de posições ou as regras do arquivo CNAB. Outras carteiras ficam com conversão pendente até existir referência para o Sistema; não se presume um mapeamento.
 6. Se os tamanhos estiverem incompletos, a identificação não é exibida como calculada. A separação não valida matematicamente o DV e não comprova conta ou titularidade.
 7. No Validador de Remessa, selecione conferência/envio e carregue .rem/.txt/.ret de até5MiB. O conjunto Safra é único e condicional aos campos de cada título. As funções de análise, visualizador e relatórios permanecem independentes da configuração.
 8. Limpar sessão descarta dados e resultados, restaurando somente os padrões do módulo Safra (DV da agência0 e carteira1). Nada bancário é persistido automaticamente.
@@ -52,7 +52,7 @@ Não é necessário instalar pacotes com npm install. Caminhos relativos permite
 | Produto | COBRANÇA |
 | Carteira | 1 |
 
-No ERP: banco422 - Banco Safra; agência12345; dígito da agência0; conta00123456; dígito da conta7; cedente12345001234567; carteira01; layoutCNAB400. Na remessa, 12345+001234567=12345001234567. O dígito da agência não é concatenado. A identificação ocupa Header027–040 e detalhe tipo1 018–031.
+No Sistema: banco422 - Banco Safra; agência12345; dígito da agência0; conta00123456; dígito da conta7; cedente12345001234567; carteira01; layoutCNAB400. Na remessa, 12345+001234567=12345001234567. O dígito da agência não é concatenado. A identificação ocupa Header027–040 e detalhe tipo1 018–031.
 
 O botão Usar exemplo fictício preenche somente esses dados de demonstração. A demonstração de remessa usa o mesmo identificador fictício e contém divergências intencionais, analisadas pelo motor real. Datas fixas dos arquivos samples/: geração15/01/2030; use2030-01-15 para reproduzir a conferência. A demonstração da interface usa a referência selecionada.
 
@@ -81,7 +81,7 @@ Bancos 341/033/237/104/756/748 e CNAB 240 não possuem módulo habilitado. Retor
 
 AA é interpretado como 2000–2099, independentemente do relógio do navegador. Datas de juros em 86–91 são uma conferência indicativa por haver diferença entre referências. Campos de multa em206–218 também podem ser abatimento; sem instrução16, uma aparência de data e percentual gera aviso para evitar inferir uma cobrança indevida. Valores bancários nunca são completados ou convertidos automaticamente. O aplicativo não altera o arquivo.
 
-Detectar UTF-8 multibyte é uma heurística conservadora: certas sequências ANSI podem também ser UTF-8 válido. Nesses casos a leitura posicional é bloqueada e a codificação precisa ser conferida no ERP. BOM é rejeitado. Os bytes originais não são regravados.
+Detectar UTF-8 multibyte é uma heurística conservadora: certas sequências ANSI podem também ser UTF-8 válido. Nesses casos a leitura posicional é bloqueada e a codificação precisa ser conferida no Sistema. BOM é rejeitado. Os bytes originais não são regravados.
 
 ## Privacidade
 
@@ -95,3 +95,8 @@ O único item salvo em localStorage é cnab-theme, sem dados bancários. Arquivo
     npm run check
 
 Os testes usam node:test e dados sintéticos. Confira [docs/arquitetura.md](docs/arquitetura.md) para adicionar bancos. Nenhum pacote de terceiros é necessário. O desenvolvimento usa scripts Node apenas para servir, testar e preparar os arquivos públicos. Licença MIT.
+
+
+O módulo Safra apresenta dois cadastros separados: **Cadastro do banco no Sistema** (422, BANCO SAFRA, Layout da Remessa C400, carteira 01, aceite Não e mensagem PAGÁVEL EM QUALQUER BANCO DO SISTEMA DE COMPENSAÇÃO) e **Cadastro da conta corrente** (agência, DV da agência, conta, DV da conta e cedente). Cada cadastro pode ser copiado separadamente. A identificação CNAB permanece agência (5) + conta (8) + DV da conta (1). Essas orientações são específicas desta integração, sem alterar as regras de validação.
+
+Última análise dos parâmetros de cadastro Safra: **04/11/2026**. Essa data é histórica e fixa: não é recalculada ao abrir a página nem confundida com a data de conferência de uma remessa. Ela também acompanha as cópias de ambos os cadastros.

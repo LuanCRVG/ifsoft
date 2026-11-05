@@ -48,7 +48,7 @@ A confirmação posterior do usuário sobre05/16 e juros sem01 fundamenta essas 
 
 ## Diferenças entre referências
 
-- O manual público §4.1 p5 define agência5 sem DV + conta9 com DV. O módulo recebe agência5 e conta completa9 como no e-mail fictício. Separa conta8+DV1 automaticamente e utiliza o DV da agência0 apenas no cadastro do ERP. Exemplo fictício:12345 +001234567 =12345001234567; no ERP, conta00123456 e DV7. Isso verifica formato, sem calcular ou certificar DV, e não define o cadastro de todos os ERPs.
+- O manual público §4.1 p5 define agência5 sem DV + conta9 com DV. O módulo recebe agência5 e conta completa9 como no e-mail fictício. Separa conta8+DV1 automaticamente e utiliza o DV da agência0 apenas no cadastro do Sistema. Exemplo fictício:12345 +001234567 =12345001234567; no Sistema, conta00123456 e DV7. Isso verifica formato, sem calcular ou certificar DV, e não define o cadastro de todos os Sistemas.
 - O guia fornecido p6 reserva72–101 e p8 reserva382–388. O manual de2026 e o ACBr usam86–91 para juros e382–384 para baixa. O prazo e sua instrução são conferidos quando configurados no título.
 - A nota pública §6.2.7 menciona16 na primeira instrução, enquanto a tabela de instruções permite16 nas duas. A homologação confirmada usa05/16. O guia local p12 mostra16/01 para juros+multa e p10 mostra16/10 para protesto+juros+multa. São cenários diferentes.
 - A tabela de2026 prevê6 posições para data de juros; sua nota §6.2.9 cita DDMMAAAA. Essa divergência impede afirmar validação definitiva desse campo; datas suspeitas geram aviso.
@@ -57,9 +57,9 @@ A confirmação posterior do usuário sobre05/16 e juros sem01 fundamenta essas 
 
 ## Integração ACBr: pistas, não regras bancárias
 
-Na referência local, o gerador400 usa Cedente.Agencia com5 posições (sem concatenar AgenciaDigito), Cedente.Conta com8 e ContaDigito com1; header/detalhe usam essa composição. DataMoraJuros preenche86–91, ValorMoraJuros preenche161–173 e DataBaixa−Vencimento preenche382–384. Instrucao1/Instrucao2 são gravadas nas respectivas posições; a rotina de baixa não insere05 automaticamente. Portanto, o ERP precisa produzir as instruções corretas para seu cenário.
+Na referência local, o gerador400 usa Cedente.Agencia com5 posições (sem concatenar AgenciaDigito), Cedente.Conta com8 e ContaDigito com1; header/detalhe usam essa composição. DataMoraJuros preenche86–91, ValorMoraJuros preenche161–173 e DataBaixa−Vencimento preenche382–384. Instrucao1/Instrucao2 são gravadas nas respectivas posições; a rotina de baixa não insere05 automaticamente. Portanto, o Sistema precisa produzir as instruções corretas para seu cenário.
 
-O gerador fornecido emite os campos de multa para ocorrência01, PercentualMulta positivo e16 em algum slot. Este comportamento não vira uma regra universal do validador. CodigoCedente aparece no caminho de retorno, não substitui a composição na remessa400. A versão integrada ao ERP pode comportar-se de outra maneira.
+O gerador fornecido emite os campos de multa para ocorrência01, PercentualMulta positivo e16 em algum slot. Este comportamento não vira uma regra universal do validador. CodigoCedente aparece no caminho de retorno, não substitui a composição na remessa400. A versão integrada ao Sistema pode comportar-se de outra maneira.
 
 ## Limites e classificação
 
@@ -67,12 +67,12 @@ Erro é uma divergência com uma regra aplicável. Aviso sinaliza dúvida, escop
 
 Não são cobertos todos os campos do manual, dados cadastrais, códigos de ocorrência, produtos, instruções alternativas, duplicidade de nosso número, regras específicas de modalidade/carteira ou condições de aceite. Novos controles precisam de evidência primária e testes. Todo relatório declara esse escopo parcial.
 
-## Interpretação do e-mail para o ERP Safra
+## Interpretação do e-mail para o Sistema Safra
 
 Os únicos dados de exemplo são fictícios: NOME DA EMPRESA; agência12345 - Barra; conta001234567; EMISSÃO EMPRESA;100% SAFRA; padrão400; produtoCOBRANÇA; carteira1. Nenhuma conta real de cliente é incluída.
 
 O usuário informa somente a agência completa de5 posições e a conta completa de9 posições. O módulo separa001234567 em conta00123456 e DV7. Essa separação é estrutural e não valida matematicamente o dígito. A identificação calculada é12345001234567, atualizada sem preenchimento manual, usada no Header027–040 e detalhe018–031.
 
-O ERP desta integração precisou de0 no campo do dígito da agência para gerar a remessa; o Safra não o confirmou como DV oficial. O padrão0 é editável e fica restrito ao módulo. O banco já informou5 posições de agência: não concatenar esse campo novamente.
+O Sistema desta integração precisou de0 no campo do dígito da agência para gerar a remessa; o Safra não o confirmou como DV oficial. O padrão0 é editável e fica restrito ao módulo. O banco já informou5 posições de agência: não concatenar esse campo novamente.
 
-A carteira1 recebida permanece1 no contexto do banco e é apresentada como01 no cadastro deste ERP. A configuração não altera posições nem regras do arquivo CNAB. Mapeamentos de outras carteiras para esse ERP permanecem pendentes até haver documentação, sem conversão inventada. Os padrões e a interpretação são exportados somente por js/banks/safra-config.js. Os demais bancos não recebem essas regras.
+A carteira1 recebida permanece1 no contexto do banco e é apresentada como01 no cadastro deste Sistema. A configuração não altera posições nem regras do arquivo CNAB. Mapeamentos de outras carteiras para esse Sistema permanecem pendentes até haver documentação, sem conversão inventada. Os padrões e a interpretação são exportados somente por js/banks/safra-config.js. Os demais bancos não recebem essas regras.
