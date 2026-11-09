@@ -26,7 +26,7 @@ A prévia opcional fica em http://127.0.0.1:4173. Depois de modificar qualquer f
 4. Envie um commit para main ou execute o workflow manualmente na aba Actions.
 5. O workflow executa testes, confere a sintaxe, prepara apenas os arquivos públicos em _site e publica. A URL aparece no job de deployment.
 
-Não é necessário instalar pacotes com npm install. Caminhos relativos permitem publicar em https://usuario.github.io/repositorio/ sem alterações. Alternativa: publique uma pasta estática com index.html, favicon.svg, css/, js/, docs/, downloads/ e .nojekyll. Não há processo de build obrigatório.
+Não é necessário instalar pacotes com npm install. Caminhos relativos permitem publicar em https://usuario.github.io/repositorio/ sem alterações. Alternativa: publique uma pasta estática com index.html, favicon.svg, assets/, css/, js/, docs/, downloads/ e .nojekyll. Não há processo de build obrigatório.
 
 ## Uso e configuração Safra
 
@@ -112,3 +112,6 @@ O Dashboard oferece o download de `downloads/Logos.rar`. Extraia o arquivo e dei
 Configuração e validação de remessas disponíveis. Agência de 4 dígitos, DV da agência vazio, conta de 5 dígitos e DAC separado. Banco 341, carteira 109, layout C400. A mensagem de pagamento segue a referência oficial pública consultada, identificada como Janeiro/2017; uma edição oficial pública mais recente não foi confirmada na análise de 09/11/2026.
 
 O módulo confere estrutura, identificação, instruções, prazos, juros, multa opcional no registro 2, descontos, rateio, complemento de dados e soma dos movimentos. Veja [docs/regras-itau.md](docs/regras-itau.md) para posições e limites.
+
+
+As logos nos cartões de Bancos Disponíveis estão em `assets/banks/`. Foram obtidas do pacote Logos.rar fornecido pelo usuário e apenas convertidas de BMP para PNG, preservando o conteúdo e a proporção. O pacote de download original permanece disponível.
