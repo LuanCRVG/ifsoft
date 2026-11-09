@@ -19,3 +19,10 @@ Navegação: o clique em CNAB Validator abriu a ferramenta como página completa
 O módulo Safra apresenta dois cadastros separados: **Cadastro do banco no Sistema** (422, BANCO SAFRA, Layout da Remessa C400, carteira 01, aceite Não e mensagem PAGÁVEL EM QUALQUER BANCO DO SISTEMA DE COMPENSAÇÃO) e **Cadastro da conta corrente** (agência, DV da agência, conta, DV da conta e cedente). Cada cadastro pode ser copiado separadamente. A identificação CNAB permanece agência (5) + conta (8) + DV da conta (1). Essas orientações são específicas desta integração, sem alterar as regras de validação.
 
 Última análise dos parâmetros de cadastro Safra: **04/11/2026**. Essa data é histórica e fixa: não é recalculada ao abrir a página nem confundida com a data de conferência de uma remessa. Ela também acompanha as cópias de ambos os cadastros.
+
+
+## Itaú — 09/11/2026
+
+53 testes automatizados passaram: incluem agência de 4 posições, DV de agência vazio, zeros preservados, conta e DAC separados, rejeição de campos incompletos, cópias com data e rejeição de análise Itaú sem validador próprio. O worker Safra empacotado continua executando as regras anteriores.
+
+No navegador: Itaú selecionável em Configuração Bancária e em Bancos Disponíveis; exemplo fictício e cópias separados; conta incompleta limpa o trecho e bloqueia cópia; Limpar sessão apaga os campos Itaú; alternar para Safra restaura o DV padrão 0 e mantém a data 04/11/2026. A validação Itaú exibe indisponibilidade sem carregar remessa. Nenhum erro de console foi observado.

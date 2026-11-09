@@ -67,10 +67,64 @@ function composeIdentification(config={}) {
 }
 
 Object.assign(exports,{bankRegistration,defaults,emailExample,agencyDvExplanation,composeIdentification});return exports;};
+factories["js/banks/itau-config.js"]=async function(exports,load){
+/** Cadastro Itaú: orientações do Sistema e comparação com a referência pública consultada. */
+const source=Object.freeze({url:'https://download.itau.com.br/bankline/layout_cobranca_400bytes_cnab_itau.pdf',edition:'Janeiro/2017',reviewedOn:'09/11/2026',reviewedISO:'2026-11-09',latestEditionConfirmed:false});
+const bankRegistration=Object.freeze({code:'341',name:'BANCO ITAÚ',wallet:'109',remittanceLayout:'C400',paymentLocation:'ATÉ O VENCIMENTO, PAGUE EM QUALQUER BANCO OU CORRESPONDENTE NÃO BANCÁRIO. APÓS O VENCIMENTO, ACESSE ITAU.COM.BR/BOLETOS E PAGUE EM QUALQUER BANCO OU CORRESPONDENTE NÃO BANCÁRIO.'});
+const defaults=Object.freeze({agencyDv:''});
+const accountExample=Object.freeze({agency:'1234',agencyDv:'',account:'01234',accountDv:'6'});
+function composeAccount(config={}){
+  const value=name=>typeof config[name]==='string'?config[name]:'';
+  const agency=value('agency'),agencyDv=value('agencyDv'),account=value('account'),accountDv=value('accountDv');
+  const issues=[];
+  if(!/^\d{4}$/.test(agency))issues.push('Agência: informe exatamente 4 dígitos, preservando os zeros à esquerda.');
+  if(agencyDv!=='')issues.push('Dígito da agência: deixe vazio neste cadastro Itaú. O DAC da conta é informado em campo separado.');
+  if(!/^\d{5}$/.test(account))issues.push('Conta corrente: informe exatamente 5 dígitos, sem o DAC.');
+  if(!/^\d$/.test(accountDv))issues.push('DV da conta (DAC agência/conta): informe 1 dígito.');
+  const valid=issues.length===0;
+  return {valid,bank:'341',agency,agencyDv,account,accountDv,remittanceSegment:valid?agency+'00'+account+accountDv:'',issues};
+}
+function bankCopyText(){
+  const b=bankRegistration;
+  return 'CADASTRO DO BANCO NO SISTEMA (ITAÚ)\nÚltima análise: '+source.reviewedOn+'\nCódigo: '+b.code+'\nBanco: '+b.name+'\nCarteira: '+b.wallet+'\nLayout Remessa: '+b.remittanceLayout+'\nMensagem para local de pagamento: '+b.paymentLocation+'\n\nReferência pública: '+source.edition+'\n'+source.url+'\nNão foi confirmada uma edição oficial pública mais recente.';
+}
+function accountCopyText(config){
+  const c=composeAccount(config);if(!c.valid)return '';
+  return 'CADASTRO DA CONTA CORRENTE NO SISTEMA (ITAÚ)\nÚltima análise: '+source.reviewedOn+'\nAgência: '+c.agency+'\nDígito da agência: deixar vazio\nConta corrente: '+c.account+'\nDV da conta (DAC agência/conta): '+c.accountDv+'\n\nTRECHO NA REMESSA CNAB 400\nAgência (4) + zeros (2) + conta (5) + DAC (1): '+c.remittanceSegment+'\nHeader: 027–038. Detalhe tipo 1: 018–029.\nConferência de formato; o DAC não foi recalculado.';
+}
+
+Object.assign(exports,{source,bankRegistration,defaults,accountExample,composeAccount,bankCopyText,accountCopyText});return exports;};
+factories["js/ui/itau-config-ui.js"]=async function(exports,load){
+const {bankRegistration,source,composeAccount,accountExample,bankCopyText,accountCopyText}=await load("js/banks/itau-config.js");
+/** UI exclusiva do Itaú: não compartilha campos nem regras de composição do Safra. */
+function setupItauConfiguration(notify){
+  const $=id=>document.getElementById(id);
+  const form=$('itauConfigForm');
+  const read=()=>Object.fromEntries(new FormData(form));
+  for(const [id,key] of [['itauBankCode','code'],['itauBankName','name'],['itauWallet','wallet'],['itauLayout','remittanceLayout'],['itauPaymentLocation','paymentLocation']])$(id).textContent=bankRegistration[key];
+  $('itauReviewedOn').textContent=source.reviewedOn;$('itauReviewedOn').dateTime=source.reviewedISO;
+  $('itauSource').href=source.url;$('itauSourceEdition').textContent=source.edition;
+  function update(showIssues=false){
+    const c=composeAccount(read());$('itauCopyAccount').disabled=!c.valid;$('itauAccountResult').hidden=!c.valid;$('itauAccountEmpty').hidden=c.valid;
+    for(const [id,key] of [['itauResultAgency','agency'],['itauResultAccount','account'],['itauResultAccountDv','accountDv'],['itauRemittanceSegment','remittanceSegment']])$(id).textContent=c.valid?c[key]:'';
+    $('itauConfigIssues').replaceChildren();if(showIssues)for(const issue of c.issues){const li=document.createElement('li');li.textContent=issue;$('itauConfigIssues').append(li);}
+    $('itauConfigIssues').hidden=!showIssues||c.valid;
+  }
+  async function copy(text,success){if(!text)return;try{await navigator.clipboard.writeText(text);notify(success);}catch{notify('Cópia indisponível. Selecione os valores na tela.');}}
+  form.addEventListener('submit',event=>{event.preventDefault();update(true);});form.addEventListener('input',()=>update(true));
+  $('itauCopyBank').addEventListener('click',()=>copy(bankCopyText(),'Cadastro do banco Itaú copiado.'));
+  $('itauCopyAccount').addEventListener('click',()=>copy(accountCopyText(read()),'Cadastro da conta Itaú copiado.'));
+  $('itauUseExample').addEventListener('click',()=>{for(const [name,value] of Object.entries(accountExample))form.elements.namedItem(name).value=value;update(true);notify('Exemplo Itaú exclusivamente fictício preenchido.');});
+  function reset(){form.reset();update(false);}
+  reset();return {reset};
+}
+
+Object.assign(exports,{setupItauConfiguration});return exports;};
 factories["js/bank-registry.js"]=async function(exports,load){
 const registry = new Map([
-  ['422',{code:'422',name:'Banco Safra',short:'Safra',implemented:true,layouts:['400'],load:()=>load("js/validators/safra400.js"),loadConfiguration:()=>load("js/banks/safra-config.js")}],
-  ...[['341','Itaú'],['033','Santander'],['237','Bradesco'],['104','Caixa Econômica'],['756','Sicoob'],['748','Sicredi']].map(([code,name])=>[code,{code,name,short:name,implemented:false,layouts:[]}])
+  ['422',{code:'422',name:'Banco Safra',short:'Safra',configurable:true,implemented:true,layouts:['400'],load:()=>load("js/validators/safra400.js"),loadConfiguration:()=>load("js/banks/safra-config.js")}],
+  ['341',{code:'341',name:'Itaú',short:'Itaú',configurable:true,implemented:false,layouts:[],loadConfiguration:()=>load("js/banks/itau-config.js")}],
+  ...[['033','Santander'],['237','Bradesco'],['104','Caixa Econômica'],['756','Sicoob'],['748','Sicredi']].map(([code,name])=>[code,{code,name,short:name,implemented:false,layouts:[]}])
 ]);
 const banks = [...registry.values()];
 const getBank = code => registry.get(code);
@@ -318,6 +372,7 @@ self.onmessage=async event=>{try{self.postMessage({result:await validateFile(eve
 
 Object.assign(exports,{});return exports;};
 factories["js/app.js"]=async function(exports,load){
+const {setupItauConfiguration}=await load("js/ui/itau-config-ui.js");
 const {banks,getBank}=await load("js/bank-registry.js");
 const {localToday,money,MAX_BYTES}=await load("js/cnab-parser.js");
 const {reportJSON,reportPDF,download}=await load("js/report-generator.js");
@@ -334,6 +389,7 @@ function setMenu(open){$('sidebar').classList.toggle('open',open);$('sidebar').i
 mobileQuery.addEventListener('change',()=>setMenu(false));
 const safraConfiguration=await getBank('422').loadConfiguration();
 const composeIdentification=safraConfiguration.composeIdentification;
+const itauView=setupItauConfiguration(toast);
 function applyConfigurationDefaults(bankCode){
   const defaults=bankCode==='422'?safraConfiguration.defaults:{};
   for(const name of ['agencyDv','wallet']){$(name).defaultValue=defaults[name]??'';$(name).value=defaults[name]??'';}
@@ -342,7 +398,7 @@ try {document.documentElement.dataset.theme=localStorage.getItem('cnab-theme')||
 const portalUrl=document.body.dataset.portalUrl;
 if(portalUrl){$('portalReturn').href=portalUrl;$('portalReturn').hidden=false;$('workspaceLabel').hidden=true;}
 $('referenceDate').value=localToday();$('todayLabel').textContent=localToday();
-$('bankSelect').innerHTML=banks.map(b=>'<option value="'+b.code+'">'+b.code+' · '+b.name+(b.implemented?'':' · Em breve')+'</option>').join('');
+$('bankSelect').innerHTML=banks.map(b=>'<option value="'+b.code+'">'+b.code+' · '+b.name+(b.implemented?'':b.configurable?' · Cadastro disponível':' · Em breve')+'</option>').join('');
 function toast(text){$('toast').textContent=text;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4500);}
 function navigate(page){if(!labels[page])page='dashboard';for(const key of Object.keys(labels))$('page-'+key).hidden=key!==page;document.querySelectorAll('.nav-item').forEach(b=>{b.classList.toggle('active',b.dataset.page===page);if(b.dataset.page===page)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});$('breadcrumb').textContent=labels[page];setMenu(false);if(location.hash!=='#'+page)history.replaceState(null,'','#'+page);window.scrollTo({top:0});}
 function status(text,kind='info'){const el=$('fileStatus');el.textContent=text;el.className='notice '+kind;el.hidden=!text;}
@@ -399,17 +455,24 @@ function renderReports(){
   $('reportsContent').innerHTML=!result?'<div class="card report-empty"><span class="upload-icon">'+icon('chart')+'</span><h2>Um relatório começa com uma análise.</h2><p>Carregue uma remessa para gerar um documento com posições, valores e referências.</p><button class="button primary" data-page="validator">Ir para o validador '+icon('arrow')+'</button></div>':'<div class="card report-hero"><span class="upload-icon">'+icon('file')+'</span><div><h2>'+escape(result.fileName)+'</h2><p>'+escape(result.bank.name)+' · CNAB '+result.layout+' · '+result.summary.errors+' erros e '+result.summary.warnings+' avisos<br>Análise: '+escape(new Date(result.analyzedAt).toLocaleString('pt-BR'))+'</p></div></div><div class="report-grid"><section class="card report-card">'+icon('chart')+'<h2>Relatório técnico em PDF</h2><p>Resumo da análise, erros, avisos, posições, valores e referências. Documento paginado, gerado inteiramente no navegador.</p><button class="button primary" data-action="pdf">Baixar PDF '+icon('arrow')+'</button></section><section class="card report-card">'+icon('code')+'<h2>Dados estruturados em JSON</h2><p>Resultados de todas as verificações para análise técnica. Inclui as ocorrências, sem copiar os registros brutos completos.</p><button class="button secondary" data-action="json">Exportar JSON '+icon('arrow')+'</button></section></div><div class="notice warning">A exportação é uma ação sua e pode conter identificadores bancários nos campos encontrados. Confira o conteúdo antes de compartilhar. O aplicativo não envia o relatório.</div>';
 }
 function renderBanks(){
-  $('bankGrid').innerHTML=banks.map(b=>'<section class="card bank-card"><div class="bank-card-top"><span class="'+(b.implemented?'bank-logo small':'bank-monogram')+'">'+escape(b.short[0])+'</span><span class="badge '+(b.implemented?'success':'neutral')+'">'+(b.implemented?'Disponível':'Em breve')+'</span></div><h2>'+escape(b.name)+'</h2><p>Código '+b.code+' · '+(b.implemented?'Remessa CNAB 400':'Módulo ainda não implementado')+'</p><button class="text-link" data-bank="'+b.code+'" '+(!b.implemented?'disabled':'')+'>'+(b.implemented?'Configurar este banco '+icon('arrow'):'Validação indisponível')+'</button></section>').join('');
+  $('bankGrid').innerHTML=banks.map(b=>'<section class="card bank-card"><div class="bank-card-top"><span class="'+(b.configurable?'bank-logo small':'bank-monogram')+'">'+escape(b.short[0])+'</span><span class="badge '+(b.implemented?'success':'neutral')+'">'+(b.implemented?'Disponível':b.configurable?'Cadastro disponível':'Em breve')+'</span></div><h2>'+escape(b.name)+'</h2><p>Código '+b.code+' · '+(b.implemented?'Remessa CNAB 400':b.configurable?'CNAB 400 · cadastro; validação em breve':'Módulo ainda não implementado')+'</p><button class="text-link" data-bank="'+b.code+'" '+(!b.configurable?'disabled':'')+'>'+(b.configurable?'Configurar este banco '+icon('arrow'):'Validação indisponível')+'</button></section>').join('');
 }
 function updateConfigLabel(){
-  $('expectedLabel').textContent=configuration?'Identificação: '+configuration.identification:'Conta ainda não configurada';
+  $('expectedLabel').textContent=$('bankSelect').value==='341'?'Cadastro Itaú · validação em breve':configuration?'Identificação: '+configuration.identification:'Conta ainda não configurada';
 }
 function bankChanged(){
   applyConfigurationDefaults($('bankSelect').value);
   $('configurationResult').innerHTML='<div class="identification-value">————— ———————— —</div><p>Preencha os campos e confira a composição.</p>';
   activeWorker?.terminate();activeWorker=null;
-  const bank=getBank($('bankSelect').value);const enabled=bank.implemented;
-  runId++;bytes=null;result=null;fileName='';configuration=null;$('results').hidden=true;$('configContent').hidden=!enabled;$('configUnavailable').hidden=enabled;$('bankAvailability').textContent=enabled?'Disponível':'Em breve';$('bankAvailability').className='badge '+(enabled?'success':'neutral');$('layoutSelect').disabled=!enabled;for(const id of ['referenceDate','sendDate'])$(id).disabled=!enabled;$('selectedLayoutLabel').textContent=enabled?'CNAB 400':'Em breve';document.querySelector('.validator-context .bank-logo').textContent=bank.short[0];$('selectedBankLabel').textContent=bank.name+' · '+bank.code;$('chooseFile').disabled=!enabled;$('fileInput').value='';$('copyConfig').disabled=true;$('copyBeneficiary').disabled=true;setBusy(false);updateConfigLabel();if(enabled)updateBeneficiary(false);renderDashboard();renderReports();status(enabled?'':'Este banco ainda não possui regras de configuração ou validação.','warning');
+  const bank=getBank($('bankSelect').value),enabled=bank.implemented,configured=Boolean(bank.configurable);
+  runId++;bytes=null;result=null;fileName='';configuration=null;$('results').hidden=true;
+  $('configContent').hidden=bank.code!=='422';$('itauConfigContent').hidden=bank.code!=='341';$('configUnavailable').hidden=configured;
+  $('bankAvailability').textContent=enabled?'Disponível':configured?'Cadastro disponível':'Em breve';$('bankAvailability').className='badge '+(enabled?'success':'neutral');
+  $('layoutSelect').disabled=!configured;for(const id of ['referenceDate','sendDate'])$(id).disabled=!enabled;
+  $('selectedLayoutLabel').textContent=configured?'CNAB 400':'Em breve';document.querySelector('.validator-context .bank-logo').textContent=bank.short[0];$('selectedBankLabel').textContent=bank.name+' · '+bank.code;
+  $('chooseFile').disabled=!enabled;$('dropzone').hidden=!enabled;$('fileInput').value='';$('copyConfig').disabled=true;$('copyBeneficiary').disabled=true;
+  setBusy(false);updateConfigLabel();if(enabled)updateBeneficiary(false);renderDashboard();renderReports();
+  status(enabled?'':configured?'O cadastro Itaú está disponível em Configuração Bancária. A validação de remessas Itaú ainda não foi implementada.':'Este banco ainda não possui regras de configuração ou validação.','warning');
 }
 function updateBeneficiary(showIssues=false){
   if($('bankSelect').value!=='422')return;
@@ -454,6 +517,7 @@ function clearSession(){
   activeWorker?.terminate();activeWorker=null;
   runId++;bytes=null;result=null;fileName='';configuration=null;filter='issues';pageIndex=0;
   if($('viewer').open)$('viewer').close();
+  itauView.reset();$('itauConfigContent').hidden=true;$('dropzone').hidden=false;
   $('configForm').reset();$('bankSelect').value='422';applyConfigurationDefaults('422');$('layoutSelect').value='400';$('configContent').hidden=false;$('configUnavailable').hidden=true;$('bankAvailability').textContent='Disponível';$('bankAvailability').className='badge success';$('layoutSelect').disabled=false;for(const id of ['referenceDate','sendDate'])$(id).disabled=false;$('selectedLayoutLabel').textContent='CNAB 400';document.querySelector('.validator-context .bank-logo').textContent='S';$('selectedBankLabel').textContent='Banco Safra · 422';
   $('configurationResult').innerHTML='<div class="identification-value">————— ———————— —</div><p>Preencha os campos e confira a composição.</p>';$('copyConfig').disabled=true;
   $('fileInput').value='';$('referenceDate').value=localToday();$('sendDate').value='';$('searchOccurrences').value='';

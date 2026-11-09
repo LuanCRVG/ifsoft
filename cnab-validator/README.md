@@ -1,6 +1,6 @@
 # CNAB Validator
 
-Aplicação estática para configuração de contas e conferência de remessas Safra CNAB 400. HTML, CSS e JavaScript ES Modules, sem dependências de produção, backend, APIs ou telemetria. Interface em português, responsiva, com temas claro/escuro.
+Aplicação estática para configuração de contas Safra e Itaú, com conferência de remessas Safra CNAB 400. HTML, CSS e JavaScript ES Modules, sem dependências de produção, backend, APIs ou telemetria. Interface em português, responsiva, com temas claro/escuro.
 
 ## Abrir no computador
 
@@ -26,18 +26,18 @@ A prévia opcional fica em http://127.0.0.1:4173. Depois de modificar qualquer f
 4. Envie um commit para main ou execute o workflow manualmente na aba Actions.
 5. O workflow executa testes, confere a sintaxe, prepara apenas os arquivos públicos em _site e publica. A URL aparece no job de deployment.
 
-Não é necessário instalar pacotes com npm install. Caminhos relativos permitem publicar em https://usuario.github.io/repositorio/ sem alterações. Alternativa: publique uma pasta estática com index.html, favicon.svg, css/, js/, docs/ e .nojekyll. Não há processo de build obrigatório.
+Não é necessário instalar pacotes com npm install. Caminhos relativos permitem publicar em https://usuario.github.io/repositorio/ sem alterações. Alternativa: publique uma pasta estática com index.html, favicon.svg, css/, js/, docs/, downloads/ e .nojekyll. Não há processo de build obrigatório.
 
 ## Uso e configuração Safra
 
 1. Selecione Banco Safra em Configuração Bancária.
 2. Informe a agência completa com5 posições e a conta completa com9 posições, exatamente como recebidas do banco. Preserve zeros à esquerda.
 3. A aplicação separa automaticamente a conta em8 dígitos + DV de1. O dígito da agência inicia em0, editável, conforme a necessidade observada no nosso Sistema com ACBrBoleto; não é um DV oficial confirmado pelo banco.
-4. O código do cedente é atualizado automaticamente: agência5 + conta com DV9. O quadro COMO CADASTRAR NO SEU SISTEMA mostra banco, agência, dígitos, conta, cedente, carteira e layout. Há cópia do cadastro e cópia exclusiva do cedente.
+4. O código do cedente é atualizado automaticamente: agência5 + conta com DV9. Os cadastros do banco e da conta corrente são separados. Há cópia de cada cadastro e cópia exclusiva do cedente.
 5. A carteira recebida1 é apresentada como01 no cadastro deste Sistema. A regra não altera a quantidade de posições ou as regras do arquivo CNAB. Outras carteiras ficam com conversão pendente até existir referência para o Sistema; não se presume um mapeamento.
 6. Se os tamanhos estiverem incompletos, a identificação não é exibida como calculada. A separação não valida matematicamente o DV e não comprova conta ou titularidade.
 7. No Validador de Remessa, selecione conferência/envio e carregue .rem/.txt/.ret de até5MiB. O conjunto Safra é único e condicional aos campos de cada título. As funções de análise, visualizador e relatórios permanecem independentes da configuração.
-8. Limpar sessão descarta dados e resultados, restaurando somente os padrões do módulo Safra (DV da agência0 e carteira1). Nada bancário é persistido automaticamente.
+8. Limpar sessão descarta dados e resultados, apagando também os campos Itaú e restaurando os padrões do módulo Safra (DV da agência0 e carteira1). Nada bancário é persistido automaticamente.
 
 ## Exemplo exclusivamente fictício de e-mail
 
@@ -105,3 +105,10 @@ O módulo Safra apresenta dois cadastros separados: **Cadastro do banco no Siste
 ## Logos para o Sistema
 
 O Dashboard oferece o download de `downloads/Logos.rar`. Extraia o arquivo e deixe a pasta **Logos** na pasta onde o **Sistema está instalado**. O arquivo mantém as subpastas Colorido e PretoBranco. O cadastro do Banco Safra exibe que a instalação da logo é obrigatória nesta integração. Essa orientação não altera a validação de arquivos CNAB.
+
+
+## Cadastro Itaú
+
+Selecione **341 · Itaú** em Configuração Bancária ou em Bancos Disponíveis. Os cadastros do banco (341, carteira 109, C400) e da conta corrente são independentes do Safra. A agência possui 4 dígitos e o campo de DV da agência fica vazio; conta com 5 dígitos e DAC em campo separado. A data da análise documental é 09/11/2026.
+
+A mensagem de pagamento foi ajustada conforme o manual público consultado. A edição identificada é Janeiro/2017; não foi confirmada uma edição oficial pública mais recente. Fonte, comparação e limitações aparecem na tela e em [docs/configuracao-itau.md](docs/configuracao-itau.md). O cadastro está disponível; a validação de remessas Itaú ainda não foi implementada.
