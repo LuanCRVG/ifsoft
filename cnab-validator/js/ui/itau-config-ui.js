@@ -1,6 +1,6 @@
 import {bankRegistration,source,composeAccount,accountExample,bankCopyText,accountCopyText} from '../banks/itau-config.js';
-/** UI exclusiva do Itaú: não compartilha campos nem regras de composição do Safra. */
-export function setupItauConfiguration(notify){
+/** UI exclusiva do Itaú: com seus próprios campos e regras de composição. */
+export function setupItauConfiguration(notify,onChange){
   const $=id=>document.getElementById(id);
   const form=$('itauConfigForm');
   const read=()=>Object.fromEntries(new FormData(form));
@@ -14,10 +14,10 @@ export function setupItauConfiguration(notify){
     $('itauConfigIssues').hidden=!showIssues||c.valid;
   }
   async function copy(text,success){if(!text)return;try{await navigator.clipboard.writeText(text);notify(success);}catch{notify('Cópia indisponível. Selecione os valores na tela.');}}
-  form.addEventListener('submit',event=>{event.preventDefault();update(true);});form.addEventListener('input',()=>update(true));
+  form.addEventListener('submit',event=>{event.preventDefault();update(true);});form.addEventListener('input',()=>{update(true);onChange?.();});
   $('itauCopyBank').addEventListener('click',()=>copy(bankCopyText(),'Cadastro do banco Itaú copiado.'));
   $('itauCopyAccount').addEventListener('click',()=>copy(accountCopyText(read()),'Cadastro da conta Itaú copiado.'));
-  $('itauUseExample').addEventListener('click',()=>{for(const [name,value] of Object.entries(accountExample))form.elements.namedItem(name).value=value;update(true);notify('Exemplo Itaú exclusivamente fictício preenchido.');});
+  $('itauUseExample').addEventListener('click',()=>{for(const [name,value] of Object.entries(accountExample))form.elements.namedItem(name).value=value;update(true);onChange?.();notify('Exemplo Itaú exclusivamente fictício preenchido.');});
   function reset(){form.reset();update(false);}
-  reset();return {reset};
+  reset();return {reset,getConfiguration:()=>({...composeAccount(read()),wallet:bankRegistration.wallet})};
 }

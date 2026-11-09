@@ -24,3 +24,5 @@
 .configuration-review{grid-column:1/-1;margin:0}
 
 .logo-download{display:flex;align-items:center;justify-content:space-between;gap:28px;padding:23px 27px;margin-bottom:22px}.logo-download .section-label{margin-bottom:9px}.logo-download h2{font-size:19px;margin-bottom:7px}.logo-download p{font-size:11px;color:var(--muted);margin:0 0 10px}.logo-download ol{padding-left:18px;margin:0;font-size:11px;line-height:1.9;color:var(--ink)}.logo-download-action{display:flex;flex-direction:column;align-items:center;gap:9px;flex-shrink:0}.logo-download-action>span{font-size:9px;color:var(--muted)}.logo-download .button:hover{text-decoration:none}.safra-logo-notice a{color:inherit;text-decoration:underline;font-weight:600}@media(max-width:650px){.logo-download{align-items:stretch;flex-direction:column;gap:18px;padding:21px 18px}.logo-download-action{align-items:stretch}.logo-download-action>span{text-align:center}}
+
+#dashboardBankName{font:inherit;color:inherit;margin-left:0}

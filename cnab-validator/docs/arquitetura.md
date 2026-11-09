@@ -44,4 +44,4 @@ O menu do site usa um link normal para cnab-validator/index.html, na mesma aba, 
 O módulo Safra apresenta dois cadastros separados: **Cadastro do banco no Sistema** (422, BANCO SAFRA, Layout da Remessa C400, carteira 01, aceite Não e mensagem PAGÁVEL EM QUALQUER BANCO DO SISTEMA DE COMPENSAÇÃO) e **Cadastro da conta corrente** (agência, DV da agência, conta, DV da conta e cedente). Cada cadastro pode ser copiado separadamente. A identificação CNAB permanece agência (5) + conta (8) + DV da conta (1). Essas orientações são específicas desta integração, sem alterar as regras de validação.
 
 
-O registro de bancos distingue `configurable` de `implemented`: Itaú possui configuração própria sem habilitar análise de remessas. Seus campos e composições ficam em módulos separados do Safra. Veja `configuracao-itau.md`.
+O registro de bancos mantém carregadores independentes de configuração e validação. O motor utiliza a identificação e as referências do módulo selecionado.

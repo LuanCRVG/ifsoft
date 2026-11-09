@@ -1,3 +1,4 @@
+import {makeItauDemo} from './banks/itau-demo.js';
 import {setupItauConfiguration} from './ui/itau-config-ui.js';
 import {banks,getBank} from './bank-registry.js';
 import {localToday,money,MAX_BYTES} from './cnab-parser.js';
@@ -15,7 +16,7 @@ function setMenu(open){$('sidebar').classList.toggle('open',open);$('sidebar').i
 mobileQuery.addEventListener('change',()=>setMenu(false));
 const safraConfiguration=await getBank('422').loadConfiguration();
 const composeIdentification=safraConfiguration.composeIdentification;
-const itauView=setupItauConfiguration(toast);
+const itauView=setupItauConfiguration(toast,()=>{updateConfigLabel();if(result&&$('bankSelect').value==='341')status('Dados bancários alterados. Use Conferir novamente para atualizar a comparação.','warning');});
 function applyConfigurationDefaults(bankCode){
   const defaults=bankCode==='422'?safraConfiguration.defaults:{};
   for(const name of ['agencyDv','wallet']){$(name).defaultValue=defaults[name]??'';$(name).value=defaults[name]??'';}
@@ -24,12 +25,12 @@ try {document.documentElement.dataset.theme=localStorage.getItem('cnab-theme')||
 const portalUrl=document.body.dataset.portalUrl;
 if(portalUrl){$('portalReturn').href=portalUrl;$('portalReturn').hidden=false;$('workspaceLabel').hidden=true;}
 $('referenceDate').value=localToday();$('todayLabel').textContent=localToday();
-$('bankSelect').innerHTML=banks.map(b=>'<option value="'+b.code+'">'+b.code+' · '+b.name+(b.implemented?'':b.configurable?' · Cadastro disponível':' · Em breve')+'</option>').join('');
+$('bankSelect').innerHTML=banks.map(b=>'<option value="'+b.code+'">'+b.code+' · '+b.name+(b.implemented?'':' · Em breve')+'</option>').join('');
 function toast(text){$('toast').textContent=text;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4500);}
 function navigate(page){if(!labels[page])page='dashboard';for(const key of Object.keys(labels))$('page-'+key).hidden=key!==page;document.querySelectorAll('.nav-item').forEach(b=>{b.classList.toggle('active',b.dataset.page===page);if(b.dataset.page===page)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});$('breadcrumb').textContent=labels[page];setMenu(false);if(location.hash!=='#'+page)history.replaceState(null,'','#'+page);window.scrollTo({top:0});}
 function status(text,kind='info'){const el=$('fileStatus');el.textContent=text;el.className='notice '+kind;el.hidden=!text;}
 function setBusy(value){busy=value;$('dropzone').classList.toggle('busy',value);$('chooseFile').disabled=value||!getBank($('bankSelect').value).implemented;$('rerun').disabled=value;}
-function options(){return {bank:$('bankSelect').value,layout:$('layoutSelect').value,referenceDate:$('referenceDate').value,sendDate:$('sendDate').value,expectedIdentification:configuration?.identification||'',fileName};}
+function options(){const itau=$('bankSelect').value==='341'?itauView.getConfiguration():null;return {bank:$('bankSelect').value,layout:$('layoutSelect').value,referenceDate:$('referenceDate').value,sendDate:$('sendDate').value,expectedIdentification:itau?(itau.valid?itau.remittanceSegment:''):(configuration?.identification||''),expectedWallet:itau?.valid?itau.wallet:'',fileName};}
 function runInWorker(data,opts){
   if(activeWorker)activeWorker.terminate();
   return new Promise((resolve,reject)=>{const worker=typeof window.CNABWorkerFactory==='function'?window.CNABWorkerFactory():new Worker(new URL('./validation-worker.js',import.meta.url),{type:'module'});activeWorker=worker;worker.onmessage=event=>{worker.terminate();if(activeWorker===worker)activeWorker=null;event.data.error?reject(new Error(event.data.error)):resolve(event.data.result);};worker.onerror=()=>{worker.terminate();if(activeWorker===worker)activeWorker=null;reject(new Error('O processo de análise não pôde iniciar. Execute por HTTP local ou GitHub Pages e verifique os arquivos do projeto.'));};worker.postMessage({bytes:data,options:opts});});
@@ -81,10 +82,15 @@ function renderReports(){
   $('reportsContent').innerHTML=!result?'<div class="card report-empty"><span class="upload-icon">'+icon('chart')+'</span><h2>Um relatório começa com uma análise.</h2><p>Carregue uma remessa para gerar um documento com posições, valores e referências.</p><button class="button primary" data-page="validator">Ir para o validador '+icon('arrow')+'</button></div>':'<div class="card report-hero"><span class="upload-icon">'+icon('file')+'</span><div><h2>'+escape(result.fileName)+'</h2><p>'+escape(result.bank.name)+' · CNAB '+result.layout+' · '+result.summary.errors+' erros e '+result.summary.warnings+' avisos<br>Análise: '+escape(new Date(result.analyzedAt).toLocaleString('pt-BR'))+'</p></div></div><div class="report-grid"><section class="card report-card">'+icon('chart')+'<h2>Relatório técnico em PDF</h2><p>Resumo da análise, erros, avisos, posições, valores e referências. Documento paginado, gerado inteiramente no navegador.</p><button class="button primary" data-action="pdf">Baixar PDF '+icon('arrow')+'</button></section><section class="card report-card">'+icon('code')+'<h2>Dados estruturados em JSON</h2><p>Resultados de todas as verificações para análise técnica. Inclui as ocorrências, sem copiar os registros brutos completos.</p><button class="button secondary" data-action="json">Exportar JSON '+icon('arrow')+'</button></section></div><div class="notice warning">A exportação é uma ação sua e pode conter identificadores bancários nos campos encontrados. Confira o conteúdo antes de compartilhar. O aplicativo não envia o relatório.</div>';
 }
 function renderBanks(){
-  $('bankGrid').innerHTML=banks.map(b=>'<section class="card bank-card"><div class="bank-card-top"><span class="'+(b.configurable?'bank-logo small':'bank-monogram')+'">'+escape(b.short[0])+'</span><span class="badge '+(b.implemented?'success':'neutral')+'">'+(b.implemented?'Disponível':b.configurable?'Cadastro disponível':'Em breve')+'</span></div><h2>'+escape(b.name)+'</h2><p>Código '+b.code+' · '+(b.implemented?'Remessa CNAB 400':b.configurable?'CNAB 400 · cadastro; validação em breve':'Módulo ainda não implementado')+'</p><button class="text-link" data-bank="'+b.code+'" '+(!b.configurable?'disabled':'')+'>'+(b.configurable?'Configurar este banco '+icon('arrow'):'Validação indisponível')+'</button></section>').join('');
+  $('bankGrid').innerHTML=banks.map(b=>'<section class="card bank-card"><div class="bank-card-top"><span class="'+(b.configurable?'bank-logo small':'bank-monogram')+'">'+escape(b.short[0])+'</span><span class="badge '+(b.implemented?'success':'neutral')+'">'+(b.implemented?'Disponível':'Em breve')+'</span></div><h2>'+escape(b.name)+'</h2><p>Código '+b.code+' · '+(b.implemented?'Remessa CNAB 400':'Módulo ainda não implementado')+'</p><button class="text-link" data-bank="'+b.code+'" '+(!b.configurable?'disabled':'')+'>'+(b.configurable?'Configurar este banco '+icon('arrow'):'Validação indisponível')+'</button></section>').join('');
 }
 function updateConfigLabel(){
-  $('expectedLabel').textContent=$('bankSelect').value==='341'?'Cadastro Itaú · validação em breve':configuration?'Identificação: '+configuration.identification:'Conta ainda não configurada';
+  const c=$('bankSelect').value==='341'?itauView.getConfiguration():null;
+  $('expectedLabel').textContent=c?(c.valid?'Agência '+c.agency+' · Conta '+c.account+'-'+c.accountDv:'Conta ainda não configurada'):configuration?'Identificação: '+configuration.identification:'Conta ainda não configurada';
+}
+function updateBankContext(){
+  const bank=getBank($('bankSelect').value);
+  $('dashboardBankBadge').textContent=bank.short+' · CNAB 400';$('dashboardBankLogo').textContent=bank.short[0];$('dashboardBankName').textContent=bank.name;$('dashboardBankCode').textContent=bank.code;$('dashboardBankScope').textContent=bank.implemented?'Remessa CNAB 400 · Regras e referências documentadas.':'Módulo em desenvolvimento.';
 }
 function bankChanged(){
   applyConfigurationDefaults($('bankSelect').value);
@@ -93,12 +99,12 @@ function bankChanged(){
   const bank=getBank($('bankSelect').value),enabled=bank.implemented,configured=Boolean(bank.configurable);
   runId++;bytes=null;result=null;fileName='';configuration=null;$('results').hidden=true;
   $('configContent').hidden=bank.code!=='422';$('itauConfigContent').hidden=bank.code!=='341';$('configUnavailable').hidden=configured;
-  $('bankAvailability').textContent=enabled?'Disponível':configured?'Cadastro disponível':'Em breve';$('bankAvailability').className='badge '+(enabled?'success':'neutral');
+  $('bankAvailability').textContent=enabled?'Disponível':'Em breve';$('bankAvailability').className='badge '+(enabled?'success':'neutral');
   $('layoutSelect').disabled=!configured;for(const id of ['referenceDate','sendDate'])$(id).disabled=!enabled;
   $('selectedLayoutLabel').textContent=configured?'CNAB 400':'Em breve';document.querySelector('.validator-context .bank-logo').textContent=bank.short[0];$('selectedBankLabel').textContent=bank.name+' · '+bank.code;
   $('chooseFile').disabled=!enabled;$('dropzone').hidden=!enabled;$('fileInput').value='';$('copyConfig').disabled=true;$('copyBeneficiary').disabled=true;
   setBusy(false);updateConfigLabel();if(enabled)updateBeneficiary(false);renderDashboard();renderReports();
-  status(enabled?'':configured?'O cadastro Itaú está disponível em Configuração Bancária. A validação de remessas Itaú ainda não foi implementada.':'Este banco ainda não possui regras de configuração ou validação.','warning');
+  status(enabled?'':'Este banco ainda não possui regras de configuração ou validação.','warning');updateBankContext();
 }
 function updateBeneficiary(showIssues=false){
   if($('bankSelect').value!=='422')return;
@@ -136,19 +142,17 @@ function openViewer(check){
   if(!$('viewer').open)$('viewer').showModal();drawRecord(record,check?.start??1,check?.end??Math.min(40,record.length));
 }
 async function demo(){
-  if(busy)return;if($('bankSelect').value!=='422'){$('bankSelect').value='422';bankChanged();}
-  fileName='exemplo_sintetico_com_divergencias.rem';bytes=new TextEncoder().encode(makeDemo({broken:true,date:$('referenceDate').value||localToday()}));navigate('validator');await analyze();toast('Exemplo sintético: 3 títulos e divergências intencionais.');
+  if(busy)return;const bank=getBank($('bankSelect').value);if(!bank.implemented){toast('Selecione um banco disponível para explorar o exemplo.');return;}
+  fileName='exemplo_'+bank.code+'_com_divergencias.rem';const generator=bank.code==='341'?makeItauDemo:makeDemo;
+  bytes=new TextEncoder().encode(generator({broken:true,date:$('referenceDate').value||localToday()}));navigate('validator');await analyze();toast('Exemplo sintético: 3 títulos e divergências intencionais.');
 }
 function clearSession(){
   activeWorker?.terminate();activeWorker=null;
-  runId++;bytes=null;result=null;fileName='';configuration=null;filter='issues';pageIndex=0;
   if($('viewer').open)$('viewer').close();
-  itauView.reset();$('itauConfigContent').hidden=true;$('dropzone').hidden=false;
-  $('configForm').reset();$('bankSelect').value='422';applyConfigurationDefaults('422');$('layoutSelect').value='400';$('configContent').hidden=false;$('configUnavailable').hidden=true;$('bankAvailability').textContent='Disponível';$('bankAvailability').className='badge success';$('layoutSelect').disabled=false;for(const id of ['referenceDate','sendDate'])$(id).disabled=false;$('selectedLayoutLabel').textContent='CNAB 400';document.querySelector('.validator-context .bank-logo').textContent='S';$('selectedBankLabel').textContent='Banco Safra · 422';
-  $('configurationResult').innerHTML='<div class="identification-value">————— ———————— —</div><p>Preencha os campos e confira a composição.</p>';$('copyConfig').disabled=true;
-  $('fileInput').value='';$('referenceDate').value=localToday();$('sendDate').value='';$('searchOccurrences').value='';
+  itauView.reset();$('configForm').reset();$('layoutSelect').value='400';filter='issues';pageIndex=0;
+  $('referenceDate').value=localToday();$('sendDate').value='';$('searchOccurrences').value='';
   for(const id of ['resultFileName','resultMeta','resultMetrics','occurrenceRows','recordSelect','recordText','viewerDetails','selectedValues','rulerHundreds','rulerTens','rulerOnes'])$(id).replaceChildren();
-  $('results').hidden=true;status('');setBusy(false);updateBeneficiary();updateConfigLabel();renderDashboard();renderReports();toast('Dados e arquivos da sessão limpos.');
+  bankChanged();toast('Dados e arquivos da sessão limpos.');
 }
 document.addEventListener('click',async event=>{
   const page=event.target.closest('[data-page]');if(page){navigate(page.dataset.page);return;}
@@ -182,4 +186,4 @@ $('menuToggle').addEventListener('click',()=>setMenu(!$('sidebar').classList.con
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&mobileQuery.matches&&$('sidebar').classList.contains('open')){setMenu(false);$('menuToggle').focus();}});
 document.querySelector('.skip').addEventListener('click',e=>{e.preventDefault();$('main').focus();});
 window.addEventListener('hashchange',()=>navigate(location.hash.slice(1)));
-applyConfigurationDefaults($('bankSelect').value);updateBeneficiary(false);renderBanks();renderDashboard();renderReports();navigate(location.hash.slice(1)||'dashboard');
+applyConfigurationDefaults($('bankSelect').value);updateBeneficiary(false);renderBanks();renderDashboard();renderReports();updateBankContext();navigate(location.hash.slice(1)||'dashboard');

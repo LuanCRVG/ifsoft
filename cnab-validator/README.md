@@ -1,6 +1,6 @@
 # CNAB Validator
 
-Aplicação estática para configuração de contas Safra e Itaú, com conferência de remessas Safra CNAB 400. HTML, CSS e JavaScript ES Modules, sem dependências de produção, backend, APIs ou telemetria. Interface em português, responsiva, com temas claro/escuro.
+Aplicação estática para configuração de contas e conferência de remessas CNAB 400, com módulos independentes por banco. HTML, CSS e JavaScript ES Modules, sem dependências de produção, backend, APIs ou telemetria. Interface em português, responsiva, com temas claro/escuro.
 
 ## Abrir no computador
 
@@ -107,8 +107,8 @@ O módulo Safra apresenta dois cadastros separados: **Cadastro do banco no Siste
 O Dashboard oferece o download de `downloads/Logos.rar`. Extraia o arquivo e deixe a pasta **Logos** na pasta onde o **Sistema está instalado**. O arquivo mantém as subpastas Colorido e PretoBranco. O cadastro do Banco Safra exibe que a instalação da logo é obrigatória nesta integração. Essa orientação não altera a validação de arquivos CNAB.
 
 
-## Cadastro Itaú
+## Itaú CNAB 400
 
-Selecione **341 · Itaú** em Configuração Bancária ou em Bancos Disponíveis. Os cadastros do banco (341, carteira 109, C400) e da conta corrente são independentes do Safra. A agência possui 4 dígitos e o campo de DV da agência fica vazio; conta com 5 dígitos e DAC em campo separado. A data da análise documental é 09/11/2026.
+Configuração e validação de remessas disponíveis. Agência de 4 dígitos, DV da agência vazio, conta de 5 dígitos e DAC separado. Banco 341, carteira 109, layout C400. A mensagem de pagamento segue a referência oficial pública consultada, identificada como Janeiro/2017; uma edição oficial pública mais recente não foi confirmada na análise de 09/11/2026.
 
-A mensagem de pagamento foi ajustada conforme o manual público consultado. A edição identificada é Janeiro/2017; não foi confirmada uma edição oficial pública mais recente. Fonte, comparação e limitações aparecem na tela e em [docs/configuracao-itau.md](docs/configuracao-itau.md). O cadastro está disponível; a validação de remessas Itaú ainda não foi implementada.
+O módulo confere estrutura, identificação, instruções, prazos, juros, multa opcional no registro 2, descontos, rateio, complemento de dados e soma dos movimentos. Veja [docs/regras-itau.md](docs/regras-itau.md) para posições e limites.

@@ -21,8 +21,8 @@ O módulo Safra apresenta dois cadastros separados: **Cadastro do banco no Siste
 Última análise dos parâmetros de cadastro Safra: **04/11/2026**. Essa data é histórica e fixa: não é recalculada ao abrir a página nem confundida com a data de conferência de uma remessa. Ela também acompanha as cópias de ambos os cadastros.
 
 
-## Itaú — 09/11/2026
+## Itaú — configuração e validador, 09/11/2026
 
-53 testes automatizados passaram: incluem agência de 4 posições, DV de agência vazio, zeros preservados, conta e DAC separados, rejeição de campos incompletos, cópias com data e rejeição de análise Itaú sem validador próprio. O worker Safra empacotado continua executando as regras anteriores.
+92 testes automatizados passaram. Incluem estrutura, identificação, operação, datas, instruções, juros, prazo variável e fixo, multa opcional, registro de multa duplicado ou órfão, descontos adicionais, rateio, dados complementares, soma exata acima do limite seguro de Number, relatórios e execução pelo worker empacotado.
 
-No navegador: Itaú selecionável em Configuração Bancária e em Bancos Disponíveis; exemplo fictício e cópias separados; conta incompleta limpa o trecho e bloqueia cópia; Limpar sessão apaga os campos Itaú; alternar para Safra restaura o DV padrão 0 e mantém a data 04/11/2026. A validação Itaú exibe indisponibilidade sem carregar remessa. Nenhum erro de console foi observado.
+No navegador, o Itaú aparece como Disponível e sem sufixo na seleção. Os cadastros e a página de validação exibem apenas o contexto do banco selecionado. Uma remessa sintética válida produziu 3 títulos, R$ 600,00, 171 conferências e zero erros/avisos com a conta configurada. O exemplo com divergências produziu erros nas posições 121–126, 161–173 e 386–391.

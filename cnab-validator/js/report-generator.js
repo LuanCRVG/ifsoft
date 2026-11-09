@@ -28,7 +28,7 @@ export function reportPDF(result) {
   line('Registros: '+r.recordCount+' | Tipos: '+Object.entries(r.recordTypes).map(([k,v])=>k+': '+v).join(', '));
   line(r.supported?'Títulos tipo 1: '+r.titleCount+' | Total '+(r.totalComplete?'':'parcial ')+money(r.totalCents):'Títulos e total financeiro não apurados: arquivo fora do escopo.');
   line('Conferências: '+r.summary.checks+' | Erros: '+r.summary.errors+' | Avisos: '+r.summary.warnings+' | Atendidas: '+r.summary.passed);
-  line('Escopo: '+(r.supported?'Remessa Safra 400 reconhecida; conferência parcial.':'Arquivo fora do escopo. Validação de remessa não concluída.'));
+  line('Escopo: '+(r.supported?'Remessa '+r.bank.name+' CNAB '+r.layout+' reconhecida; conferência das regras documentadas.':'Arquivo fora do escopo. Validação de remessa não concluída.'));
   line('Identificação esperada: '+(r.expectedIdentification||'Configuração não informada'));
   line('Juros, multa e baixa: aplicação condicional aos campos de cada título.');
   line('');line('OCORRÊNCIAS E PENDÊNCIAS');line('');
@@ -39,7 +39,7 @@ export function reportPDF(result) {
     if(c.expected!=='')line('Esperado: '+c.expected);
     line(c.description);line('Referência: '+c.reference);line('');
   }
-  line('REFERÊNCIAS');line('Safra: Manual de Transferência de Arquivos, Cobrança Produto 001, maio/2026.');
+  line('REFERÊNCIAS');
   for(const source of r.references||[]) {line(source.title);if(source.url)line(source.url);}
   line('Mapa detalhado: docs/regras-safra.md no projeto.');
   line('Homologação específica: informações fornecidas pelo solicitante, não uma regra universal.');
