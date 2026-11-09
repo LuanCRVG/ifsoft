@@ -4,7 +4,7 @@
 
 ## Cadastro do banco
 
-Banco 341, carteira 109, layout C400 no Sistema. A mensagem de local de pagamento segue a referência consultada. Não existe valor de aceite imposto a todos os títulos; o arquivo deve informar A ou N conforme cada título.
+Banco 341, carteira 109, layout C400 no Sistema. Mensagem para local de pagamento configurada no Sistema: **ATÉ O VENCIMENTO, PREFERENCIALMENTE NO ITAÚ. APÓS O VENC.SOMENTE NO ITAÚ.**. Não existe valor de aceite imposto a todos os títulos; o arquivo deve informar A ou N conforme cada título.
 
 ## Cadastro da conta
 

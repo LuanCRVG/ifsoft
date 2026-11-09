@@ -109,7 +109,7 @@ O Dashboard oferece o download de `downloads/Logos.rar`. Extraia o arquivo e dei
 
 ## Itaú CNAB 400
 
-Configuração e validação de remessas disponíveis. Agência de 4 dígitos, DV da agência vazio, conta de 5 dígitos e DAC separado. Banco 341, carteira 109, layout C400. A mensagem de pagamento segue a referência oficial pública consultada, identificada como Janeiro/2017; uma edição oficial pública mais recente não foi confirmada na análise de 09/11/2026.
+Configuração e validação de remessas disponíveis. Agência de 4 dígitos, DV da agência vazio, conta de 5 dígitos e DAC separado. Banco 341, carteira 109, layout C400. A mensagem de pagamento é a configurada no Sistema. A referência técnica pública do layout está identificada como Janeiro/2017; uma edição oficial pública mais recente não foi confirmada na análise de 09/11/2026.
 
 O módulo confere estrutura, identificação, instruções, prazos, juros, multa opcional no registro 2, descontos, rateio, complemento de dados e soma dos movimentos. Veja [docs/regras-itau.md](docs/regras-itau.md) para posições e limites.
 

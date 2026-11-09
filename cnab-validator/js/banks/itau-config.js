@@ -1,6 +1,6 @@
 /** Cadastro Itaú: orientações do Sistema e comparação com a referência pública consultada. */
 export const source=Object.freeze({url:'https://download.itau.com.br/bankline/layout_cobranca_400bytes_cnab_itau.pdf',edition:'Janeiro/2017',reviewedOn:'09/11/2026',reviewedISO:'2026-11-09',latestEditionConfirmed:false});
-export const bankRegistration=Object.freeze({code:'341',name:'BANCO ITAÚ',wallet:'109',remittanceLayout:'C400',paymentLocation:'ATÉ O VENCIMENTO, PAGUE EM QUALQUER BANCO OU CORRESPONDENTE NÃO BANCÁRIO. APÓS O VENCIMENTO, ACESSE ITAU.COM.BR/BOLETOS E PAGUE EM QUALQUER BANCO OU CORRESPONDENTE NÃO BANCÁRIO.'});
+export const bankRegistration=Object.freeze({code:'341',name:'BANCO ITAÚ',wallet:'109',remittanceLayout:'C400',paymentLocation:'ATÉ O VENCIMENTO, PREFERENCIALMENTE NO ITAÚ. APÓS O VENC.SOMENTE NO ITAÚ.'});
 export const defaults=Object.freeze({agencyDv:''});
 export const accountExample=Object.freeze({agency:'1234',agencyDv:'',account:'01234',accountDv:'6'});
 export function composeAccount(config={}){
@@ -16,7 +16,7 @@ export function composeAccount(config={}){
 }
 export function bankCopyText(){
   const b=bankRegistration;
-  return 'CADASTRO DO BANCO NO SISTEMA (ITAÚ)\nÚltima análise: '+source.reviewedOn+'\nCódigo: '+b.code+'\nBanco: '+b.name+'\nCarteira: '+b.wallet+'\nLayout Remessa: '+b.remittanceLayout+'\nMensagem para local de pagamento: '+b.paymentLocation+'\n\nReferência pública: '+source.edition+'\n'+source.url+'\nNão foi confirmada uma edição oficial pública mais recente.';
+  return 'CADASTRO DO BANCO NO SISTEMA (ITAÚ)\nÚltima análise: '+source.reviewedOn+'\nCódigo: '+b.code+'\nBanco: '+b.name+'\nCarteira: '+b.wallet+'\nLayout Remessa: '+b.remittanceLayout+'\nMensagem para local de pagamento: '+b.paymentLocation+'\n\nReferência técnica do layout: '+source.edition+'\n'+source.url+'\nNão foi confirmada uma edição oficial pública mais recente.';
 }
 export function accountCopyText(config){
   const c=composeAccount(config);if(!c.valid)return '';
