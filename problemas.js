@@ -4,7 +4,7 @@
   const STATUSES = { relatado: "Relatado", analise: "Em análise", correcao: "Em correção", resolvido: "Resolvido" };
   const PRIORITIES = { normal: "Normal", alta: "Alta", urgente: "Urgente" };
   const ENVIRONMENTS = { producao: "Produção", homologacao: "Homologação", ambos: "Ambos", "nao-aplica": "Não se aplica" };
-  const MODULES = ["NF-e", "NFC-e", "NFS-e", "MDF-e", "Cadastros", "Financeiro", "Integrações", "Outros"];
+  const MODULES = ["NF-e", "NFC-e", "NFS-e", "MDF-e", "Cadastros", "Financeiro", "Relatórios", "Integrações", "Outros"];
   const query = (id) => document.getElementById(id);
   const ui = {
     list: query("problem-list"), detail: query("problem-detail"), workspace: query("problem-workspace"),
