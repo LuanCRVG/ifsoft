@@ -121,6 +121,6 @@ As logos nos cartões de Bancos Disponíveis estão em `assets/banks/`. Foram ob
 
 Cadastro e validador disponíveis, com logo no catálogo. Última análise em **11/11/2026**, usando o manual recebido do banco **H7800 V2.38, Outubro/2026** e a parametrização informada para o Sistema.
 
-Banco 033, carteira no Sistema 101, modalidade 101, C400; cobrança rápida com tipo **5 na remessa**, correspondente a 101 na linha digitável. Agência (4) e DV separados; conta (8) e DV; cedente (7); Convênio do banco vazio; transmissão (20) e complemento 400 separado. Mensagem: PAGÁVEL EM QUALQUER BANCO ATÉ O VENCIMENTO. Dados reais não são incluídos nos exemplos.
+Banco 033, carteira no Sistema 101, modalidade 101 e C400. Agência (4) e DV 0 por padrão, em campo separado; conta (8) e DV; cedente (7); Convênio do banco vazio; transmissão (20). O Sistema não possui campo Complemento 400: esse dado é calculado somente para a explicação técnica da remessa. Mensagem: PAGÁVEL EM QUALQUER BANCO ATÉ O VENCIMENTO. Dados reais não são incluídos nos exemplos.
 
 Veja [cadastro](docs/configuracao-santander.md) e [regras e limites](docs/regras-santander.md). Estrutura, contas, juros, multa opcional, baixa/protesto, documentos, datas, complementos e totais têm conferências próprias. Operações de duplicata têm vigência a partir de 06/02/2027 e conferência parcial explicitada. Limpar sessão também descarta os campos Santander.
