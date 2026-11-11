@@ -5,7 +5,7 @@ import vm from 'node:vm';
 const root=fileURLToPath(new URL('..',import.meta.url));
 // Project-local module packager. Source modules remain independent and testable.
 // Supported syntax: named imports, relative dynamic imports, named declarations.
-const modules=['js/cnab-parser.js','js/banks/safra-config.js','js/banks/itau-config.js','js/banks/itau-demo.js','js/validators/itau400.js','js/ui/itau-config-ui.js','js/bank-registry.js','js/validators/safra400.js','js/validation-engine.js','js/report-generator.js','js/demo.js','js/validation-worker.js','js/app.js'];
+const modules=['js/banks/santander-config.js','js/banks/santander-demo.js','js/banks/santander-documents.js','js/ui/santander-config-ui.js','js/validators/santander400.js','js/cnab-parser.js','js/banks/safra-config.js','js/banks/itau-config.js','js/banks/itau-demo.js','js/validators/itau400.js','js/ui/itau-config-ui.js','js/bank-registry.js','js/validators/safra400.js','js/validation-engine.js','js/report-generator.js','js/demo.js','js/validation-worker.js','js/app.js'];
 function resolveModule(from,to){const result=path.posix.normalize(path.posix.join(path.posix.dirname(from),to));if(!modules.includes(result))throw new Error('Módulo não registrado: '+result);return result;}
 const factories=[];
 for(const name of modules){

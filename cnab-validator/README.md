@@ -77,7 +77,7 @@ Foram cotejados o manual público Safra de maio/2026, o guia de implantação 00
 
 A análise é parcial e não é um certificado de conformidade integral. Não valida todos os campos, titularidade, CPF/CNPJ, autenticidade, condições contratuais, prazos de postagem ou aceite do banco. Vencimento futuro não garante aceite.
 
-Bancos 341/033/237/104/756/748 e CNAB 240 não possuem módulo habilitado. Retornos são reconhecidos pelo Header e interrompem a validação específica. Tipos 2/4/6/7/8 são reconhecidos, com tamanho/sequência conferidos e conteúdo próprio pendente. Tipo 8 suspende a reconciliação integral de totais. Valores inválidos tornam a soma parcial e impedem falsa comparação com o Trailer.
+No escopo deste capítulo Safra, os registros complementares abaixo seguem as limitações indicadas. Bancos 237/104/756/748 e CNAB 240 não possuem módulo habilitado. Itaú e Santander têm módulos independentes, descritos adiante. Retornos são reconhecidos pelo Header e interrompem a validação específica. Tipos 2/4/6/7/8 são reconhecidos, com tamanho/sequência conferidos e conteúdo próprio pendente. Tipo 8 suspende a reconciliação integral de totais. Valores inválidos tornam a soma parcial e impedem falsa comparação com o Trailer.
 
 AA é interpretado como 2000–2099, independentemente do relógio do navegador. Datas de juros em 86–91 são uma conferência indicativa por haver diferença entre referências. Campos de multa em206–218 também podem ser abatimento; sem instrução16, uma aparência de data e percentual gera aviso para evitar inferir uma cobrança indevida. Valores bancários nunca são completados ou convertidos automaticamente. O aplicativo não altera o arquivo.
 
@@ -115,3 +115,12 @@ O módulo confere estrutura, identificação, instruções, prazos, juros, multa
 
 
 As logos nos cartões de Bancos Disponíveis estão em `assets/banks/`. Foram obtidas do pacote Logos.rar fornecido pelo usuário e apenas convertidas de BMP para PNG, preservando o conteúdo e a proporção. O pacote de download original permanece disponível.
+
+
+## Santander CNAB 400
+
+Cadastro e validador disponíveis, com logo no catálogo. Última análise em **11/11/2026**, usando o manual recebido do banco **H7800 V2.38, Outubro/2026** e a parametrização informada para o Sistema.
+
+Banco 033, carteira no Sistema 101, modalidade 101, C400; cobrança rápida com tipo **5 na remessa**, correspondente a 101 na linha digitável. Agência (4) e DV separados; conta (8) e DV; cedente (7); Convênio do banco vazio; transmissão (20) e complemento 400 separado. Mensagem: PAGÁVEL EM QUALQUER BANCO ATÉ O VENCIMENTO. Dados reais não são incluídos nos exemplos.
+
+Veja [cadastro](docs/configuracao-santander.md) e [regras e limites](docs/regras-santander.md). Estrutura, contas, juros, multa opcional, baixa/protesto, documentos, datas, complementos e totais têm conferências próprias. Operações de duplicata têm vigência a partir de 06/02/2027 e conferência parcial explicitada. Limpar sessão também descarta os campos Santander.

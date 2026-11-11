@@ -1,3 +1,5 @@
+import {setupSantanderConfiguration} from './ui/santander-config-ui.js';
+import {makeSantanderDemo} from './banks/santander-demo.js';
 import {makeItauDemo} from './banks/itau-demo.js';
 import {setupItauConfiguration} from './ui/itau-config-ui.js';
 import {banks,getBank} from './bank-registry.js';
@@ -17,6 +19,7 @@ mobileQuery.addEventListener('change',()=>setMenu(false));
 const safraConfiguration=await getBank('422').loadConfiguration();
 const composeIdentification=safraConfiguration.composeIdentification;
 const itauView=setupItauConfiguration(toast,()=>{updateConfigLabel();if(result&&$('bankSelect').value==='341')status('Dados bancários alterados. Use Conferir novamente para atualizar a comparação.','warning');});
+const santanderView=setupSantanderConfiguration(toast,()=>{updateConfigLabel();if(result&&$('bankSelect').value==='033')status('Dados bancários alterados. Use Conferir novamente para atualizar a comparação.','warning');});
 function applyConfigurationDefaults(bankCode){
   const defaults=bankCode==='422'?safraConfiguration.defaults:{};
   for(const name of ['agencyDv','wallet']){$(name).defaultValue=defaults[name]??'';$(name).value=defaults[name]??'';}
@@ -30,7 +33,7 @@ function toast(text){$('toast').textContent=text;$('toast').hidden=false;clearTi
 function navigate(page){if(!labels[page])page='dashboard';for(const key of Object.keys(labels))$('page-'+key).hidden=key!==page;document.querySelectorAll('.nav-item').forEach(b=>{b.classList.toggle('active',b.dataset.page===page);if(b.dataset.page===page)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});$('breadcrumb').textContent=labels[page];setMenu(false);if(location.hash!=='#'+page)history.replaceState(null,'','#'+page);window.scrollTo({top:0});}
 function status(text,kind='info'){const el=$('fileStatus');el.textContent=text;el.className='notice '+kind;el.hidden=!text;}
 function setBusy(value){busy=value;$('dropzone').classList.toggle('busy',value);$('chooseFile').disabled=value||!getBank($('bankSelect').value).implemented;$('rerun').disabled=value;}
-function options(){const itau=$('bankSelect').value==='341'?itauView.getConfiguration():null;return {bank:$('bankSelect').value,layout:$('layoutSelect').value,referenceDate:$('referenceDate').value,sendDate:$('sendDate').value,expectedIdentification:itau?(itau.valid?itau.remittanceSegment:''):(configuration?.identification||''),expectedWallet:itau?.valid?itau.wallet:'',fileName};}
+function options(){const code=$('bankSelect').value;const c=code==='341'?itauView.getConfiguration():code==='033'?santanderView.getConfiguration():null;return {bank:code,layout:$('layoutSelect').value,referenceDate:$('referenceDate').value,sendDate:$('sendDate').value,expectedIdentification:c?(c.valid?(code==='033'?c.transmission:c.remittanceSegment):''):(configuration?.identification||''),expectedWallet:c?.valid?c.wallet:'',santanderAccount:code==='033'&&c?.valid?c:null,fileName};}
 function runInWorker(data,opts){
   if(activeWorker)activeWorker.terminate();
   return new Promise((resolve,reject)=>{const worker=typeof window.CNABWorkerFactory==='function'?window.CNABWorkerFactory():new Worker(new URL('./validation-worker.js',import.meta.url),{type:'module'});activeWorker=worker;worker.onmessage=event=>{worker.terminate();if(activeWorker===worker)activeWorker=null;event.data.error?reject(new Error(event.data.error)):resolve(event.data.result);};worker.onerror=()=>{worker.terminate();if(activeWorker===worker)activeWorker=null;reject(new Error('O processo de análise não pôde iniciar. Execute por HTTP local ou GitHub Pages e verifique os arquivos do projeto.'));};worker.postMessage({bytes:data,options:opts});});
@@ -82,10 +85,11 @@ function renderReports(){
   $('reportsContent').innerHTML=!result?'<div class="card report-empty"><span class="upload-icon">'+icon('chart')+'</span><h2>Um relatório começa com uma análise.</h2><p>Carregue uma remessa para gerar um documento com posições, valores e referências.</p><button class="button primary" data-page="validator">Ir para o validador '+icon('arrow')+'</button></div>':'<div class="card report-hero"><span class="upload-icon">'+icon('file')+'</span><div><h2>'+escape(result.fileName)+'</h2><p>'+escape(result.bank.name)+' · CNAB '+result.layout+' · '+result.summary.errors+' erros e '+result.summary.warnings+' avisos<br>Análise: '+escape(new Date(result.analyzedAt).toLocaleString('pt-BR'))+'</p></div></div><div class="report-grid"><section class="card report-card">'+icon('chart')+'<h2>Relatório técnico em PDF</h2><p>Resumo da análise, erros, avisos, posições, valores e referências. Documento paginado, gerado inteiramente no navegador.</p><button class="button primary" data-action="pdf">Baixar PDF '+icon('arrow')+'</button></section><section class="card report-card">'+icon('code')+'<h2>Dados estruturados em JSON</h2><p>Resultados de todas as verificações para análise técnica. Inclui as ocorrências, sem copiar os registros brutos completos.</p><button class="button secondary" data-action="json">Exportar JSON '+icon('arrow')+'</button></section></div><div class="notice warning">A exportação é uma ação sua e pode conter identificadores bancários nos campos encontrados. Confira o conteúdo antes de compartilhar. O aplicativo não envia o relatório.</div>';
 }
 function renderBanks(){
+  $('availableBankCount').textContent=banks.filter(b=>b.implemented).length+' bancos disponíveis';
   $('bankGrid').innerHTML=banks.map(b=>'<section class="card bank-card"><div class="bank-card-top">'+(b.logo?'<span class="bank-brand-logo"><img src="'+escape(b.logo)+'" alt="Logo do '+escape(b.name)+'" width="149" height="38" decoding="async"></span>':'<span class="bank-monogram">'+escape(b.short[0])+'</span>')+'<span class="badge '+(b.implemented?'success':'neutral')+'">'+(b.implemented?'Disponível':'Em breve')+'</span></div><h2>'+escape(b.name)+'</h2><p>Código '+b.code+' · '+(b.implemented?'Remessa CNAB 400':'Módulo ainda não implementado')+'</p><button class="text-link" data-bank="'+b.code+'" '+(!b.configurable?'disabled':'')+'>'+(b.configurable?'Configurar este banco '+icon('arrow'):'Validação indisponível')+'</button></section>').join('');
 }
 function updateConfigLabel(){
-  const c=$('bankSelect').value==='341'?itauView.getConfiguration():null;
+  const c=$('bankSelect').value==='341'?itauView.getConfiguration():$('bankSelect').value==='033'?santanderView.getConfiguration():null;
   $('expectedLabel').textContent=c?(c.valid?'Agência '+c.agency+' · Conta '+c.account+'-'+c.accountDv:'Conta ainda não configurada'):configuration?'Identificação: '+configuration.identification:'Conta ainda não configurada';
 }
 function updateBankContext(){
@@ -98,7 +102,7 @@ function bankChanged(){
   activeWorker?.terminate();activeWorker=null;
   const bank=getBank($('bankSelect').value),enabled=bank.implemented,configured=Boolean(bank.configurable);
   runId++;bytes=null;result=null;fileName='';configuration=null;$('results').hidden=true;
-  $('configContent').hidden=bank.code!=='422';$('itauConfigContent').hidden=bank.code!=='341';$('configUnavailable').hidden=configured;
+  $('configContent').hidden=bank.code!=='422';$('itauConfigContent').hidden=bank.code!=='341';$('santanderConfigContent').hidden=bank.code!=='033';$('configUnavailable').hidden=configured;
   $('bankAvailability').textContent=enabled?'Disponível':'Em breve';$('bankAvailability').className='badge '+(enabled?'success':'neutral');
   $('layoutSelect').disabled=!configured;for(const id of ['referenceDate','sendDate'])$(id).disabled=!enabled;
   $('selectedLayoutLabel').textContent=configured?'CNAB 400':'Em breve';document.querySelector('.validator-context .bank-logo').textContent=bank.short[0];$('selectedBankLabel').textContent=bank.name+' · '+bank.code;
@@ -143,13 +147,13 @@ function openViewer(check){
 }
 async function demo(){
   if(busy)return;const bank=getBank($('bankSelect').value);if(!bank.implemented){toast('Selecione um banco disponível para explorar o exemplo.');return;}
-  fileName='exemplo_'+bank.code+'_com_divergencias.rem';const generator=bank.code==='341'?makeItauDemo:makeDemo;
+  fileName='exemplo_'+bank.code+'_com_divergencias.rem';const generator=bank.code==='341'?makeItauDemo:bank.code==='033'?makeSantanderDemo:makeDemo;
   bytes=new TextEncoder().encode(generator({broken:true,date:$('referenceDate').value||localToday()}));navigate('validator');await analyze();toast('Exemplo sintético: 3 títulos e divergências intencionais.');
 }
 function clearSession(){
   activeWorker?.terminate();activeWorker=null;
   if($('viewer').open)$('viewer').close();
-  itauView.reset();$('configForm').reset();$('layoutSelect').value='400';filter='issues';pageIndex=0;
+  itauView.reset();santanderView.reset();$('configForm').reset();$('layoutSelect').value='400';filter='issues';pageIndex=0;
   $('referenceDate').value=localToday();$('sendDate').value='';$('searchOccurrences').value='';
   for(const id of ['resultFileName','resultMeta','resultMetrics','occurrenceRows','recordSelect','recordText','viewerDetails','selectedValues','rulerHundreds','rulerTens','rulerOnes'])$(id).replaceChildren();
   bankChanged();toast('Dados e arquivos da sessão limpos.');
